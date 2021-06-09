@@ -1,8 +1,6 @@
 import styled from '@emotion/styled';
-import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
 import BlogWithNavLayout from '../../../components/Layout/BlogWithNavLayout';
-import BlogUserInfo from '../../../components/Result/BlogUserInfo';
+import BlogUserInfo from '../../../components/Result/BLogUserInfo';
 import useBlog from '../../../modules/blog/hooks';
 
 const BlogUserInfoContainer = styled.section`
@@ -13,15 +11,7 @@ const BlogUserInfoContainer = styled.section`
 `;
 
 export default function BlogInfo(): JSX.Element {
-  const { loadBlogUserDispatch, blogUserData } = useBlog();
-  const router = useRouter();
-  const { userId } = router.query;
-
-  useEffect(() => {
-    if (userId) {
-      loadBlogUserDispatch(userId);
-    }
-  }, [userId]);
+  const { blogUserData } = useBlog();
 
   return (
     <BlogWithNavLayout>
