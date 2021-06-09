@@ -21,12 +21,12 @@ export default function BlogPistoryCard({
 
   const posts = picstoryData?.Posts;
 
-  const likeCounts = posts?.map((post: BlogPost) => post.likers?.length);
-  const likeCountSum = countSum(likeCounts as number[]);
-
-  const hits = posts?.map((post: BlogPost) => post.hits);
+  const likeCounts = posts?.map((post: BlogPost) =>
+    post.likers ? post.likers.length : 0
+  );
+  const likeCountSum = countSum(likeCounts);
+  const hits = posts?.map((post: BlogPost) => (post.hits ? post.hits : 0));
   const viewCountSum = countSum(hits);
-
   return (
     <Link href={`/${userId}/picstory/${picstoryData.id}`}>
       <BlogPicstoryCardBox currentTheme={currentTheme}>
@@ -40,7 +40,7 @@ export default function BlogPistoryCard({
               </div>
               <div>
                 <MdFavorite />
-                <span>{likeCountSum && likeCountSum}</span>
+                <span>{likeCountSum}</span>
               </div>
               <div>
                 <MdRemoveRedEye />
