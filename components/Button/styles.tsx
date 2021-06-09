@@ -166,6 +166,7 @@ export const HashTagBox = styled.li`
 
 export const RoundCornerBtnBox = styled.button<{
   isFollow?: Subscriber | undefined;
+  currentTheme: null | string;
 }>`
   background-color: ${({ theme }) => theme.primary[1]};
   color: #fff;
@@ -194,6 +195,14 @@ export const RoundCornerBtnBox = styled.button<{
       background-color: transparent;
       color: ${theme.primary[1]};
     `}
+  ${({ currentTheme, theme }) =>
+    currentTheme === 'dark' &&
+    css`
+      & {
+        color: ${theme.textColor.initial};
+        background: ${theme.primary[1]};
+      }
+    `};
 `;
 
 export const CreateInfoButton = styled(RoundCornerBtnBox)``;

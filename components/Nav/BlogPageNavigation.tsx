@@ -7,7 +7,6 @@ import { BlogTabBox } from '../Tab/styles';
 export default function BlogPageNavigation(): JSX.Element {
   const router = useRouter();
   const { userId } = router.query;
-  console.log(router);
   return (
     <BlogTabBox>
       {BlogNavData.map(blogNav => (
