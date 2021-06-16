@@ -10,8 +10,8 @@ export type BlogUserData = {
   introduction?: string;
   website?: string;
   mostlyUseModel?: string;
-  suberCount?: number;
-  writerCount?: number;
+  suberCount: number;
+  writerCount: number;
 };
 
 export interface BlogPostListData {
@@ -82,11 +82,11 @@ export type BlogState = {
 };
 
 export type BlogPayload = {
-  userId: number;
+  userId: string;
 };
 
 export type LoadBlogListPayload = {
-  userId: string | string[] | undefined;
+  userId: string | string[];
   offset?: number;
 };
 

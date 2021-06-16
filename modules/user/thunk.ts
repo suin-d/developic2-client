@@ -266,7 +266,7 @@ export const removePostLikeAction = createAsyncThunk<
 
 // 블로그 유저 팔로우
 export const subscribeAction = createAsyncThunk<
-  { writerId: number },
+  { writerId: string },
   blogFollowPayload,
   { rejectValue: MyKnownError }
 >('blog/addBlogFollow', async (addBlogFollowData, { rejectWithValue }) => {
@@ -281,7 +281,7 @@ export const subscribeAction = createAsyncThunk<
 
 // 블로그 유저 팔로우 취소
 export const unSubscribeAction = createAsyncThunk<
-  { writerId: number },
+  { writerId: string },
   blogFollowPayload,
   { rejectValue: MyKnownError }
 >('blog/removeBlogFollow', async (removeBlogFollowData, { rejectWithValue }) => {

@@ -45,7 +45,7 @@ export default function PicstoryId(): JSX.Element {
           <h1>Picstory</h1>
         </Link>
         <div className="empty_content">
-          {!blogPicstoryDetailData && '픽스토리 정보가 없습니다.'}
+          {!blogPicstoryDetailData?.id && '픽스토리 정보가 없습니다.'}
         </div>
         {blogPicstoryDetailData && (
           <BlogPicstoryDetailBox picstoryDetailData={blogPicstoryDetailData} />

@@ -8,7 +8,7 @@ import {
   loadMoreBlogPostListAction,
   loadMoreBlogPicstoryListAction,
 } from './thunk';
-import { BlogPicstory, BlogPost, BlogState } from './type';
+import { BlogPicstory, BlogPost, BlogState, BlogUserData } from './type';
 
 const initialState: BlogState = {
   blogUserData: null,
@@ -139,15 +139,15 @@ const blogSlice = createSlice({
       .addCase(subscribeAction.fulfilled, state => {
         state.addBlogFollow.loading = false;
         state.addBlogFollow.error = null;
-        if (state.blogUserData?.suberCount) {
-          state.blogUserData.suberCount += 1;
+        if ((state.blogUserData?.suberCount as number) >= 0) {
+          (state.blogUserData as BlogUserData).suberCount += 1;
         }
       })
       .addCase(unSubscribeAction.fulfilled, state => {
         state.addBlogFollow.loading = false;
         state.addBlogFollow.error = null;
-        if (state.blogUserData?.suberCount) {
-          state.blogUserData.suberCount -= 1;
+        if ((state.blogUserData?.suberCount as number) >= 0) {
+          (state.blogUserData as BlogUserData).suberCount -= 1;
         }
       });
   },

@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 import BlogWithNavLayout from '../../../components/Layout/BlogWithNavLayout';
-import BlogUserInfo from '../../../components/Result/BLogUserInfo';
+import BlogUserInfo from '../../../components/Result/BlogUserInfo';
 import useBlog from '../../../modules/blog/hooks';
 
 const BlogUserInfoContainer = styled.section`
   min-height: 550px;
-  width: 850px;
+  max-width: 850px;
   margin: 0 auto;
   font-family: 'Noto Serif KR';
 `;

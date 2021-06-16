@@ -9,13 +9,19 @@ export default function BlogPageNavigation(): JSX.Element {
   const { userId } = router.query;
   return (
     <BlogTabBox>
-      {BlogNavData.map(blogNav => (
-        <Link href={`/${userId}${blogNav.link}`} key={blogNav.link}>
-          <li className={router.pathname === blogNav.routerName ? 'nav--active' : ''}>
-            {blogNav.name}
-          </li>
-        </Link>
-      ))}
+      <ul>
+        {BlogNavData.map(blogNav => (
+          <Link href={`/${userId + blogNav.link}`} key={blogNav.link}>
+            <li
+              className={
+                router.asPath === `/${userId + blogNav.link}` ? 'nav--active' : ''
+              }
+            >
+              {blogNav.name}
+            </li>
+          </Link>
+        ))}
+      </ul>
     </BlogTabBox>
   );
 }

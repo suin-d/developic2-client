@@ -13,9 +13,9 @@ export default function BlogPostList({
 }: BlogPostCardListPropsType): JSX.Element {
   return (
     <BlogPostListContainer>
-      <div className="empty_content">
-        {blogPostListData.length < 1 && '등록된 글이 없습니다.'}
-      </div>
+      {blogPostListData.length < 1 && (
+        <div className="empty_content">등록된 글이 없습니다.</div>
+      )}
       <Masonry
         breakpointCols={2}
         className="my-masonry-grid"
@@ -23,7 +23,7 @@ export default function BlogPostList({
       >
         {blogPostListData &&
           blogPostListData.map((blogPostItem: BlogPost) => (
-            <BlogPostCard key={blogPostItem.id} data={blogPostItem} />
+            <BlogPostCard key={blogPostItem.id} postData={blogPostItem} />
           ))}
       </Masonry>
     </BlogPostListContainer>

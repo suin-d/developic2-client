@@ -13,7 +13,7 @@ export interface User {
   avatar: string;
   lastLogin: string;
   subscribers: { id: number }[];
-  writers: { id: number }[];
+  writers: { id: string }[];
   likedPosts: { id: number }[];
   likedComments: { id: number }[];
 }

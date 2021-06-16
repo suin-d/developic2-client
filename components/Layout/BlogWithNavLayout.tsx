@@ -5,14 +5,15 @@ import { useRouter } from 'next/router';
 import useBlog from '../../modules/blog/hooks';
 import BlogUserProfile from '../Result/BlogUserProfile';
 import BlogPageNavigation from '../Nav/BlogPageNavigation';
+import Head from 'next/head';
+
 const BlogwithProfileContainer = styled.main`
   margin: 40px auto;
-  width: 850px;
+  max-width: 850px;
   position: relative;
   color: ${({ theme }) => theme.textColor.initial};
 `;
-
-const UserProfileWithTabContainer = styled.section`
+const UserProfileWithTab = styled.div`
   margin: 0 auto;
 `;
 
@@ -27,20 +28,21 @@ export default function BlogWithNavLayout({
   const { loadBlogUserDispatch, blogUserData } = useBlog();
 
   useEffect(() => {
-    if (userId) {
-      loadBlogUserDispatch(userId);
-    }
+    loadBlogUserDispatch(userId);
   }, [userId]);
 
   if (!blogUserData) return <></>;
 
   return (
     <Layout>
+      <Head>
+        <title>{blogUserData.nickname}님의 블로그</title>
+      </Head>
       <BlogwithProfileContainer>
-        <UserProfileWithTabContainer>
+        <UserProfileWithTab>
           <BlogUserProfile />
           <BlogPageNavigation />
-        </UserProfileWithTabContainer>
+        </UserProfileWithTab>
         {children}
       </BlogwithProfileContainer>
     </Layout>

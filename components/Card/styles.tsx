@@ -149,7 +149,7 @@ export const CommonPostCardBox = styled.li`
   font-family: 'Noto Serif KR';
   color: ${({ theme }) => theme.textColor.initial};
   font-size: ${({ theme }) => theme.fontSize.base};
-  text-align: justify;
+  text-align: start;
   position: relative;
   line-height: 1.5;
   width: 273px;
@@ -168,6 +168,10 @@ export const CommonPostCardBox = styled.li`
       margin: 0.857em 0 0.857em 0;
     }
     p {
+      height: 42px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
       color: ${({ theme }) => theme.grayScale[1]};
       margin-bottom: 1.786em;
     }
@@ -818,7 +822,7 @@ export const BlogPicstoryCardBox = styled.li<{
 
 export const BlogPostCardBox = styled.li`
   font-size: ${({ theme }) => theme.fontSize.base};
-  text-align: justify;
+  text-align: start;
   line-height: 1.8;
   font-family: 'Noto Serif KR';
   color: ${({ theme }) => theme.textColor.initial};
@@ -899,8 +903,7 @@ export const BlogPostCardBox = styled.li`
         width: 18%;
         div:nth-of-type(1) {
           span {
-            margin-left: -0.125em;
-            margin-right: 1em;
+            margin: 0 1em 0 -0.125em;
           }
         }
         div {
@@ -913,8 +916,6 @@ export const BlogPostCardBox = styled.li`
             font-size: ${({ theme }) => theme.fontSize.medium};
           }
         }
-      }
-      .post__date {
       }
     }
   }
