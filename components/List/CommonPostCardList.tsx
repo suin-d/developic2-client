@@ -13,7 +13,7 @@ export default function SearchPostCardList({
   return (
     <>
       <PostSearchListContainer>
-        {searchPostListData &&
+        {searchPostListData.length > 0 &&
           searchPostListData.map(postItem => (
             <CommonPostCard key={postItem.id} postData={postItem} />
           ))}

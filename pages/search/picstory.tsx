@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import BlogPicstoryList from '../../components/List/BlogPicstoryList';
+import SearchPicstoryList from '../../components/List/SearchPicstoryList';
 import SearchPageWithNavLayout from '../../components/Nav/SearchPageNav';
 import EmptyContent from '../../components/Result/EmptyContent';
 import SearchResultCount from '../../components/Result/SearchResultCount';
@@ -32,7 +32,7 @@ export default function SearchPicstory(): JSX.Element {
                 searchTitle={SearchNavData[2].name}
                 resultCount={(pageData as SearchPageData['picstory']).length}
               />
-              <BlogPicstoryList
+              <SearchPicstoryList
                 searchPicstoryData={pageData as SearchPageData['picstory']}
               />
             </>

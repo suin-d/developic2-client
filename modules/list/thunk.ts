@@ -16,9 +16,9 @@ export const loadSearchListAction = createAsyncThunk<
 >('list/loadSearchList', async (payloadData, { rejectWithValue }) => {
   try {
     const { data } = await axios.get(
-      `/list/search?keyword=${payloadData.query}&${
+      `/list/search?keyword=${payloadData.query}${
         payloadData.type ? '&type=' + payloadData.type : ''
-      }&${payloadData.sort ? '&sort=' + payloadData.sort : ''}&${
+      }${payloadData.sort ? '&sort=' + payloadData.sort : ''}${
         payloadData.term ? '&term=' + payloadData.term : ''
       }&limit=12`
     );

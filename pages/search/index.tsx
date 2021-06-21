@@ -39,8 +39,6 @@ export default function SearchPost(): JSX.Element {
   const { pageData, loadSearchListDispatch } = useList();
   const [currentSort, setCurrentSort] = useState(sortOptionData[0]);
   const { query } = useRouter();
-
-  // const [currentSort, setCurrentSort] = useState(sortOptionData[0]);
   const [currentDate, setCurrentDate] = useState(dateOptionData[0]);
 
   useEffect(() => {
