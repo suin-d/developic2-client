@@ -1,11 +1,13 @@
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
 import Layout from '../../../components/Layout';
 import PicstoryDetailList from '../../../components/List/PicstoryDetailList';
 import BlogPicstoryDetailBox from '../../../components/Result/BlogPicstoryDetail';
+import { loadBlogPicstoryDetailAction, loadBlogUserAction } from '../../../modules/blog';
 import useBlog from '../../../modules/blog/hooks';
+import wrapper from '../../../modules/store';
+import { authServersiceAction } from '../../../utils/getServerSidePropsTemplate';
 
 const PicstoryDetailContainer = styled.section`
   min-height: 550px;
@@ -27,16 +29,8 @@ const PicstoryDetailContainer = styled.section`
 
 export default function PicstoryId(): JSX.Element {
   const router = useRouter();
-  const { picstoryId } = router.query;
   const { userId } = router.query;
-
-  const { blogPicstoryDetailData, loadBlogPicstoryDetailDispatch } = useBlog();
-
-  useEffect(() => {
-    if (picstoryId) {
-      loadBlogPicstoryDetailDispatch(picstoryId);
-    }
-  }, [picstoryId]);
+  const { loadBlogPicstoryDetail } = useBlog();
 
   return (
     <Layout>
@@ -45,15 +39,23 @@ export default function PicstoryId(): JSX.Element {
           <h1>Picstory</h1>
         </Link>
         <div className="empty_content">
-          {!blogPicstoryDetailData?.id && '픽스토리 정보가 없습니다.'}
+          {!loadBlogPicstoryDetail.data?.id && '픽스토리 정보가 없습니다.'}
         </div>
-        {blogPicstoryDetailData && (
-          <BlogPicstoryDetailBox picstoryDetailData={blogPicstoryDetailData} />
-        )}
-        {blogPicstoryDetailData && (
-          <PicstoryDetailList picstoryDetailPostData={blogPicstoryDetailData} />
+        {loadBlogPicstoryDetail.data && (
+          <>
+            <BlogPicstoryDetailBox />
+            <PicstoryDetailList />
+          </>
         )}
       </PicstoryDetailContainer>
     </Layout>
   );
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(async context => {
+  await authServersiceAction(context);
+  const { dispatch } = context.store;
+  if (!context.params) return;
+  await dispatch(loadBlogUserAction(context.params.userId as string));
+  await dispatch(loadBlogPicstoryDetailAction(context.params.picstoryId as string));
+});

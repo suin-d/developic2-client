@@ -1,10 +1,9 @@
 import styled from '@emotion/styled';
-import { useRouter } from 'next/router';
-import React, { useCallback, useEffect } from 'react';
 import BlogWithNavLayout from '../../../components/Layout/BlogWithNavLayout';
 import BlogPicstoryList from '../../../components/List/BlogPicstoryList';
-import useBlog from '../../../modules/blog/hooks';
-import { useInfiniteScroll } from '../../../utils/utils';
+import { loadBlogPicstoryListAction, loadBlogUserAction } from '../../../modules/blog';
+import wrapper from '../../../modules/store';
+import { authServersiceAction } from '../../../utils/getServerSidePropsTemplate';
 
 const BlogPicstoryContainer = styled.section`
   min-height: 550px;
@@ -13,49 +12,25 @@ const BlogPicstoryContainer = styled.section`
 `;
 
 export default function Picstory(): JSX.Element {
-  const {
-    blogPicstoryListData,
-    loadBlogPicstoryListDispatch,
-    hasMoreBlogLists,
-    loadBlogPicstoryList,
-    loadMoreBlogPicstoryListDispatch,
-  } = useBlog();
-  const router = useRouter();
-  const { userId } = router.query;
-
-  useEffect(() => {
-    if (userId) {
-      loadBlogPicstoryListDispatch(userId);
-    }
-  }, [userId]);
-
-  const onIntersect = useCallback(
-    ([{ isIntersecting, target }], observer) => {
-      if (
-        blogPicstoryListData &&
-        blogPicstoryListData.length >= 10 &&
-        userId &&
-        isIntersecting &&
-        !loadBlogPicstoryList.loading &&
-        hasMoreBlogLists
-      ) {
-        loadMoreBlogPicstoryListDispatch({ userId, offset: blogPicstoryListData.length });
-        observer.unobserve(target);
-      }
-    },
-    [blogPicstoryListData, userId, hasMoreBlogLists]
-  );
-
-  const [setTarget] = useInfiniteScroll({
-    onIntersect,
-  });
-
   return (
     <BlogWithNavLayout>
       <BlogPicstoryContainer>
-        <BlogPicstoryList blogPicstoryListData={blogPicstoryListData} />
-        <div ref={setTarget} className="last-Item"></div>
+        <BlogPicstoryList />
       </BlogPicstoryContainer>
     </BlogWithNavLayout>
   );
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(async context => {
+  await authServersiceAction(context);
+  const { dispatch } = context.store;
+  if (!context.params) return;
+  await dispatch(loadBlogUserAction(context.params.userId as string));
+  await dispatch(
+    loadBlogPicstoryListAction({
+      userId: context.params.userId as string,
+      limit: 12,
+      offset: 0,
+    })
+  );
+});

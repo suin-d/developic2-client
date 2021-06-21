@@ -13,7 +13,7 @@ export interface User {
   avatar: string;
   lastLogin: string;
   subscribers: { id: number }[];
-  writers: { id: string }[];
+  writers: { id: number }[];
   likedPosts: { id: number }[];
   likedComments: { id: number }[];
 }
@@ -96,7 +96,7 @@ export type LikePostPayload = {
 };
 
 export type blogFollowPayload = {
-  subscriberId: number | undefined;
+  subscriberId: number;
   writerId: number;
 };
 

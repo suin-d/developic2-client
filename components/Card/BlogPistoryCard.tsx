@@ -19,15 +19,15 @@ export default function BlogPistoryCard({
   const router = useRouter();
   const { userId } = router.query;
 
-  const posts = picstoryData?.Posts;
-
-  const likeCounts = posts?.map((post: BlogPost) =>
+  const likeCounts = picstoryData?.Posts?.map((post: BlogPost) =>
     post.likers ? post.likers.length : 0
   );
   const likeCountSum = countSum(likeCounts);
-  const hits = posts?.map((post: BlogPost) => (post.hits ? post.hits : 0));
+  const hits = picstoryData?.Posts?.map((post: BlogPost) => (post.hits ? post.hits : 0));
   const viewCountSum = countSum(hits);
+
   return (
+    // picstoryData 안에 UserId 필요
     <Link href={`/${userId}/picstory/${picstoryData.id}`}>
       <BlogPicstoryCardBox currentTheme={currentTheme}>
         <article>
@@ -44,7 +44,7 @@ export default function BlogPistoryCard({
               </div>
               <div>
                 <MdRemoveRedEye />
-                <span>{viewCountSum && viewCountSum}</span>
+                <span>{viewCountSum}</span>
               </div>
             </div>
           </div>

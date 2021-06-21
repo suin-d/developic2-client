@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import router from 'next/router';
 import React, { useEffect, useState } from 'react';
 import useBlog from '../../modules/blog/hooks';
 import useUser from '../../modules/user/hooks';
@@ -8,10 +7,11 @@ import { RoundCornerBtnBox } from '../Button/styles';
 import { BlogUserProfileBox } from '../Layout';
 
 export default function BlogUserProfile(): JSX.Element {
-  const { blogUserData } = useBlog();
+  const {
+    loadBlogUser: { data: blogUserData },
+  } = useBlog();
   const { userData, subscribeDispatch, unSubscribeDispatch } = useUser();
   const [isFollowing, setIsFollowing] = useState(false);
-  const { userId } = router.query;
 
   const isUserData = userData && userData.id;
 
@@ -20,7 +20,7 @@ export default function BlogUserProfile(): JSX.Element {
     if (!isUserData) {
       setIsFollowing(false);
     }
-    if (userData?.writers.find(following => following.id == userId)) {
+    if (userData?.writers.find(following => following.id == blogUserData.id)) {
       setIsFollowing(true);
     }
   }, [isUserData]);

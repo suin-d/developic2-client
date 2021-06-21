@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
 import Layout from './Layout';
 import styled from '@emotion/styled';
-import { useRouter } from 'next/router';
 import useBlog from '../../modules/blog/hooks';
 import BlogUserProfile from '../Result/BlogUserProfile';
 import BlogPageNavigation from '../Nav/BlogPageNavigation';
@@ -23,20 +21,14 @@ type BlogWithNavLayoutPropsType = {
 export default function BlogWithNavLayout({
   children,
 }: BlogWithNavLayoutPropsType): JSX.Element {
-  const router = useRouter();
-  const { userId } = router.query;
-  const { loadBlogUserDispatch, blogUserData } = useBlog();
-
-  useEffect(() => {
-    loadBlogUserDispatch(userId);
-  }, [userId]);
-
-  if (!blogUserData) return <></>;
+  const {
+    loadBlogUser: { data: blogUserData },
+  } = useBlog();
 
   return (
     <Layout>
       <Head>
-        <title>{blogUserData.nickname}님의 블로그</title>
+        <title>{blogUserData?.nickname}님의 블로그</title>
       </Head>
       <BlogwithProfileContainer>
         <UserProfileWithTab>

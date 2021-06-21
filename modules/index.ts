@@ -9,7 +9,7 @@ import blog, { BlogState } from './blog';
 import archive, { ArchiveState } from './archive';
 import list, { ListState } from './list';
 
-type State = {
+export type State = {
   user: UserState;
   post: PostState;
   ui: UIState;
@@ -20,7 +20,7 @@ type State = {
   list: ListState;
 };
 
-export const reducer = (state: State | undefined, action) => {
+export const reducer = (state: State | undefined, action: any): any => {
   switch (action.type) {
     case HYDRATE:
       console.log('HYDRATE', action.payload);
