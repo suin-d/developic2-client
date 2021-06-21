@@ -50,8 +50,8 @@ export default function BlogPistoryCard({
           </div>
           <p>{picstoryData.description}</p>
           <ul className="picstory__recent-img">
-            {posts &&
-              posts.slice(0, 6).map(picstoryImgItem => (
+            {picstoryData?.Posts &&
+              picstoryData?.Posts?.slice(0, 6).map(picstoryImgItem => (
                 <li className="img__box" key={picstoryImgItem.id}>
                   <img src={picstoryImgItem.thumbnail} alt="picstory-thumbnail" />
                 </li>

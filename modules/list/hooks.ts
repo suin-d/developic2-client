@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useCallback } from 'react';
 import { useAppSelector } from '../../hooks/useSelector';
 import { useAppDispatch } from './../../hooks/useDispatch';
@@ -62,4 +61,4 @@ export default function useList() {
     getPostListDispatch,
     getArchiveListDispatch,
   };
-
+}

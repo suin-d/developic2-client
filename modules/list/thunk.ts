@@ -158,6 +158,13 @@ export const getPostListAction = createAsyncThunk<
       )
     );
     dispatch(isMoreLoading(payloadData.offset ? payloadData.offset !== 0 : false));
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});
+
 export const loadSearchListAction = createAsyncThunk<
   SearchPageData['post' | 'writer' | 'picstory'],
   LoadSearchListPayload,

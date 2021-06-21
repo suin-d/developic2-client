@@ -48,7 +48,7 @@ export const EmptyContentContainer = styled.section`
   color: ${({ theme }) => theme.textColor.initial};
   margin: 0 auto;
   text-align: center;
-  margin-top: 120px;
+  margin: 100px 0;
   .empty_message {
     margin-top: 50px;
   }

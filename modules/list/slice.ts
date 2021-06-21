@@ -18,8 +18,9 @@ import {
 
 const initialState: ListState = {
   pageData: {},
-  hasMoreSearchs: true,
+  loadSearchList: { loading: false, data: null, error: null },
   loadSearchPostList: { loading: false, data: null, error: null },
+  loadMoreSearchList: { loading: false, data: null, error: null },
   loadMoreSearchPostList: { loading: false, data: null, error: null },
   getArchiveList: { loading: false, data: null, error: null },
   getFeedList: { loading: false, data: null, error: null },
@@ -69,8 +70,8 @@ const listSlice = createSlice({
         state.getFeedList.loading = false;
         state.getFeedList.data = true;
         state.getFeedList.error = null;
-        state.pageData.post = state.loadMore
-          ? state.pageData.post.concat(payload)
+        (state.pageData as MainPageDataType).post = state.loadMore
+          ? (state.pageData as MainPageDataType).post.concat(payload)
           : payload;
       })
       .addCase(getFeedPostAction.rejected, (state, { payload }) => {
@@ -119,8 +120,8 @@ const listSlice = createSlice({
         state.getTaggedPostList.loading = false;
         state.getTaggedPostList.data = true;
         state.getTaggedPostList.error = null;
-        state.pageData.post = state.loadMore
-          ? state.pageData.post.concat(payload)
+        (state.pageData as MainPageDataType).post = state.loadMore
+          ? (state.pageData as MainPageDataType).post.concat(payload)
           : payload;
       })
       .addCase(getTaggedPostListAction.rejected, (state, { payload }) => {
@@ -137,14 +138,15 @@ const listSlice = createSlice({
         state.getPostList.loading = false;
         state.getPostList.data = true;
         state.getPostList.error = null;
-        state.pageData.post = state.loadMore
-          ? state.pageData.post.concat(payload)
+        (state.pageData as MainPageDataType).post = state.loadMore
+          ? (state.pageData as MainPageDataType).post.concat(payload)
           : payload;
       })
       .addCase(getPostListAction.rejected, (state, { payload }) => {
         state.getPostList.loading = false;
         state.getPostList.data = null;
         state.getPostList.error = payload;
+      })
       .addCase(loadSearchListAction.pending, state => {
         state.loadSearchList.loading = true;
         state.loadSearchList.data = null;
