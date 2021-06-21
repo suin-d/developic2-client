@@ -163,6 +163,7 @@ export const HashTagBox = styled.li`
 
 export const RoundCornerBtnBox = styled.button<{
   isFollow?: boolean;
+  currentTheme: null | string;
 }>`
   background-color: ${({ theme }) => theme.primary[1]};
   color: #fff;
@@ -176,10 +177,22 @@ export const RoundCornerBtnBox = styled.button<{
   justify-content: center;
   align-items: center;
   margin: 0 auto;
+  transition: all 0.2s ease-in;
   & > svg {
     margin-right: 5px;
     font-size: ${({ theme }) => theme.fontSize.lg};
   }
+<<<<<<< HEAD
+=======
+  &:hover {
+    background-color: #651fb5;
+    ${({ isFollow }) =>
+      isFollow &&
+      css`
+        color: #fff;
+      `}
+  }
+>>>>>>> suin/search-api
   ${({ isFollow, theme }) =>
     isFollow &&
     css`
@@ -187,4 +200,15 @@ export const RoundCornerBtnBox = styled.button<{
       background-color: transparent;
       color: ${theme.primary[1]};
     `}
+<<<<<<< HEAD
+=======
+  ${({ currentTheme, theme }) =>
+    currentTheme === 'dark' &&
+    css`
+      & {
+        color: ${theme.textColor.initial};
+        background: ${theme.primary[1]};
+      }
+    `};
+>>>>>>> suin/search-api
 `;

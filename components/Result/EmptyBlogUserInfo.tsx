@@ -17,7 +17,7 @@ export default function EmptyBlogUserInfo({
       <p className="userInfo-empty">아직 작성된 소개가 없습니다.</p>
       {blogUserId === userId && (
         <Link href="/user/setting/intro">
-          <RoundCornerBtnBox>소개 작성</RoundCornerBtnBox>
+          <RoundCornerBtnBox currentTheme={null}>소개 작성</RoundCornerBtnBox>
         </Link>
       )}
     </EmptyBlogUserInfoBox>

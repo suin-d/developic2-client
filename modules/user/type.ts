@@ -96,7 +96,7 @@ export type LikePostPayload = {
 };
 
 export type blogFollowPayload = {
-  subscriberId: number | undefined;
+  subscriberId: number;
   writerId: number;
 };
 

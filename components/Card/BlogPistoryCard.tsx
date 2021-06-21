@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { MdBook, MdFavorite, MdRemoveRedEye } from 'react-icons/md';
+import { useThemeState } from '../../hooks/ThemeContext';
 import { BlogPicstory, BlogPost } from '../../modules/blog';
 import { countSum } from '../../utils/utils';
 import { BlogPicstoryCardBox } from './styles';
@@ -13,20 +14,22 @@ type PicstoryCardPropsType = {
 export default function BlogPistoryCard({
   picstoryData,
 }: PicstoryCardPropsType): JSX.Element {
+  const currentTheme = useThemeState();
+
   const router = useRouter();
   const { userId } = router.query;
 
-  const posts = picstoryData.Posts;
-
-  const likeCounts = posts.map((post: BlogPost) => post.likers?.length);
-  const likeCountSum = countSum(likeCounts as number[]);
-
-  const hits = posts.map((post: BlogPost) => post.hits);
+  const likeCounts = picstoryData?.Posts?.map((post: BlogPost) =>
+    post.likers ? post.likers.length : 0
+  );
+  const likeCountSum = countSum(likeCounts);
+  const hits = picstoryData?.Posts?.map((post: BlogPost) => (post.hits ? post.hits : 0));
   const viewCountSum = countSum(hits);
 
   return (
+    // picstoryData 안에 UserId 필요
     <Link href={`/${userId}/picstory/${picstoryData.id}`}>
-      <BlogPicstoryCardBox>
+      <BlogPicstoryCardBox currentTheme={currentTheme}>
         <article>
           <div className="picstory__description">
             <h3>{picstoryData.title}</h3>
@@ -37,11 +40,11 @@ export default function BlogPistoryCard({
               </div>
               <div>
                 <MdFavorite />
-                <span>{likeCountSum && likeCountSum}</span>
+                <span>{likeCountSum}</span>
               </div>
               <div>
                 <MdRemoveRedEye />
-                <span>{viewCountSum && viewCountSum}</span>
+                <span>{viewCountSum}</span>
               </div>
             </div>
           </div>

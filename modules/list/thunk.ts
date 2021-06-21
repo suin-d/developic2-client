@@ -1,3 +1,4 @@
+import { LoadSearchListPayload, SearchPageData } from './type';
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
@@ -157,6 +158,19 @@ export const getPostListAction = createAsyncThunk<
       )
     );
     dispatch(isMoreLoading(payloadData.offset ? payloadData.offset !== 0 : false));
+export const loadSearchListAction = createAsyncThunk<
+  SearchPageData['post' | 'writer' | 'picstory'],
+  LoadSearchListPayload,
+  { rejectValue: MyKnownError }
+>('list/loadSearchList', async (payloadData, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.get(
+      `/list/search?keyword=${payloadData.query}${
+        payloadData.type ? '&type=' + payloadData.type : ''
+      }${payloadData.sort ? '&sort=' + payloadData.sort : ''}${
+        payloadData.term ? '&term=' + payloadData.term : ''
+      }&limit=12`
+    );
     return data;
   } catch (e) {
     console.error(e);

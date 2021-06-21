@@ -21,6 +21,9 @@ export const UserCardListContainer = styled.ul`
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 50px 30px;
   margin-bottom: 100px;
+  .empty_content {
+    text-align: center;
+  }
 `;
 
 export const NoticeListContainer = styled.ul`
@@ -167,7 +170,6 @@ export const BlogPostListContainer = styled.ul`
     padding-left: 30px;
     background-clip: padding-box;
   }
-
   .my-masonry-grid_column > li {
     margin-bottom: 50px;
   }

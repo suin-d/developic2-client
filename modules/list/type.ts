@@ -1,11 +1,22 @@
+import { BlogPicstory } from '../blog';
+import { Subscriber } from '../user';
+
 export type ListState = {
   pageData:
     | Record<string, never>
     | FeedPageDataType
     | DiscoverPageDataType
-    | MainPageDataType;
+    | MainPageDataType
+    | SearchPageData['post' | 'writer' | 'picstory'];
+
   loadSearchPostList: { loading: boolean; data: null | unknown; error: null | unknown };
   loadMoreSearchPostList: {
+    loading: boolean;
+    data: null | unknown;
+    error: null | unknown;
+  };
+  loadSearchList: { loading: boolean; data: null | unknown; error: null | unknown };
+  loadMoreSearchList: {
     loading: boolean;
     data: null | unknown;
     error: null | unknown;
@@ -19,12 +30,23 @@ export type ListState = {
   loadMore: boolean;
   hasMore: boolean;
 };
+
 export type PostUser = {
   id: number;
   nickname: string;
   avatar: string;
   introduce: string;
   last_post?: Date;
+  hasMoreSearchs?: boolean;
+  subscribers?: Subscriber[];
+  writers?: Subscriber[];
+  Posts?: SearchUserPost[];
+};
+
+export type SearchPageData = {
+  post: PostType[];
+  writer: PostUser[];
+  picstory: BlogPicstory[];
 };
 
 export type PostType = {
@@ -104,4 +126,19 @@ export type GetPostListPayload = {
 export type GetArchiveListPayload = {
   limit?: number;
   offset?: number;
+  User?: PostUser;
+  likers?: { id: number }[];
+};
+
+export type SearchUserPost = {
+  id: number;
+  thumbnail: string;
+};
+
+export type LoadSearchListPayload = {
+  query: string | string[] | undefined;
+  sort?: 'recent' | 'popular';
+  type: 'post' | 'writer' | 'picstory';
+  offset?: number;
+  term?: 'all' | 'month' | 'week' | 'day';
 };

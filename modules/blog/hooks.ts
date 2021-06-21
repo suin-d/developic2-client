@@ -3,8 +3,6 @@ import {
   loadBlogUserAction,
   loadBlogPicstoryListAction,
   loadBlogPicstoryDetailAction,
-  loadMoreBlogPostListAction,
-  loadMoreBlogPicstoryListAction,
 } from './thunk';
 import { useCallback } from 'react';
 import { useAppDispatch } from '../../hooks/useDispatch';
@@ -13,18 +11,15 @@ import { LoadBlogListPayload } from './type';
 
 export default function useBlog() {
   const {
-    hasMoreBlogLists,
     loadBlogPostList,
     loadBlogPicstoryList,
-    blogUserData,
     loadBlogUser,
-    blogPostListData,
-    blogPicstoryListData,
-    blogPicstoryDetailData,
+    loadBlogPicstoryDetail,
+    hasMore,
   } = useAppSelector(state => state.blog);
   const dispatch = useAppDispatch();
 
-  const loadBlogUserDispatch = useCallback(userId => {
+  const loadBlogUserDispatch = useCallback((userId: string) => {
     dispatch(loadBlogUserAction(userId));
   }, []);
 
@@ -32,16 +27,8 @@ export default function useBlog() {
     dispatch(loadBlogPostListAction(data));
   }, []);
 
-  const loadMoreBlogPostListDispatch = useCallback((data: LoadBlogListPayload) => {
-    dispatch(loadMoreBlogPostListAction(data));
-  }, []);
-
-  const loadBlogPicstoryListDispatch = useCallback(userId => {
-    dispatch(loadBlogPicstoryListAction(userId));
-  }, []);
-
-  const loadMoreBlogPicstoryListDispatch = useCallback((data: LoadBlogListPayload) => {
-    dispatch(loadMoreBlogPicstoryListAction(data));
+  const loadBlogPicstoryListDispatch = useCallback((data: LoadBlogListPayload) => {
+    dispatch(loadBlogPicstoryListAction(data));
   }, []);
 
   const loadBlogPicstoryDetailDispatch = useCallback(picstoryId => {
@@ -49,19 +36,14 @@ export default function useBlog() {
   }, []);
 
   return {
-    hasMoreBlogLists,
+    hasMore,
+    loadBlogUser,
     loadBlogPostList,
     loadBlogPicstoryList,
-    loadBlogUser,
-    blogUserData,
-    blogPostListData,
-    blogPicstoryListData,
-    blogPicstoryDetailData,
+    loadBlogPicstoryDetail,
     loadBlogUserDispatch,
     loadBlogPostListDispatch,
-    loadMoreBlogPostListDispatch,
     loadBlogPicstoryListDispatch,
-    loadMoreBlogPicstoryListDispatch,
     loadBlogPicstoryDetailDispatch,
   };
 }

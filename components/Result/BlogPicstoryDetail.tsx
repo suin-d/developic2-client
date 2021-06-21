@@ -2,7 +2,8 @@ import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import React, { useCallback, useMemo, useState } from 'react';
 import { MdBook, MdFavorite, MdRemoveRedEye } from 'react-icons/md';
-import { blogPicstoryDetailData, BlogPost } from '../../modules/blog';
+import { BlogPicstory, BlogPost } from '../../modules/blog';
+import useBlog from '../../modules/blog/hooks';
 import usePicstory from '../../modules/picstory/hooks';
 import SquareBtn from '../Button/SquareBtn';
 import { BlogPicstoryCardBox } from '../Card/styles';
@@ -17,10 +18,8 @@ const BlogPicstoryDetailContainer = styled(BlogPicstoryCardBox)`
     font-size: ${({ theme }) => theme.fontSize.xl};
     font-weight: bold;
   }
-  article {
-    p {
-      margin-bottom: 28px;
-    }
+  article > p {
+    margin-bottom: 28px;
   }
 `;
 const countTotal = {
@@ -29,16 +28,12 @@ const countTotal = {
   hit: (list: BlogPost[]) => list.reduce((acc, cur) => acc + cur.hits, 0),
 };
 
-type PicstoryCardPropsType = {
-  picstoryDetailData: blogPicstoryDetailData;
-};
-export default function BlogPicstoryDetailBox({
-  picstoryDetailData,
-}: PicstoryCardPropsType): JSX.Element {
+export default function BlogPicstoryDetailBox(): JSX.Element {
+  const { loadBlogPicstoryDetail } = useBlog();
   const { removePicstoryDispatch } = usePicstory();
   const router = useRouter();
   const [removeModalOpen, setRemoveModalOpen] = useState(false);
-  const posts = picstoryDetailData.Posts;
+  const { Posts: posts } = loadBlogPicstoryDetail.data as BlogPicstory;
 
   const likeCountTotal = useMemo(() => countTotal.like(posts), [posts]);
   const viewCountTotal = useMemo(() => countTotal.hit(posts), [posts]);
@@ -48,19 +43,24 @@ export default function BlogPicstoryDetailBox({
   }, []);
 
   const onRemovePicstory = useCallback(() => {
-    removePicstoryDispatch(picstoryDetailData.id);
+    removePicstoryDispatch(+(router.query.picstoryId as string));
     router.back();
   }, []);
+
+  if (!loadBlogPicstoryDetail.data) return <></>;
+
   return (
-    <BlogPicstoryDetailContainer>
+    <BlogPicstoryDetailContainer currentTheme={null}>
       <article>
         <div className="picstory__description">
-          <h2>{picstoryDetailData.title}</h2>
+          <h2>{loadBlogPicstoryDetail.data.title}</h2>
           <div className="picstory__stats">
             <div>
               <MdBook />
               <span>
-                {picstoryDetailData.Posts ? picstoryDetailData.Posts.length : 0}
+                {loadBlogPicstoryDetail.data.Posts
+                  ? loadBlogPicstoryDetail.data.Posts.length
+                  : 0}
               </span>
             </div>
             <div>
@@ -73,7 +73,7 @@ export default function BlogPicstoryDetailBox({
             </div>
           </div>
         </div>
-        <p>{picstoryDetailData.description}</p>
+        <p>{loadBlogPicstoryDetail.data.description}</p>
         <div className="picstory__btn">
           <SquareBtn onClick={() => alert('준비중')}>편집</SquareBtn>
           <SquareBtn onClick={onToggleRemoveModal}>삭제</SquareBtn>

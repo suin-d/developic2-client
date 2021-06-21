@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useCallback } from 'react';
 import { useAppSelector } from '../../hooks/useSelector';
 import { useAppDispatch } from './../../hooks/useDispatch';
@@ -8,6 +9,7 @@ import {
   getTaggedPostListAction,
   getWriterListAction,
   getArchiveListAction,
+  loadSearchListAction,
 } from './thunk';
 import {
   GetWriterListPayload,
@@ -15,6 +17,7 @@ import {
   GetTaggedPostListPayload,
   GetPostListPayload,
   GetArchiveListPayload,
+  LoadSearchListPayload,
 } from './type';
 
 export default function useList() {
@@ -42,10 +45,16 @@ export default function useList() {
   const getArchiveListDispatch = useCallback((data: GetArchiveListPayload) => {
     dispatch(getArchiveListAction(data));
   }, []);
+
+  const loadSearchListDispatch = useCallback((data: LoadSearchListPayload) => {
+    dispatch(loadSearchListAction(data));
+  }, []);
+
   return {
     pageData,
     hasMore,
     loadSearchPostList,
+    loadSearchListDispatch,
     getFeedPostDispatch,
     getWriterListDispatch,
     getHashtagListDispatch,
@@ -53,4 +62,4 @@ export default function useList() {
     getPostListDispatch,
     getArchiveListDispatch,
   };
-}
+

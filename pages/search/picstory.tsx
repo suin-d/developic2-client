@@ -1,30 +1,43 @@
-import styled from '@emotion/styled';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
-import Layout from '../../components/Layout';
-import BlogPicstoryList from '../../components/List/BlogPicstoryList';
-import SearchPageNav from '../../components/Nav/SearchPageNav';
-import SortTab from '../../components/Tab/SortTab';
-import { PicstoryData, SearchListOptions } from '../../utils/data';
-
-const SearchTagContainer = styled.section`
-  width: 1150px;
-  margin: 0 auto;
-`;
+import SearchPicstoryList from '../../components/List/SearchPicstoryList';
+import SearchPageWithNavLayout from '../../components/Nav/SearchPageNav';
+import EmptyContent from '../../components/Result/EmptyContent';
+import SearchResultCount from '../../components/Result/SearchResultCount';
+import { SearchPageData } from '../../modules/list';
+import useList from '../../modules/list/hooks';
+import { SearchNavData } from '../../utils/data';
+import { SearchContentBox } from '.';
 
 export default function SearchPicstory(): JSX.Element {
-  const [currentSort, setCurrentSort] = useState(SearchListOptions.Popular);
+  const { pageData, loadSearchListDispatch } = useList();
   const { query } = useRouter();
   useEffect(() => {
-    console.log('서버로 태그 데이터 요청', query.keyword);
+    if (query.keyword) {
+      loadSearchListDispatch({ query: query.keyword, type: 'picstory' });
+    }
   }, [query]);
+
   return (
-    <Layout>
-      <SearchTagContainer>
-        <SearchPageNav />
-        <SortTab currentSort={currentSort} setCurrentSort={setCurrentSort} />
-        <BlogPicstoryList data={PicstoryData} />
-      </SearchTagContainer>
-    </Layout>
+    <SearchPageWithNavLayout>
+      <SearchContentBox>
+        {(pageData as SearchPageData['picstory']) &&
+          (pageData as SearchPageData['picstory']).length < 1 && (
+            <EmptyContent message={'검색된 픽스토리가 없습니다.'} />
+          )}
+        {(pageData as SearchPageData['picstory']) &&
+          (pageData as SearchPageData['picstory']).length >= 1 && (
+            <>
+              <SearchResultCount
+                searchTitle={SearchNavData[2].name}
+                resultCount={(pageData as SearchPageData['picstory']).length}
+              />
+              <SearchPicstoryList
+                searchPicstoryData={pageData as SearchPageData['picstory']}
+              />
+            </>
+          )}
+      </SearchContentBox>
+    </SearchPageWithNavLayout>
   );
 }

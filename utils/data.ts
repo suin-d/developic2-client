@@ -1,6 +1,7 @@
 interface NavItem {
   name: string;
   link: string;
+  routerName?: string;
 }
 export type NavDataType = NavItem[];
 
@@ -34,7 +35,7 @@ export const BlogNavData: NavDataType = [
 ];
 
 export const SearchNavData: NavDataType = [
-  { name: '글', link: '/search/post' },
+  { name: '글', link: '/search' },
   { name: '작가', link: '/search/writer' },
   { name: '픽스토리', link: '/search/picstory' },
 ];

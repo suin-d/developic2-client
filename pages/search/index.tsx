@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { dateOptionData, SearchContentBox, sortOptionData } from '.';
-import UserCardList from '../../components/List/UserCardList';
+import styled from '@emotion/styled';
+import PostCardList from '../../components/List/CommonPostCardList';
 import SearchPageWithNavLayout from '../../components/Nav/SearchPageNav';
 import EmptyContent from '../../components/Result/EmptyContent';
 import SearchResultCount from '../../components/Result/SearchResultCount';
@@ -10,11 +10,35 @@ import { SearchPageData } from '../../modules/list';
 import useList from '../../modules/list/hooks';
 import { SearchNavData } from '../../utils/data';
 
-export default function SearchWriter(): JSX.Element {
-  const { pageData, loadSearchListDispatch } = useList();
-  const { query } = useRouter();
+export const sortOptionData = [
+  { name: '인기순', value: 'popular' },
+  { name: '최신순', value: 'recent' },
+];
 
+export const dateOptionData = [
+  { name: '모든 기간', value: 'all' },
+  { name: '최근 24시간', value: 'day' },
+  { name: '최근 1주일', value: 'week' },
+  { name: '최근 1개월', value: 'month' },
+];
+
+export const SearchContentBox = styled.div`
+  .sort-option {
+    display: flex;
+    justify-content: flex-end;
+    font-size: ${({ theme }) => theme.fontSize.base};
+    position: relative;
+    margin-bottom: 20px;
+    & > div:first-of-type {
+      margin-right: 15px;
+    }
+  }
+`;
+
+export default function SearchPost(): JSX.Element {
+  const { pageData, loadSearchListDispatch } = useList();
   const [currentSort, setCurrentSort] = useState(sortOptionData[0]);
+  const { query } = useRouter();
   const [currentDate, setCurrentDate] = useState(dateOptionData[0]);
 
   useEffect(() => {
@@ -22,7 +46,7 @@ export default function SearchWriter(): JSX.Element {
       loadSearchListDispatch({
         query: query.keyword,
         sort: currentSort.value as 'popular' | 'recent',
-        type: 'writer',
+        type: 'post',
         term: currentDate.value as 'all' | 'day' | 'week' | 'month',
       });
     }
@@ -31,12 +55,12 @@ export default function SearchWriter(): JSX.Element {
   return (
     <SearchPageWithNavLayout>
       <SearchContentBox>
-        {(pageData as SearchPageData['writer']) &&
-          (pageData as SearchPageData['writer']).length < 1 && (
-            <EmptyContent message={'검색된 작가가 없습니다.'} />
+        {(pageData as SearchPageData['post']) &&
+          (pageData as SearchPageData['post']).length < 1 && (
+            <EmptyContent message={'검색된 글이 없습니다.'} />
           )}
-        {(pageData as SearchPageData['writer']) &&
-          (pageData as SearchPageData['writer']).length >= 1 && (
+        {(pageData as SearchPageData['post']) &&
+          (pageData as SearchPageData['post']).length >= 1 && (
             <>
               <div className="sort-option">
                 <SortOption
@@ -53,12 +77,10 @@ export default function SearchWriter(): JSX.Element {
                 )}
               </div>
               <SearchResultCount
-                searchTitle={SearchNavData[1].name}
-                resultCount={(pageData as SearchPageData['writer']).length}
+                searchTitle={SearchNavData[0].name}
+                resultCount={(pageData as SearchPageData['post']).length}
               />
-              <UserCardList
-                searchUserListData={pageData as SearchPageData['writer']}
-              ></UserCardList>
+              <PostCardList searchPostListData={pageData as SearchPageData['post']} />
             </>
           )}
       </SearchContentBox>

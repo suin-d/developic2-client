@@ -8,7 +8,7 @@ type PostCardPropsType = {
 };
 export default function CommonPostCard({ postData }: PostCardPropsType): JSX.Element {
   return (
-    <Link href={`/${postData.User.id}/post/${postData.id}`}>
+    <Link href={`/${postData.User?.id}/post/${postData.id}`}>
       <CommonPostCardBox>
         <article>
           <img src={postData.thumbnail} alt="postImg" />
@@ -16,10 +16,10 @@ export default function CommonPostCard({ postData }: PostCardPropsType): JSX.Ele
           <p>{postData.summary}</p>
         </article>
         <div className="info">
-          <Link href={`/${postData.User.id}/post`}>
+          <Link href={`/${postData.User?.id}/post`}>
             <UserAvatarWithNameBox>
-              <img src={postData.User.avatar} alt="avatar" />
-              <strong>{postData.User.nickname}</strong>
+              <img src={postData.User?.avatar} alt="avatar" />
+              <strong>{postData.User?.nickname}</strong>
               <span>님의 글</span>
             </UserAvatarWithNameBox>
           </Link>

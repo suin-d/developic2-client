@@ -222,7 +222,7 @@ export const UserMenuContainer = styled.div`
   }
 `;
 
-export const BlogUserProfile = styled.div`
+export const BlogUserProfileBox = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
