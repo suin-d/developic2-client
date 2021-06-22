@@ -65,12 +65,8 @@ export type BlogPicstoryDetailData = {
   Posts: BlogPost[];
 };
 
-export type BlogPayload = {
-  userId: string;
-};
-
 export type LoadBlogListPayload = {
-  userId: string | string[] | undefined;
+  userId: number;
   limit?: number;
   offset?: number;
 };

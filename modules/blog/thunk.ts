@@ -19,7 +19,7 @@ interface MyKnownError {
 // 블로그 유저정보 로드
 export const loadBlogUserAction = createAsyncThunk<
   BlogUserData,
-  string,
+  number,
   { rejectValue: MyKnownError }
 >('blog/loadBlogUser', async (userId, { rejectWithValue }) => {
   try {
@@ -84,7 +84,7 @@ export const loadBlogPicstoryListAction = createAsyncThunk<
 // 픽스토리 상세페이지 로드
 export const loadBlogPicstoryDetailAction = createAsyncThunk<
   BlogPicstoryDetailData,
-  string,
+  number,
   { rejectValue: MyKnownError }
 >('blog/loadBlogPicstoryDetail', async (picstoryId, { rejectWithValue }) => {
   try {

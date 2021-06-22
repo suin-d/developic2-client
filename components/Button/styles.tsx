@@ -11,6 +11,14 @@ to{
     opacity:1;
 }
 `;
+const fade = keyframes`
+from{
+    opacity:0;
+}
+to{
+    opacity:1;
+}
+`;
 const Btn = styled.button`
   font-family: 'Noto Serif KR';
   border: none;
@@ -43,13 +51,49 @@ export const FloatingButtonBox = styled(Btn)`
   color: #fff;
   cursor: pointer;
 `;
-export const DarkModeBox = styled(FloatingButtonBox)`
-  font-size: 25px;
-  box-shadow: 3px 3px 10px ${({ theme }) => theme.primary[1]},
-    -3px -3px 10px ${({ theme }) => theme.primary.pLight};
-  svg {
-    animation: ${slideUp} 0.3s;
+export const DarkModeBox = styled(FloatingButtonBox)<{
+  currentTheme: 'light' | 'dark' | null;
+}>`
+  position: relative;
+  bottom: auto;
+  right: auto;
+  width: 130px;
+  height: 35px;
+  border-radius: 3px;
+  padding: 0;
+  & > span {
+    font-size: 12px;
+    display: block;
+    width: 50%;
+    text-align: center;
   }
+  .slider {
+    position: absolute;
+    background: #fff;
+    border: 1px solid ${({ theme }) => theme.textColor.initial};
+    border-radius: 3px;
+    height: 100%;
+    width: 50%;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease-in-out;
+
+    svg {
+      fill: ${({ theme }) => theme.textColor.initial};
+      font-size: 18px;
+      animation: ${fade} 0.5s;
+    }
+  }
+  ${({ currentTheme, theme }) =>
+    currentTheme === 'dark' &&
+    css`
+      .slider {
+        transform: translateX(-65px);
+        background: ${theme.background.modal};
+      }
+    `}
 `;
 export const LikeFltBox = styled(FloatingButtonBox)`
   cursor: pointer;
@@ -126,25 +170,6 @@ export const ButtonBox = styled.div<{
   }
 `;
 
-export const CheckBtnBox = styled.div`
-  .ck__btn__outline {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    border: 2px solid ${({ theme }) => theme.textColor.initial};
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    .ck__btn__inside {
-      width: 17px;
-      height: 17px;
-      border-radius: 50%;
-      border: none;
-      background-color: ${({ theme }) => theme.primary[1]};
-    }
-  }
-`;
-
 export const HashTagBox = styled.li`
   border: 1px solid ${({ theme }) => theme.textColor.initial};
   padding: 0 10px;
@@ -182,8 +207,6 @@ export const RoundCornerBtnBox = styled.button<{
     margin-right: 5px;
     font-size: ${({ theme }) => theme.fontSize.lg};
   }
-<<<<<<< HEAD
-=======
   &:hover {
     background-color: #651fb5;
     ${({ isFollow }) =>
@@ -192,7 +215,6 @@ export const RoundCornerBtnBox = styled.button<{
         color: #fff;
       `}
   }
->>>>>>> suin/search-api
   ${({ isFollow, theme }) =>
     isFollow &&
     css`
@@ -200,15 +222,48 @@ export const RoundCornerBtnBox = styled.button<{
       background-color: transparent;
       color: ${theme.primary[1]};
     `}
-<<<<<<< HEAD
-=======
   ${({ currentTheme, theme }) =>
     currentTheme === 'dark' &&
     css`
       & {
         color: ${theme.textColor.initial};
-        background: ${theme.primary[1]};
       }
     `};
->>>>>>> suin/search-api
+`;
+
+export const ScrollTopBtnBox = styled(FloatingButtonBox)<{ active: boolean }>`
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  transition: all 0.3s ease-in-out;
+  opacity: 1;
+  border: 1px solid ${({ theme }) => theme.background.initial};
+  p {
+    width: 0px;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    white-space: nowrap;
+    font-family: 'Montserrat';
+  }
+  svg {
+    font-size: 30px;
+  }
+  &:hover {
+    width: 100px;
+    background: ${({ theme }) => theme.background.modal};
+    border: 1px solid ${({ theme }) => theme.primary[1]};
+    p {
+      color: ${({ theme }) => theme.primary[1]};
+      width: 60px;
+    }
+    svg {
+      color: ${({ theme }) => theme.primary[1]};
+    }
+  }
+  ${({ active }) =>
+    !active &&
+    css`
+      cursor: default;
+      opacity: 0;
+    `}
 `;

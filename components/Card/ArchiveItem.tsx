@@ -9,11 +9,13 @@ type ArchiveItemPropsType = {
   data: Archive;
   listLength: number | undefined;
 };
+
 export default function ArchiveItem({
   data,
   listLength,
 }: ArchiveItemPropsType): JSX.Element {
   const currentTheme = useThemeState();
+
   return (
     <Link href={`/archive/${data.id}`}>
       <ArchiveItemContainer
@@ -23,7 +25,7 @@ export default function ArchiveItem({
       >
         <div className="img__wrapper">
           <div>
-            <img src={data.poster} alt="poster" />
+            <img src={process.env.NEXT_PUBLIC_IMAGE_400 + data.poster} alt="poster" />
           </div>
         </div>
         <article>

@@ -261,7 +261,7 @@ export const ImageDropZoneContainer = styled.div<{
   ${({ background }) =>
     background &&
     css`
-      background-image: url('${background}');
+      background-image: url('${process.env.NEXT_PUBLIC_IMAGE_ORIGINAL}${background}');
       background-position: center;
       background-size: cover;
       background-repeat: no-repeat;
@@ -276,4 +276,40 @@ export const ImageDropZoneContainer = styled.div<{
     css`
       height: ${height}px;
     `}
+`;
+
+export const AvatarInputBox = styled.form`
+  position: relative;
+  margin-bottom: 70px;
+  h5 {
+    font-size: 16px;
+    font-family: 'Noto Serif KR';
+    margin: 0 0 10px 0;
+  }
+  img {
+    margin-left: 40px;
+    width: 160px;
+    height: 160px;
+    border-radius: 100px 100px 30%;
+    object-position: center;
+    object-fit: cover;
+    border: 1px solid ${({ theme }) => theme.grayScale[2]};
+  }
+  .img-select__btn {
+    position: absolute;
+    bottom: 0;
+    left: 170px;
+    width: 35px;
+    height: 35px;
+    border-radius: 35px;
+    border: 1px solid #000;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    &:hover {
+      background: #eee;
+    }
+  }
 `;

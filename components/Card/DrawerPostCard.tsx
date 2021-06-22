@@ -1,25 +1,31 @@
 import React from 'react';
-import { DrawerPostCardContainer } from './styles';
-import { RiArrowRightSLine } from 'react-icons/ri';
-import { LikeListItemType } from '../../modules/drawer';
 import Link from 'next/link';
 import dayjs from 'dayjs';
+import { RiArrowRightSLine } from 'react-icons/ri';
+import { DrawerPostCardContainer } from './styles';
+import { LikeListItemType } from '../../modules/drawer';
+
 type DrawerPostCardPropsType = {
   postData: LikeListItemType;
   onDeleteCb: () => void;
 };
+
 export default function DrawerPostCard({
   postData,
   onDeleteCb,
 }: DrawerPostCardPropsType): JSX.Element {
-  const onClickDelete = (e: React.MouseEvent) => {
+  const onClickDelete = React.useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
     onDeleteCb();
-  };
+  }, []);
+
   return (
     <Link href={`/${postData.User.id}/post/${postData.id}`}>
       <DrawerPostCardContainer>
-        <img src={postData.thumbnail} alt="thumnail" />
+        <img
+          src={process.env.NEXT_PUBLIC_IMAGE_400 + postData.thumbnail}
+          alt="thumnail"
+        />
         <div className="content">
           <img src={postData.User.avatar} alt="avatar" />
           <div className="writer">

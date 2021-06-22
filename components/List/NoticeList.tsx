@@ -4,6 +4,10 @@ import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 import { FaqType, NoticeType } from '../../modules/cs';
 import dayjs from 'dayjs';
 
+const isNotice = (target: NoticeType | FaqType): target is NoticeType => {
+  return (target as NoticeType).title !== undefined;
+};
+
 type NoticeItemPropsType = {
   contentOpenIndex: number | null;
   setContentOpenIndex: React.Dispatch<React.SetStateAction<number | null>>;
@@ -14,13 +18,11 @@ function NoticeItem({
   setContentOpenIndex,
   data,
 }: NoticeItemPropsType): JSX.Element {
-  const turnOnContent = () => {
+  const turnOnContent = React.useCallback(() => {
     if (data.id === contentOpenIndex) setContentOpenIndex(null);
     else setContentOpenIndex(data.id);
-  };
-  const isNotice = (target: NoticeType | FaqType): target is NoticeType => {
-    return (target as NoticeType).title !== undefined;
-  };
+  }, [contentOpenIndex, data.id]);
+
   return (
     <li onClick={turnOnContent}>
       <div className="icon">
@@ -43,12 +45,15 @@ function NoticeItem({
     </li>
   );
 }
+
 type NoticeListPropsType = {
   data: NoticeType[] | FaqType[] | null;
 };
 export default function NoticeList({ data }: NoticeListPropsType): JSX.Element {
   const [contentOpenIndex, setContentOpenIndex] = useState<null | number>(null);
+
   if (!data) return <></>;
+
   return (
     <NoticeListContainer>
       {data.map((v: NoticeType | FaqType) => (

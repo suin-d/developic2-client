@@ -4,10 +4,8 @@ import { useEffect } from 'react';
 import useFetchMore from '../../hooks/useFetchMore';
 import { BlogPicstory } from '../../modules/blog';
 import useBlog from '../../modules/blog/hooks';
-import BlogPistoryCard from '../Card/BlogPistoryCard';
+import BlogPicstoryCard from '../Card/BlogPicstoryCard';
 import { BlogPicstoryListContainer } from './styles';
-
-import Incomplete from '../Result/Incomplete';
 
 export default function BlogPicstoryList(): JSX.Element {
   const router = useRouter();
@@ -17,20 +15,24 @@ export default function BlogPicstoryList(): JSX.Element {
   useEffect(() => {
     if (hasMore && page > 0) {
       loadBlogPicstoryListDispatch({
-        userId: router.query.userId,
+        userId: +(router.query.userId as string),
         limit: 12,
         offset: page * 12,
       });
     }
   }, [page]);
 
-  if (loadBlogPicstoryList.data && loadBlogPicstoryList.data.length < 1)
-    return <Incomplete type="notData" title="등록된 픽스토리가 없어요." />;
+  if (!loadBlogPicstoryList.data) return <></>;
 
   return (
     <BlogPicstoryListContainer>
-      {loadBlogPicstoryList.data?.map((picstoryItem: BlogPicstory) => (
-        <BlogPistoryCard key={picstoryItem.id} picstoryData={picstoryItem} />
+      <div className="empty_content">
+        {!hasMore &&
+          loadBlogPicstoryList.data.length < 1 &&
+          '등록된 픽스토리가 없습니다.'}
+      </div>
+      {loadBlogPicstoryList.data.map((picstoryItem: BlogPicstory) => (
+        <BlogPicstoryCard key={picstoryItem.id} picstoryData={picstoryItem} />
       ))}
       <FetchMoreTrigger />
     </BlogPicstoryListContainer>

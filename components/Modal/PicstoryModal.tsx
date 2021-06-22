@@ -1,9 +1,10 @@
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { MdCancel, MdCheck } from 'react-icons/md';
 import useInput from '../../hooks/useInput';
 import { Picstory } from '../../modules/picstory';
 import usePicstory from '../../modules/picstory/hooks';
+import useUI from '../../modules/ui/hooks';
 import useUser from '../../modules/user/hooks';
 import SquareBtn from '../Button/SquareBtn';
 import CustomInput from '../Input/CustomInput';
@@ -23,10 +24,14 @@ function PicstoryListItem({
   removePicstory,
   picstoryData,
 }: PicstoryListItemPropsType): JSX.Element {
-  const onRemovePicstory = (e: React.MouseEvent<HTMLSpanElement>) => {
-    e.stopPropagation();
-    removePicstory(picstoryData.id);
-  };
+  const onRemovePicstory = useCallback(
+    (e: React.MouseEvent<HTMLSpanElement>) => {
+      e.stopPropagation();
+      removePicstory(picstoryData.id);
+    },
+    [picstoryData]
+  );
+
   return (
     <li onClick={() => addPicstory(picstoryData.id)}>
       <div className="checked">{checked && <MdCheck />}</div>
@@ -59,30 +64,36 @@ export default function PicstoryModal({
     addPicPostDispatch,
     removePicPostDispatch,
   } = usePicstory();
-
+  const { toastOpenDispatch } = useUI();
   const [usersPicstoryList, setUsersPicstoryList] = useState<Picstory[]>([]);
   const [title, onChangeTitle, setTitle] = useInput('');
   const [desc, onChangeDesc, setDesc] = useInput('');
   const [thumbnail, setThumbnail] = useState('');
-  const onClickBG = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.currentTarget === e.target) onClose();
-  };
-  const addPicstory = (id: number) => {
-    const isExist = picstoryList.findIndex(picid => picid === id) !== -1;
-    if (!isExist) {
-      addPicPostDispatch({ PostId: postId, PicstoryId: id });
-    } else {
-      removePicPostDispatch({ PostId: postId, PicstoryId: id });
-    }
-  };
-  const destroyPicstory = (id: number) => {
-    removePicstoryDispatch(id);
-  };
 
-  const onCreatePicstory = async () => {
+  const onClickBG = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.currentTarget === e.target) onClose();
+  }, []);
+
+  const addPicstory = useCallback(
+    (id: number) => {
+      const isExist = picstoryList.findIndex(picid => picid === id) !== -1;
+      if (!isExist) {
+        addPicPostDispatch({ PostId: postId, PicstoryId: id });
+      } else {
+        removePicPostDispatch({ PostId: postId, PicstoryId: id });
+      }
+    },
+    [picstoryList, postId]
+  );
+
+  const destroyPicstory = useCallback((id: number) => {
+    removePicstoryDispatch(id);
+  }, []);
+
+  const onCreatePicstory = () => {
     if (!userData) return;
-    if (!title.trim()) return alert('제목을 입력해주세요.');
-    if (!thumbnail.trim()) return alert('썸네일 이미지를 등록해주세요.');
+    if (!title.trim()) return toastOpenDispatch('제목을 입력해주세요.');
+    if (!thumbnail.trim()) return toastOpenDispatch('썸네일 이미지를 등록해주세요.');
     createPicstoryDispatch({
       title,
       thumbnail,
@@ -98,11 +109,13 @@ export default function PicstoryModal({
       getPicstoryListDispatch(userData.id);
     }
   }, [userData]);
+
   useEffect(() => {
     if (getPicstoryList.data) {
       setUsersPicstoryList(getPicstoryList.data);
     }
   }, [getPicstoryList.data]);
+
   useEffect(() => {
     if (createPicstory.data) {
       setTitle('');

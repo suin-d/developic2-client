@@ -21,23 +21,23 @@ export default function SearchPageWithNavLayout({
   const router = useRouter();
   const [keyword, setKeyword] = useState(router.query.keyword as string);
 
+  const debounce = useCallback(
+    _debounce(searchValue => {
+      router.push(`${router.pathname}?keyword=${searchValue}`);
+    }, 500),
+    [router.pathname]
+  );
+
+  const onChangeKeyword = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setKeyword(e.target.value);
+    debounce(e.target.value);
+  }, []);
+
   const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
     }
   };
-
-  const onChangeKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value);
-    debounce(e.target.value);
-  };
-  const debounce = useCallback(
-    _debounce(searchValue => {
-      router.push(`${router.pathname}?keyword=${searchValue}`);
-    }, 500),
-    [router]
-  );
-
   return (
     <Layout>
       <SearchPageWithNavContainer>

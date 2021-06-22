@@ -5,7 +5,6 @@ import useFetchMore from '../../hooks/useFetchMore';
 import { BlogPost } from '../../modules/blog';
 import useBlog from '../../modules/blog/hooks';
 import BlogPostCard from '../Card/BlogPostCard';
-import Incomplete from '../Result/Incomplete';
 import { BlogPostListContainer } from './styles';
 
 export default function BlogPostList(): JSX.Element {
@@ -16,24 +15,20 @@ export default function BlogPostList(): JSX.Element {
   useEffect(() => {
     if (hasMore && page > 0) {
       loadBlogPostListDispatch({
-        userId: router.query.userId,
+        userId: +(router.query.userId as string),
         limit: 12,
         offset: page * 12,
       });
     }
   }, [page]);
 
-  if (!loadBlogPostList.data)
-    return (
-      <Incomplete
-        type="notData"
-        title="아직 작성된 글이 없어요."
-        desc="다른 작가의 글도 읽어보세요!"
-      />
-    );
+  if (!loadBlogPostList.data) return <></>;
 
   return (
     <BlogPostListContainer>
+      <div className="empty_content">
+        {!hasMore && loadBlogPostList.data.length < 1 && '등록된 포스트가 없습니다.'}
+      </div>
       <Masonry
         breakpointCols={2}
         className="my-masonry-grid"

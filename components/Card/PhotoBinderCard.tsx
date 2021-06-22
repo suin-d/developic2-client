@@ -7,6 +7,7 @@ type PhotoBinderCardPropsType = {
   id: number;
   binderData: PhotoBinderType;
 };
+
 export default function PhotoBinderCard({
   binderData,
 }: PhotoBinderCardPropsType): JSX.Element {
@@ -17,13 +18,18 @@ export default function PhotoBinderCard({
           {Array.from({ length: 5 }).map((_, index) => {
             return binderData.PostImages[index] ? (
               <div className="img__box__item" key={binderData.PostImages[index].id}>
-                <img src={binderData.PostImages[index].src} alt="" />
+                <img
+                  src={
+                    process.env.NEXT_PUBLIC_IMAGE_200 + binderData.PostImages[index].src
+                  }
+                  alt=""
+                />
               </div>
             ) : (
               <div className="img__box__item" key={index}>
                 <img
-                  src="https://lh3.googleusercontent.com/proxy/C5-C4O3U06DgkK0jIeev6JiUJAljnQ5vaheSnpK7N6GvBB91sRCGdMlsRN2Sj3pS2OSRUcz7toPECsfrSDA5A6ekOa1UubHwrCgzcOUbHeehtyxrdYCuvN5lufBpgVWK"
-                  alt=""
+                  src="https://3.bp.blogspot.com/-ZKBbW7TmQD4/U6P_DTbE2MI/AAAAAAAADjg/wdhBRyLv5e8/s1600/noimg.gif"
+                  alt="noPhoto"
                 />
               </div>
             );

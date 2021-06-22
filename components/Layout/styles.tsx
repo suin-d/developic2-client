@@ -73,12 +73,13 @@ export const FooterContainer = styled.footer`
     }
   }
 `;
-export const HeaderContainer = styled.header`
+export const HeaderContainer = styled.header<{ active: boolean }>`
   top: 0;
   position: fixed;
   width: 100%;
   background-color: ${({ theme }) => theme.background.initial};
   transition: background-color 0.3s;
+  z-index: 1000;
   .inner {
     max-width: 1150px;
     height: 72px;
@@ -118,25 +119,47 @@ export const HeaderContainer = styled.header`
     .header--right {
       display: flex;
       align-items: center;
-      padding-top: 5px;
-      span {
+      padding-top: 3px;
+      & > span {
         color: ${({ theme }) => theme.textColor.initial};
         display: inline-block;
-        padding: 5px 10px;
+        padding: 5px 10px 2px 10px;
         font-weight: 600;
         cursor: pointer;
         &:hover {
           text-decoration: underline;
         }
       }
-      img {
+      & > button {
+        transform: scale(0.7);
+      }
+      .user-menu__btn {
+        display: flex;
+        align-items: center;
         cursor: pointer;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
+        span {
+          display: block;
+          padding: 11px 4px;
+          font-size: 14px;
+          color: ${({ theme }) => theme.textColor.initial};
+        }
+        img {
+          width: 35px;
+          height: 35px;
+          border-radius: 50%;
+        }
+        &:hover span {
+          text-decoration: underline;
+        }
       }
     }
   }
+  transition: transform 0.3s;
+  ${({ active }) =>
+    !active &&
+    css`
+      transform: translateY(-73px);
+    `};
 `;
 
 export const UserMenuContainer = styled.div`
@@ -146,7 +169,7 @@ export const UserMenuContainer = styled.div`
   bottom: 0;
   left: 0;
   cursor: pointer;
-  z-index: 10;
+  z-index: 1001;
   .user-menu__drawer {
     font-family: 'Noto Serif KR', serif;
     cursor: initial;
@@ -162,11 +185,11 @@ export const UserMenuContainer = styled.div`
     animation: ${slideToLeft} 0.4s;
     box-shadow: 0 0 2px #777;
     & > h2 {
-      margin: 20px 0;
+      margin: 15px 0;
       width: 200px;
       text-align: end;
-      line-height: 1.5;
-      font-size: 18px;
+      line-height: 1.2;
+      font-size: 16px;
       strong {
         font-size: 20px;
       }
@@ -175,36 +198,35 @@ export const UserMenuContainer = styled.div`
       cursor: pointer;
       display: flex;
       width: 200px;
-      padding: 15px 0;
+      margin: 10px 0;
+      font-weight: 500;
+      padding: 10px 0;
       align-items: center;
       justify-content: space-between;
       border-bottom: 1px solid ${({ theme }) => theme.textColor.initial};
       svg {
         transition: 0.3s;
       }
-      &:hover {
-        svg {
-          transform: translateX(20px);
-        }
+      &:hover > svg {
+        transform: translateX(20px);
       }
     }
     & > ul {
       width: 200px;
       li {
         h3 {
-          font-size: 18px;
-          line-height: 1.44;
-          margin-top: 20px;
-          padding: 10px 0;
+          font-size: 16px;
+          margin-top: 15px;
+          padding: 8px 0;
           border-bottom: 1px solid ${({ theme }) => theme.textColor.initial};
         }
         ul {
           width: 100%;
           li {
             cursor: pointer;
-            padding: 5px 0;
+            padding: 4px 0;
             text-align: end;
-            line-height: 1.86;
+            line-height: 1.6;
             font-size: 14px;
             &:hover {
               text-decoration: underline;
@@ -215,9 +237,10 @@ export const UserMenuContainer = styled.div`
       & > li:last-child {
         cursor: pointer;
         color: #e96363;
-        &:hover {
-        }
       }
+    }
+    .dark-mode__btn {
+      margin-top: 40px;
     }
   }
 `;

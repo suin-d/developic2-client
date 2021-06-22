@@ -41,6 +41,10 @@ export const BlogUserInfoBox = styled.div`
       margin-bottom: 70px;
     }
   }
+  .user__info:nth-child(3) > p {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 `;
 
 export const EmptyContentContainer = styled.section`
@@ -112,8 +116,9 @@ export const ToastPopUpBox = styled.div<{ visible: boolean }>`
   background: ${({ theme }) => theme.primary[1]};
   color: #fff;
   font-size: 14px;
+  z-index: 9999;
 
-  animation: ${slideUp} 0.5s;
+  animation: ${slideUp} 0.3s;
   overflow: hidden;
   box-shadow: 0 3px 5px #aaa;
   &::after {
@@ -126,12 +131,12 @@ export const ToastPopUpBox = styled.div<{ visible: boolean }>`
     left: 0;
     right: 0;
     bottom: 0;
-    animation: ${slideToRight} 3s;
+    animation: ${slideToRight} 2s;
   }
   ${props =>
     props.visible &&
     css`
-      animation: ${slideDown} 0.5s;
+      animation: ${slideDown} 0.3s;
     `}
 `;
 

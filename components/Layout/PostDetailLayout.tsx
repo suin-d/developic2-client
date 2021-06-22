@@ -1,13 +1,15 @@
 import dayjs from 'dayjs';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { AiOutlineDelete } from 'react-icons/ai';
 import { BsExclamationTriangle } from 'react-icons/bs';
 import { IoMdHeart, IoMdHeartEmpty, IoMdShare } from 'react-icons/io';
 import { RiEditLine } from 'react-icons/ri';
+import useModal from '../../hooks/useModal';
 import { PostData } from '../../modules/post';
 import usePost from '../../modules/post/hooks';
+import useUI from '../../modules/ui/hooks';
 import useUser from '../../modules/user/hooks';
 import { LikeBtn } from '../Button/FloatingBtn';
 import HashTag from '../Button/HashTag';
@@ -19,39 +21,41 @@ type PostDetaulLayout = {
   postData: PostData;
 };
 export default function PostDetailLayout({ postData }: PostDetaulLayout): JSX.Element {
-  const [removePostOpen, setRemovePostOpen] = useState(false);
+  const { toastOpenDispatch } = useUI();
   const { userData, addPostLikeDispatch, removePostLikeDispatch } = useUser();
   const { removePostDispatch, removePost } = usePost();
   const router = useRouter();
+  const [RemovePostModal, toggleRemoveModal] = useModal(ConfirmRemoveModal, {
+    title: '포스트 삭제',
+    description: '글을 삭제하시겠습니까?',
+    onConfirm: useCallback(() => {
+      removePostDispatch(postData.id);
+    }, []),
+  });
 
-  const onCopy = () => {
+  const onCopy = useCallback(() => {
     const tempElem = document.createElement('textarea');
     document.body.appendChild(tempElem);
     tempElem.value = `${process.env.NEXT_PUBLIC_CLIENT_HOST}${router.asPath}`;
     tempElem.select();
     document.execCommand('copy');
     document.body.removeChild(tempElem);
-    if (window) {
-      alert('클립보드에 복사되었습니다.');
-    }
-  };
+    toastOpenDispatch('클립보드에 복사되었습니다.');
+  }, []);
 
   const isLike = useCallback(() => {
     if (!userData) return false;
     return (
       userData.likedPosts.findIndex(likedPost => likedPost.id === postData.id) !== -1
     );
-  }, [userData?.likedPosts]);
+  }, [userData]);
 
   const onToggleLike = useCallback(() => {
-    if (!userData) return alert('로그인을 먼저 해주세요.');
+    if (!userData) return toastOpenDispatch('로그인이 필요한 서비스입니다.');
     const payload = { UserId: userData.id, PostId: postData.id };
     isLike() ? removePostLikeDispatch(payload) : addPostLikeDispatch(payload);
   }, [userData]);
 
-  const onRemovePost = useCallback(() => {
-    removePostDispatch(postData.id);
-  }, []);
   useEffect(() => {
     if (removePost.data && userData) {
       removePost.data.id === +(router.query.postId as string)
@@ -59,6 +63,7 @@ export default function PostDetailLayout({ postData }: PostDetaulLayout): JSX.El
         : null;
     }
   }, [removePost.data]);
+
   return (
     <PostDetailContainer>
       <section className="blog__head">
@@ -90,7 +95,7 @@ export default function PostDetailLayout({ postData }: PostDetaulLayout): JSX.El
               {userData ? (
                 userData.id === postData.UserId ? (
                   <>
-                    <li onClick={() => setRemovePostOpen(true)}>
+                    <li onClick={toggleRemoveModal}>
                       <AiOutlineDelete /> 삭제
                     </li>
                     <Link href={`/edit/content/${postData.id}`}>
@@ -110,18 +115,14 @@ export default function PostDetailLayout({ postData }: PostDetaulLayout): JSX.El
         </div>
       </section>
       <section className="blog__posting">
-        <img src={postData.thumbnail} alt="thumbnail" />
+        <img
+          src={process.env.NEXT_PUBLIC_IMAGE_600 + postData.thumbnail}
+          alt="thumbnail"
+        />
         <PostContentViewer content={postData.content} />
         <LikeBtn isLike={isLike} onToggleLike={onToggleLike} />
       </section>
-      {removePostOpen && (
-        <ConfirmRemoveModal
-          title="포스트 삭제"
-          description="글을 삭제하시겠습니까?"
-          onClose={() => setRemovePostOpen(false)}
-          onConfirm={onRemovePost}
-        />
-      )}
+      <RemovePostModal />
     </PostDetailContainer>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { AiOutlineInfo } from 'react-icons/ai';
 import { IoMdClose } from 'react-icons/io';
 import { CgFolderAdd } from 'react-icons/cg';
@@ -7,6 +7,7 @@ import usePost from '../../modules/post/hooks';
 import { ModalLayout, PhotoDetailBox, PhotoModalBtnBox } from './styles';
 import MakeBinderModal from './MakeBinderModal';
 import useUser from '../../modules/user/hooks';
+import useUI from '../../modules/ui/hooks';
 
 const computeMetaData = (data: MetaData) => ({
   모델: data.manufacturer && data.model ? `${data.manufacturer} ${data.model}` : null,
@@ -34,27 +35,37 @@ export default function PhotoDetailModal({
     getPhotoDetail: { data: photoData },
     getPhotoDetailDispatch,
   } = usePost();
+  const { toastOpenDispatch } = useUI();
   const [infoOpen, setInfoOpen] = useState(false);
   const [binderSetOpen, setBinderSetOpen] = useState(false);
-  const toggleBinderSet = (e?: React.MouseEvent) => {
-    (e as React.MouseEvent).stopPropagation();
-    if (!userData) {
-      return alert('로그인해주세요.');
-    }
-    setBinderSetOpen(current => !current);
-  };
-  const onInfoOpen = (e: React.MouseEvent) => {
+
+  const toggleBinderSet = useCallback(
+    (e?: React.MouseEvent) => {
+      (e as React.MouseEvent).stopPropagation();
+      if (!userData) {
+        return toastOpenDispatch('로그인이 필요한 서비스입니다.');
+      }
+      setBinderSetOpen(current => !current);
+    },
+    [userData]
+  );
+
+  const onInfoOpen = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
     setInfoOpen(current => !current);
-  };
-  const onRightClick = (e: React.MouseEvent) => {
+  }, []);
+
+  const onRightClick = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
-    alert('우클릭이 방지되었습니다.');
-  };
+    toastOpenDispatch('우클릭이 방지되었습니다.');
+  }, []);
+
   useEffect(() => {
     getPhotoDetailDispatch(photoId);
   }, [photoId]);
+
   if (!photoData) return <></>;
+
   return (
     <>
       <ModalLayout onClick={onClose}>
@@ -70,7 +81,11 @@ export default function PhotoDetailModal({
               );
             })}
           </div>
-          <img className="front" src={photoData.src} alt=""></img>
+          <img
+            className="front"
+            src={process.env.NEXT_PUBLIC_IMAGE_ORIGINAL + photoData.src}
+            alt=""
+          ></img>
         </PhotoDetailBox>
         <PhotoModalBtnBox>
           <i onClick={toggleBinderSet}>

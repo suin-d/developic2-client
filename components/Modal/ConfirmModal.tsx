@@ -1,20 +1,21 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import SquareBtn from '../Button/SquareBtn';
 import { ConfirmModalBox, ModalLayout } from './styles';
 
 type ConfirmModalPropsType = {
   onConfirm: () => void;
-  onClose: () => void;
+  onClose?: () => void;
   content: string;
 };
 export default function ConfirmModal({
-  onClose,
+  onClose = () => null,
   onConfirm,
   content,
 }: ConfirmModalPropsType): JSX.Element {
-  const onClickBG = (e: React.MouseEvent<HTMLDivElement>) => {
+  const onClickBG = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) onClose();
-  };
+  }, []);
+
   return (
     <ModalLayout onClick={onClickBG}>
       <ConfirmModalBox>

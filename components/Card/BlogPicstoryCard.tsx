@@ -11,7 +11,7 @@ type PicstoryCardPropsType = {
   picstoryData: BlogPicstory;
 };
 
-export default function BlogPistoryCard({
+export default function BlogPicstoryCard({
   picstoryData,
 }: PicstoryCardPropsType): JSX.Element {
   const currentTheme = useThemeState();
@@ -53,7 +53,10 @@ export default function BlogPistoryCard({
             {picstoryData?.Posts &&
               picstoryData?.Posts?.slice(0, 6).map(picstoryImgItem => (
                 <li className="img__box" key={picstoryImgItem.id}>
-                  <img src={picstoryImgItem.thumbnail} alt="picstory-thumbnail" />
+                  <img
+                    src={process.env.NEXT_PUBLIC_IMAGE_400 + picstoryImgItem.thumbnail}
+                    alt="picstory-thumbnail"
+                  />
                 </li>
               ))}
           </ul>

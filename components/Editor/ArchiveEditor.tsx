@@ -6,6 +6,7 @@ import React, { useCallback, useRef } from 'react';
 import useUser from '../../modules/user/hooks';
 import SquareBtn from '../Button/SquareBtn';
 import { ToastEditorStyle } from './styles';
+import _delay from 'lodash/delay';
 
 type ArchiveEditorPropsType = {
   content: string;
@@ -20,7 +21,7 @@ export default function ArchiveEditor({
   const { userData } = useUser();
   const EditorRef = useRef<null | Editor>(null);
 
-  const uploadImageToServer = async (image: Blob | File) => {
+  const uploadImageToServer = useCallback(async (image: Blob | File) => {
     if (!userData) return;
     const formData = new FormData();
     formData.append('image', image);
@@ -30,18 +31,21 @@ export default function ArchiveEditor({
     );
     setImageList(current => current.concat(res.data));
     return res.data;
-  };
-  const onFinalSubmit = async () => {
+  }, []);
+
+  const onFinalSubmit = useCallback(() => {
     onSubmit(EditorRef.current?.getInstance().getHtml() as string);
-  };
+  }, [EditorRef, onSubmit]);
+
   const onUpload = useCallback(
     async (image: Blob | File, callback) => {
       const data = await uploadImageToServer(image);
       EditorRef.current?.getInstance().moveCursorToEnd();
-      callback(`${data.src}`, `${data.imageId}`);
+      await _delay(() => callback(`${data.src}`, `${data.imageId}`), 3500);
     },
     [userData]
   );
+
   return (
     <ToastEditorStyle>
       <Editor

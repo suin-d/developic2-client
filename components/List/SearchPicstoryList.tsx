@@ -1,6 +1,6 @@
 import React from 'react';
 import { BlogPicstory } from '../../modules/blog';
-import BlogPistoryCard from '../Card/BlogPistoryCard';
+import BlogPicstoryCard from '../Card/BlogPicstoryCard';
 import { BlogPicstoryListContainer } from './styles';
 
 type PicstoryListPropsType = {
@@ -13,7 +13,7 @@ export default function SearchPicstoryList({
     <BlogPicstoryListContainer>
       {searchPicstoryData.length >= 1 &&
         searchPicstoryData.map((picstoryItem: BlogPicstory) => (
-          <BlogPistoryCard key={picstoryItem.id} picstoryData={picstoryItem} />
+          <BlogPicstoryCard key={picstoryItem.id} picstoryData={picstoryItem} />
         ))}
     </BlogPicstoryListContainer>
   );

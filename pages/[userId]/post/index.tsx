@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import React from 'react';
 import BlogWithNavLayout from '../../../components/Layout/BlogWithNavLayout';
 import BlogPostList from '../../../components/List/BlogPostList';
 import { loadBlogPostListAction, loadBlogUserAction } from '../../../modules/blog';
@@ -24,10 +25,10 @@ export const getServerSideProps = wrapper.getServerSideProps(async context => {
   await authServersiceAction(context);
   const { dispatch } = context.store;
   if (!context.params) return;
-  await dispatch(loadBlogUserAction(context.params.userId as string));
+  await dispatch(loadBlogUserAction(+(context.params.userId as string)));
   await dispatch(
     loadBlogPostListAction({
-      userId: context.params.userId as string,
+      userId: +(context.params.userId as string),
       limit: 12,
       offset: 0,
     })

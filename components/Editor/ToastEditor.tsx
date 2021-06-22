@@ -6,10 +6,12 @@ import axios from 'axios';
 import exifr from 'exifr';
 import SquareBtn from '../Button/SquareBtn';
 import { ToastEditorStyle } from './styles';
-import useConfirmModal from '../../hooks/useConfirmModal';
 import { useRouter } from 'next/router';
 import usePost from '../../modules/post/hooks';
 import useUser from '../../modules/user/hooks';
+import _delay from 'lodash/delay';
+import useModal from '../../hooks/useModal';
+import ConfirmModal from '../Modal/ConfirmModal';
 
 type ToastEditorPropsType = {
   content: string;
@@ -28,22 +30,21 @@ export default function ToastEditor({
   const { preSavePost } = usePost();
   const router = useRouter();
   const EditorRef = useRef<null | Editor>(null);
+  const [TempSubmitModal, toggleConfirmModal] = useModal(ConfirmModal, {
+    content: '임시저장항목으로 저장하시겠습니까?',
+    onConfirm: useCallback(() => {
+      setContent(EditorRef.current?.getInstance().getHtml() as string);
+      temporarySave(EditorRef.current?.getInstance().getHtml() as string);
+      router.replace(`/user/drawer/save`);
+    }, [EditorRef.current, temporarySave]),
+  });
 
-  const onTempSubmit = async () => {
+  const onFinalSubmit = useCallback(() => {
     setContent(EditorRef.current?.getInstance().getHtml() as string);
     temporarySave(EditorRef.current?.getInstance().getHtml() as string);
-    router.replace(`/user/drawer/save`);
-  };
-  const onFinalSubmit = async () => {
-    setContent(EditorRef.current?.getInstance().getHtml() as string);
-    temporarySave(EditorRef.current?.getInstance().getHtml() as string);
-  };
-  const [confirmModalOpen, toggleConfirmModal, ConfirmModal] = useConfirmModal(
-    onTempSubmit,
-    '임시저장항목으로 저장하시겠습니까?'
-  );
+  }, [EditorRef.current, temporarySave]);
 
-  const uploadImageToServer = async (image: Blob | File) => {
+  const uploadImageToServer = useCallback(async (image: Blob | File) => {
     if (!userData) return;
     const formData = new FormData();
     formData.append('image', image);
@@ -53,9 +54,9 @@ export default function ToastEditor({
     );
     setImageList(current => current.concat(res.data));
     return res.data;
-  };
+  }, []);
 
-  const updateMetaData = async (image: Blob | File, PostImageId: number) => {
+  const updateMetaData = useCallback(async (image: Blob | File, PostImageId: number) => {
     const metaData = await exifr.parse(image, { exif: true, gps: true });
     const computedMeta = {
       manufacturer: metaData.Make,
@@ -71,13 +72,13 @@ export default function ToastEditor({
       PostImageId,
     };
     await axios.post(`${process.env.NEXT_PUBLIC_SERVER_HOST}/upload/exif`, computedMeta);
-  };
+  }, []);
 
   const onUpload = useCallback(async (image: Blob | File, callback) => {
     const data = await uploadImageToServer(image);
     await updateMetaData(image, data.imageId);
     EditorRef.current?.getInstance().moveCursorToEnd();
-    callback(`${data.src}`, `${data.imageId}`);
+    await _delay(() => callback(`${data.src}`, `${data.imageId}`), 3500);
   }, []);
 
   useEffect(() => {
@@ -92,7 +93,8 @@ export default function ToastEditor({
       )
         router.replace(`/edit/info/${preSavePost.data.postId}`);
     }
-  }, [preSavePost.data]);
+  }, [preSavePost.data, router.query]);
+
   return (
     <>
       <ToastEditorStyle>
@@ -110,7 +112,7 @@ export default function ToastEditor({
           <SquareBtn onClick={onFinalSubmit}>제출</SquareBtn>
         </div>
       </ToastEditorStyle>
-      {confirmModalOpen && <ConfirmModal />}
+      <TempSubmitModal />
     </>
   );
 }

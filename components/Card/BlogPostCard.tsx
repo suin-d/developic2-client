@@ -1,8 +1,8 @@
+import dayjs from 'dayjs';
 import Link from 'next/link';
 import React from 'react';
 import { MdFavorite, MdRemoveRedEye } from 'react-icons/md';
 import { BlogPost } from '../../modules/blog';
-import { formatDate } from '../../utils/utils';
 import { BlogPostCardBox } from './styles';
 
 type BlogPostCardPropsType = {
@@ -15,7 +15,10 @@ export default function BlogPostCard({ postData }: BlogPostCardPropsType): JSX.E
       <BlogPostCardBox>
         <article>
           <div className="img__wrapper">
-            <img src={postData.thumbnail} alt="post-thumbnail" />
+            <img
+              src={process.env.NEXT_PUBLIC_IMAGE_600 + postData.thumbnail}
+              alt="post-thumbnail"
+            />
           </div>
           <div className="post__description">
             <h3>{postData.title}</h3>
@@ -32,7 +35,9 @@ export default function BlogPostCard({ postData }: BlogPostCardPropsType): JSX.E
                 <span>{postData.hits}</span>
               </div>
             </div>
-            <div className="post__date">{formatDate(`${postData.createdAt}`)}</div>
+            <div className="post__date">
+              {dayjs(`${postData.createdAt}`).format('MMM D, YYYY')}
+            </div>
           </div>
         </article>
       </BlogPostCardBox>

@@ -2,13 +2,15 @@ import styled from '@emotion/styled';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
-import SquareBtn from '../../../components/Button/SquareBtn';
+import AvatarUpdateInput from '../../../components/Input/AvatarUpdateInput';
 import CustomInput from '../../../components/Input/CustomInput';
 import CustomSelect from '../../../components/Input/CustomSelect';
 import PageLabel from '../../../components/Label/PageLabel';
 import PageWithNavLayout from '../../../components/Layout/PageWithNavLayout';
+import _ChangePasswordModal from '../../../components/Modal/ChangePasswordModal';
 import ConfirmRemoveModal from '../../../components/Modal/ConfirmRemoveModal';
 import useInput from '../../../hooks/useInput';
+import useModal from '../../../hooks/useModal';
 import useUser from '../../../modules/user/hooks';
 import { SettingNavData } from '../../../utils/data';
 
@@ -26,43 +28,32 @@ const InfoContainer = styled.section`
   }
   .cs__right {
     display: flex;
-    justify-content: flex-end;
-    form {
+    flex-direction: column;
+    align-items: flex-end;
+
+    .avatar-update__form {
       width: 450px;
+    }
+    .btn__group {
+      margin-top: 50px;
+      display: flex;
       justify-content: flex-end;
-      & > div {
-        margin-bottom: 15px;
-      }
-      & > p {
-        margin: 0 0 20px 0;
-        font-size: 14px;
-        color: #b92961;
-        text-align: right;
-      }
-      & > button {
-        width: 100%;
-      }
-      .btn__group {
-        margin-top: 50px;
-        display: flex;
-        justify-content: flex-end;
-        button {
-          color: ${({ theme }) => theme.textColor.initial};
-          padding: 5px 10px;
-          cursor: pointer;
-          font-size: 16px;
-          outline: none;
-          border: none;
-          border-radius: 0;
-          background: none;
-          border-bottom: 1px solid ${({ theme }) => theme.textColor.initial};
-          &:hover {
-            font-weight: 600;
-          }
+      button {
+        color: ${({ theme }) => theme.textColor.initial};
+        padding: 5px 10px;
+        cursor: pointer;
+        font-size: 16px;
+        outline: none;
+        border: none;
+        border-radius: 0;
+        background: none;
+        border-bottom: 1px solid ${({ theme }) => theme.textColor.initial};
+        &:hover {
+          font-weight: 600;
         }
-        button + button {
-          margin-left: 30px;
-        }
+      }
+      button + button {
+        margin-left: 30px;
       }
     }
   }
@@ -76,68 +67,30 @@ export default function Info(): JSX.Element {
   const router = useRouter();
   const {
     userData,
-    updateUser,
     destroyUser,
     updateUserInfoDispatch,
-    updatePasswordDispatch,
     destroyUserDispatch,
   } = useUser();
-  const [userDestroyOpen, setUserDestroyOpen] = useState(false);
   const [nickname, onChangeNickname] = useInput(userData?.nickname);
   const [birth, onChangeBirth] = useInput(userData?.birth);
   const [gender, onChangeGender] = useInput(userData?.gender);
-  const [passwords, setPasswords] = useState({
-    currentPassword: '',
-    password: '',
-    passwordCheck: '',
+  const [avatar, setAvatar] = useState(userData?.avatar || '');
+  const [UserDestroyModal, toggleDestroyModal] = useModal(ConfirmRemoveModal, {
+    title: '회원탈퇴',
+    description: '삭제된 회원 정보는 복구되지 않습니다.',
+    onConfirm: useCallback(() => {
+      if (!userData) return;
+      destroyUserDispatch(userData.id);
+    }, []),
   });
-  const [passwordError, setPasswordError] = useState<string | boolean>(true);
-  const [passwordCheckError, setPasswordCheckError] = useState<string | boolean>(true);
-
-  const onChangePasswords = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { value, name } = e.target;
-      setPasswords({ ...passwords, [name]: value });
-      if (name === 'password') {
-        !/^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]|.*[0-9]).{8,24}$/.test(value)
-          ? setPasswordError('8~24자 영문대소문자, 숫자, 특수문자 혼합해주세요.')
-          : setPasswordError('');
-      } else if (name === 'passwordCheck') {
-        value === passwords.password
-          ? setPasswordCheckError('')
-          : setPasswordCheckError('비밀번호와 동일하게 입력해주세요.');
-      }
-    },
-    [passwords]
-  );
+  const [ChangePasswordModal, togglePasswordModal] = useModal(_ChangePasswordModal, {});
 
   const onUpdateInfo = useCallback(() => {
     if (!userData) return;
-    updateUserInfoDispatch({ UserId: userData.id, nickname, birth, gender });
-  }, [nickname, birth, gender]);
-
-  const onUpdatePassword = useCallback(() => {
-    if (!userData) return;
-    updatePasswordDispatch({
-      UserId: userData.id,
-      currentPassword: passwords.currentPassword,
-      newPassword: passwords.password,
-    });
-  }, [passwords]);
-
-  const onDestroyUser = useCallback(() => {
-    if (!userData) return;
-    destroyUserDispatch(userData.id);
-  }, []);
+    updateUserInfoDispatch({ UserId: userData.id, nickname, birth, gender, avatar });
+  }, [nickname, birth, gender, avatar]);
 
   useEffect(() => {
-    if (updateUser.data === 'passwordSuccess') {
-      alert('성공적으로 비밀번호를 변경하였습니다.');
-    }
-  }, [updateUser]);
-
-  useEffect(() => {
-    if (destroyUser.data) alert('회원정보가 삭제 되었습니다.');
     if (!userData) router.replace('/');
   }, [userData, destroyUser]);
 
@@ -156,8 +109,8 @@ export default function Info(): JSX.Element {
             desc="작가님의 소중한 정보."
           />
           <form>
-            <CustomInput title="이메일" value={userData.email} onChange={e => null} />
-            <CustomInput title="이름" value={userData.name} onChange={e => null} />
+            <CustomInput title="이메일" value={userData.email} onChange={() => null} />
+            <CustomInput title="이름" value={userData.name} onChange={() => null} />
             <CustomInput title="필명" value={nickname} onChange={onChangeNickname} />
             <CustomInput title="생년월일" value={birth} onChange={onChangeBirth} />
             <CustomSelect
@@ -169,52 +122,23 @@ export default function Info(): JSX.Element {
           </form>
         </div>
         <div className="cs__right">
-          <form>
-            <CustomInput
-              title="현재 비밀번호"
-              type="password"
-              value={passwords.currentPassword}
-              name="currentPassword"
-              onChange={onChangePasswords}
-            />
-            <CustomInput
-              title="비밀번호 변경"
-              type="password"
-              value={passwords.password}
-              name="password"
-              onChange={onChangePasswords}
-            />
-            <p>{passwordError}</p>
-            <CustomInput
-              title="비밀번호 확인"
-              type="password"
-              name="passwordCheck"
-              value={passwords.passwordCheck}
-              onChange={onChangePasswords}
-            />
-            <p>{passwordCheckError}</p>
-            <SquareBtn type="button" onClick={onUpdatePassword}>
+          <AvatarUpdateInput avatar={avatar} setAvatar={setAvatar} />
+          <div className="avatar-update__form"></div>
+          <div className="btn__group">
+            <button type="button" onClick={onUpdateInfo}>
+              저장
+            </button>
+            <button type="button" onClick={togglePasswordModal}>
               비밀번호 변경
-            </SquareBtn>
-            <div className="btn__group">
-              <button type="button" onClick={onUpdateInfo}>
-                저장
-              </button>
-              <button type="button" onClick={() => setUserDestroyOpen(true)}>
-                회원탈퇴
-              </button>
-            </div>
-          </form>
+            </button>
+            <button type="button" onClick={toggleDestroyModal}>
+              회원탈퇴
+            </button>
+          </div>
         </div>
       </InfoContainer>
-      {userDestroyOpen && (
-        <ConfirmRemoveModal
-          onClose={() => setUserDestroyOpen(false)}
-          title="회원탈퇴"
-          description="삭제된 회원 정보는 복구되지 않습니다."
-          onConfirm={onDestroyUser}
-        />
-      )}
+      <UserDestroyModal />
+      <ChangePasswordModal />
     </PageWithNavLayout>
   );
 }

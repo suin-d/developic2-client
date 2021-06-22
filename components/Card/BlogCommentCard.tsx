@@ -2,6 +2,7 @@ import dayjs from 'dayjs';
 import Link from 'next/link';
 import React, { useCallback, useState } from 'react';
 import useInput from '../../hooks/useInput';
+import useModal from '../../hooks/useModal';
 import { Comment } from '../../modules/post';
 import usePost from '../../modules/post/hooks';
 import useUser from '../../modules/user/hooks';
@@ -11,20 +12,29 @@ import { BlogCommentCardBox } from './styles';
 type BlogCommentCardPropsType = {
   commentData: Comment;
 };
+
 export default function BlogCommentCard({
   commentData,
 }: BlogCommentCardPropsType): JSX.Element {
   const { updateCommentDispatch, removeCommentDispatch } = usePost();
   const [editMode, setEditMode] = useState(false);
-  const [removeOpen, setRemoveOpen] = useState(false);
   const [editedComment, onChangeEditedComment, setEditedComment] = useInput(
     commentData.content
   );
   const { userData } = useUser();
+  const [RemoveCommentModal, toggleModal] = useModal(ConfirmRemoveModal, {
+    title: '댓글삭제',
+    description: '댓글을 삭제하시겠습니까?',
+    onConfirm: useCallback(() => {
+      removeCommentDispatch(commentData.id);
+    }, []),
+  });
+
   const onToggleEditMode = useCallback(() => {
     setEditMode(current => !current);
     setEditedComment(commentData.content);
   }, [commentData.content]);
+
   const onUpdateComment = useCallback(
     (e: React.KeyboardEvent) => {
       if (e.shiftKey && e.key === 'Enter') {
@@ -38,9 +48,7 @@ export default function BlogCommentCard({
     },
     [editedComment]
   );
-  const onRemoveComment = useCallback(() => {
-    removeCommentDispatch(commentData.id);
-  }, []);
+
   return (
     <BlogCommentCardBox>
       <section>
@@ -58,7 +66,7 @@ export default function BlogCommentCard({
             userData.id === commentData.UserId ? (
               <>
                 <span onClick={onToggleEditMode}>{editMode ? '취소' : '수정'}</span>
-                <span onClick={() => setRemoveOpen(true)}>삭제</span>
+                <span onClick={toggleModal}>삭제</span>
               </>
             ) : (
               <span>신고</span>
@@ -78,14 +86,7 @@ export default function BlogCommentCard({
       ) : (
         <p>{commentData.content}</p>
       )}
-      {removeOpen && (
-        <ConfirmRemoveModal
-          title="댓글삭제"
-          description="댓글을 삭제하시겠습니까?"
-          onClose={() => setRemoveOpen(false)}
-          onConfirm={onRemoveComment}
-        />
-      )}
+      <RemoveCommentModal />
     </BlogCommentCardBox>
   );
 }

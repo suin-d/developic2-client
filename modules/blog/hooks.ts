@@ -19,7 +19,7 @@ export default function useBlog() {
   } = useAppSelector(state => state.blog);
   const dispatch = useAppDispatch();
 
-  const loadBlogUserDispatch = useCallback((userId: string) => {
+  const loadBlogUserDispatch = useCallback((userId: number) => {
     dispatch(loadBlogUserAction(userId));
   }, []);
 
@@ -31,7 +31,7 @@ export default function useBlog() {
     dispatch(loadBlogPicstoryListAction(data));
   }, []);
 
-  const loadBlogPicstoryDetailDispatch = useCallback(picstoryId => {
+  const loadBlogPicstoryDetailDispatch = useCallback((picstoryId: number) => {
     dispatch(loadBlogPicstoryDetailAction(picstoryId));
   }, []);
 

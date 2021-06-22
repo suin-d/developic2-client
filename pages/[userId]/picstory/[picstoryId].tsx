@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import React from 'react';
 import Layout from '../../../components/Layout';
 import PicstoryDetailList from '../../../components/List/PicstoryDetailList';
 import BlogPicstoryDetailBox from '../../../components/Result/BlogPicstoryDetail';
@@ -50,11 +51,10 @@ export default function PicstoryId(): JSX.Element {
     </Layout>
   );
 }
-
 export const getServerSideProps = wrapper.getServerSideProps(async context => {
   await authServersiceAction(context);
   const { dispatch } = context.store;
   if (!context.params) return;
-  await dispatch(loadBlogUserAction(context.params.userId as string));
-  await dispatch(loadBlogPicstoryDetailAction(context.params.picstoryId as string));
+  await dispatch(loadBlogUserAction(+(context.params.userId as string)));
+  await dispatch(loadBlogPicstoryDetailAction(+(context.params.picstoryId as string)));
 });

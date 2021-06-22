@@ -28,7 +28,7 @@ export const ModalLayout = styled.div`
   justify-content: center;
   background-color: ${({ theme }) => theme.layerColor.modalLayer};
   animation: ${fadeIn} 0.4s;
-  z-index: 10;
+  z-index: 2000;
 `;
 
 export const SearchModalLayout = styled(ModalLayout)`
@@ -151,15 +151,15 @@ export const ConfirmRemoveModalBox = styled(ModalBox)<{ valid: boolean }>`
   & > .modal__content {
     padding: 20px 0 20px 0;
     & > span {
-      font-size: 18px;
-      line-height: 1.5;
+      font-size: 16px;
+      line-height: 2;
       font-weight: 300;
     }
     & > p {
       margin: 20px 0;
       font-weight: 300;
       strong {
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 600;
       }
     }
@@ -445,6 +445,9 @@ export const PhotoDetailBox = styled.div<{ infoOpen: boolean }>`
   width: 90vh;
   height: 70vh;
   perspective: 2100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   .front,
   .back {
     display: block;
@@ -554,5 +557,33 @@ export const MakeBinderModalMox = styled(ModalBox)`
     width: 110px;
     display: block;
     margin: 30px 0 0 auto;
+  }
+`;
+
+export const ChangePasswordModalBox = styled(ModalBox)`
+  height: auto;
+  min-height: auto;
+  form {
+    margin-top: 30px;
+    width: 400px;
+    & > div {
+      margin-bottom: 20px;
+    }
+    & > p {
+      margin: 0 0 30px 0;
+      font-size: 14px;
+      color: #b92961;
+      text-align: right;
+    }
+    .btn__group {
+      display: flex;
+      justify-content: flex-end;
+      button + button {
+        margin-left: 20px;
+      }
+      button {
+        height: 35px;
+      }
+    }
   }
 `;
