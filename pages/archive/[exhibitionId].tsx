@@ -9,21 +9,18 @@ import { useRouter } from 'next/router';
 
 const ArchiveDetailContainer = styled.div`
   max-width: 900px;
-  margin: 40px auto 100px auto;
+  margin: 20px auto 100px auto;
   b {
     font-family: 'Montserrat';
   }
   .detail__poster__wrapper {
-    width: 430px;
-    max-height: 610px;
-    margin: 0 auto;
-    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
     img {
-      width: 100%;
-      height: auto;
+      max-width: 100%;
+      max-height: 610px;
+      object-fit: contain;
     }
   }
   .detail__summary {
@@ -36,10 +33,12 @@ const ArchiveDetailContainer = styled.div`
       font-size: ${({ theme }) => theme.fontSize.titleSize};
       font-weight: 500;
       line-height: 60px;
+      word-break: break-word;
     }
     p {
       font-size: ${({ theme }) => theme.fontSize.xxl};
       margin-top: 15px;
+      word-break: break-word;
     }
     & > div {
       display: flex;
@@ -141,36 +140,58 @@ const ArchiveDetailContainer = styled.div`
     justify-content: center;
     align-items: center;
     margin-top: 100px;
-    button {
-      cursor: pointer;
-    }
     li {
-      display: flex;
-      position: relative;
       line-height: 70px;
+      button {
+        position: relative;
+      }
     }
     .list__btn {
-      div::before {
+      button::before {
         position: absolute;
-        bottom: 0;
+        bottom: -1px;
+        left: 0;
         content: '';
         display: inline-block;
         border-bottom: 1px solid ${({ theme }) => theme.textColor.initial};
         width: 12px;
         transform-origin: left;
-        transform: translate(0, -17px) rotate(-45deg);
+        transform: rotate(-45deg);
       }
     }
     .edit__btn {
-      div::after {
+      button::after {
         position: absolute;
-        bottom: 0;
+        bottom: -1px;
+        right: 0;
         content: '';
         display: inline-block;
         border-bottom: 1px solid ${({ theme }) => theme.textColor.initial};
         width: 12px;
-        transform-origin: left;
-        transform: translate(0, -17px) rotate(-135deg);
+        transform-origin: right;
+        transform: rotate(45deg);
+      }
+    }
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    width: 100%;
+    padding: 0 10px;
+    .detail__summary {
+      padding: 20px;
+      h1 {
+        margin: 30px 0 30px 0;
+      }
+    }
+    .detail__contact {
+      margin-top: 70px;
+      padding: 20px;
+    }
+    .detail__info {
+      margin-top: 70px;
+      padding: 20px;
+      article {
+        margin-top: 30px;
+        padding: 0 10px;
       }
     }
   }
