@@ -16,6 +16,7 @@ import {
   removePostLikeAction,
   unSubscribeAction,
   subscribeAction,
+  loadBlogFollowListAction,
 } from './thunk';
 import { User, UserState } from './type';
 
@@ -35,6 +36,7 @@ const initialState: UserState = {
   userData: null,
   addBlogFollow: { loading: false, data: null, error: null },
   removeBlogFollow: { loading: false, data: null, error: null },
+  loadBlogFollowList: { loading: false, data: null, error: null },
 };
 
 //data항목을 success:boolean으로 바꿀지 생각해보기. 성공여부만 나타내도록
@@ -314,6 +316,21 @@ const userSlice = createSlice({
         state.removeBlogFollow.loading = false;
         state.removeBlogFollow.data = null;
         state.removeBlogFollow.error = payload;
+      })
+      .addCase(loadBlogFollowListAction.pending, state => {
+        state.loadBlogFollowList.loading = true;
+        state.loadBlogFollowList.data = null;
+        state.loadBlogFollowList.error = null;
+      })
+      .addCase(loadBlogFollowListAction.fulfilled, (state, { payload }) => {
+        state.loadBlogFollowList.loading = false;
+        state.loadBlogFollowList.data = payload;
+        state.loadBlogFollowList.error = null;
+      })
+      .addCase(loadBlogFollowListAction.rejected, (state, { payload }) => {
+        state.loadBlogFollowList.loading = false;
+        state.loadBlogFollowList.data = null;
+        state.loadBlogFollowList.error = payload;
       });
   },
 });

@@ -17,6 +17,7 @@ import {
   verificationAction,
   subscribeAction,
   unSubscribeAction,
+  loadBlogFollowListAction,
 } from './thunk';
 import {
   LikePostPayload,
@@ -25,7 +26,8 @@ import {
   UpdatePasswordPayload,
   UpdateUserInfoPayload,
   UpdateUserIntroPayload,
-  blogFollowPayload,
+  BlogFollowPayload,
+  LoadBlogFollowListPayload,
 } from './type';
 
 // 커스텀 훅
@@ -39,6 +41,7 @@ export default function useUser() {
     userIntro,
     updateUser,
     destroyUser,
+    loadBlogFollowList,
   } = useAppSelector(state => state.user);
   const dispatch = useAppDispatch();
 
@@ -94,12 +97,16 @@ export default function useUser() {
     dispatch(removePostLikeAction(data));
   }, []);
 
-  const subscribeDispatch = useCallback((data: blogFollowPayload) => {
+  const subscribeDispatch = useCallback((data: BlogFollowPayload) => {
     dispatch(subscribeAction(data));
   }, []);
 
-  const unSubscribeDispatch = useCallback((data: blogFollowPayload) => {
+  const unSubscribeDispatch = useCallback((data: BlogFollowPayload) => {
     dispatch(unSubscribeAction(data));
+  }, []);
+
+  const loadBlogFollowListDispatch = useCallback((data: LoadBlogFollowListPayload) => {
+    dispatch(loadBlogFollowListAction(data));
   }, []);
 
   return {
@@ -111,6 +118,7 @@ export default function useUser() {
     userIntro,
     verification,
     userData,
+    loadBlogFollowList,
     loginDispatch,
     logoutDispatch,
     signupDispatch,
@@ -126,5 +134,6 @@ export default function useUser() {
     removePostLikeDispatch,
     subscribeDispatch,
     unSubscribeDispatch,
+    loadBlogFollowListDispatch,
   };
 }

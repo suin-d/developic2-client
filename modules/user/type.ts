@@ -51,6 +51,11 @@ export type UserState = {
   userData: User | null;
   addBlogFollow: { loading: boolean; data: null | unknown; error: null | unknown };
   removeBlogFollow: { loading: boolean; data: null | unknown; error: null | unknown };
+  loadBlogFollowList: {
+    loading: boolean;
+    data: BlogFollowDataType[] | null;
+    error: null | unknown;
+  };
 };
 
 // 액션 Payload 타입
@@ -96,9 +101,21 @@ export type LikePostPayload = {
   PostId: number;
 };
 
-export type blogFollowPayload = {
+export type BlogFollowPayload = {
   subscriberId: number;
   writerId: number;
+};
+
+export type BlogFollowDataType = {
+  id: number;
+  nickname: string;
+  avatar: string;
+  introduce: string;
+};
+
+export type LoadBlogFollowListPayload = {
+  type: 'subscriber' | 'writer';
+  userId: number;
 };
 
 //성공시 DataType

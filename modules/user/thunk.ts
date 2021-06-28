@@ -13,7 +13,9 @@ import {
   UpdateUserInfoPayload,
   UpdatePasswordPayload,
   LikePostPayload,
-  blogFollowPayload,
+  BlogFollowPayload,
+  LoadBlogFollowListPayload,
+  BlogFollowDataType,
 } from './type';
 
 axios.defaults.withCredentials = true;
@@ -289,7 +291,7 @@ export const removePostLikeAction = createAsyncThunk<
 // 블로그 구독
 export const subscribeAction = createAsyncThunk<
   { writerId: number },
-  blogFollowPayload,
+  BlogFollowPayload,
   { rejectValue: MyKnownError }
 >('blog/addBlogFollow', async (addBlogFollowData, { dispatch, rejectWithValue }) => {
   try {
@@ -306,7 +308,7 @@ export const subscribeAction = createAsyncThunk<
 // 블로그 구독취소
 export const unSubscribeAction = createAsyncThunk<
   { writerId: number },
-  blogFollowPayload,
+  BlogFollowPayload,
   { rejectValue: MyKnownError }
 >(
   'blog/removeBlogFollow',
@@ -322,3 +324,22 @@ export const unSubscribeAction = createAsyncThunk<
     }
   }
 );
+
+// 블로그 구독자/관심작가 목록 조회
+export const loadBlogFollowListAction = createAsyncThunk<
+  BlogFollowDataType[],
+  LoadBlogFollowListPayload,
+  { rejectValue: MyKnownError }
+>('blog/loadBlogFollowList', async (payloadData, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.get(
+      `/user/subscribe/${payloadData.userId}?type=${
+        payloadData.type ? payloadData.type : ''
+      }`
+    );
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});
