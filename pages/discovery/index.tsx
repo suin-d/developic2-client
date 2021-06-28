@@ -79,7 +79,7 @@ const DiscoveryContainer = styled.div`
   }
 `;
 
-export default function discovery(): JSX.Element {
+export default function Discovery(): JSX.Element {
   const { pageData } = useList();
 
   const router = useRouter();

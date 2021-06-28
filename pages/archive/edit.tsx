@@ -96,7 +96,7 @@ const ArchiveEditorWithNoSSR = dynamic(
   }
 );
 
-export default function edit(): JSX.Element {
+export default function Edit(): JSX.Element {
   const { userData } = useUser();
   const { addArchive, addArchiveDispatch } = useArchive();
   const router = useRouter();

@@ -175,7 +175,7 @@ const ArchiveDetailContainer = styled.div`
     }
   }
 `;
-export default function archiveId(): JSX.Element {
+export default function ArchiveId(): JSX.Element {
   const router = useRouter();
   const { exhibitionId } = router.query;
   const { getArchiveDetail, getArchiveDetailDispatch } = useArchive();

@@ -31,7 +31,7 @@ const ArchiveContainer = styled.div`
     }
   }
 `;
-export default function archive(): JSX.Element {
+export default function Archive(): JSX.Element {
   const { userData } = useUser();
   const { getArchiveList, getArchiveListDispatch, hasMore } = useArchive();
   const [FetchMoreTrigger, page] = useFetchMore(hasMore);

@@ -17,7 +17,7 @@ const NotAllowComment = styled.div`
   text-align: center;
   font-family: 'Noto Serif KR';
 `;
-export default function postId(): JSX.Element {
+export default function PostId(): JSX.Element {
   const { getPostDetail } = usePost();
   const router = useRouter();
 

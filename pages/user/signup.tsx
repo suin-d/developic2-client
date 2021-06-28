@@ -75,7 +75,7 @@ const SignupContainer = styled.div`
     }
   }
 `;
-export default function signup(): JSX.Element {
+export default function Signup(): JSX.Element {
   const { toastOpenDispatch } = useUI();
   const { signup, signupDispatch } = useUser();
   const [term, setTerm] = useState(false);

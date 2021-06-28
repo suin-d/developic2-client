@@ -20,7 +20,7 @@ const ToastEditorWithNoSSR = dynamic(
   }
 );
 
-export default function edit(): JSX.Element {
+export default function Edit(): JSX.Element {
   const { tempPost, postPreSaveDispatch, getTempPostDispatch } = usePost();
   const { userData } = useUser();
   const router = useRouter();

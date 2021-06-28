@@ -22,7 +22,7 @@ const SocialAuthContainer = styled.div`
     font-family: 'Noto Serif KR';
   }
 `;
-export default function social(): JSX.Element {
+export default function Social(): JSX.Element {
   const { login, socialLoginDispatch } = useUser();
   const router = useRouter();
   useEffect(() => {

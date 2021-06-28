@@ -85,7 +85,7 @@ const FeedContainer = styled.div`
     }
   }
 `;
-export default function index(): JSX.Element {
+export default function Index(): JSX.Element {
   const { userData } = useUser();
   const { getFeedPostDispatch, pageData, hasMore } = useList();
   const [FetchMoreTrigger, page] = useFetchMore(hasMore);
