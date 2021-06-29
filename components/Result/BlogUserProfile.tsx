@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import React, { useCallback, useEffect, useState } from 'react';
-import useBlog from '../../modules/blog/hooks';
 import useUser from '../../modules/user/hooks';
 import FollowBtn from '../Button/FollowBtn';
 import { RoundCornerBtnBox } from '../Button/styles';
@@ -12,9 +11,11 @@ import LoginModal from '../Modal/LoginModal';
 
 export default function BlogUserProfile(): JSX.Element {
   const {
+    userData,
+    subscribeDispatch,
+    unSubscribeDispatch,
     loadBlogUser: { data: blogUserData },
-  } = useBlog();
-  const { userData, subscribeDispatch, unSubscribeDispatch } = useUser();
+  } = useUser();
 
   const [loginOpen, setLoginOpen] = useState(false);
   const toggleLoginModal = useCallback(() => setLoginOpen(!loginOpen), [loginOpen]);

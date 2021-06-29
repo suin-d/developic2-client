@@ -402,37 +402,9 @@ export const FollowListModalBox = styled(ModalBox)`
     margin: 20px 0;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: flex-start;
-    li {
-      margin-bottom: 30px;
-      width: 200px;
-      height: 50px;
-      display: flex;
-      img {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        object-fit: cover;
-      }
-      & > div {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        padding-left: 20px;
-        span {
-          display: block;
-          font-size: 15px;
-          font-family: 'Noto Serif KR';
-        }
-        button {
-          align-self: flex-end;
-          font-size: 12px;
-          padding: 2px 10px;
-        }
-      }
-    }
+    align-content: flex-start;
   }
   .btn__group {
     display: flex;

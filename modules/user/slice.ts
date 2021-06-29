@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { BlogUserData, loadBlogUserAction } from '../blog';
 import {
   authAction,
   loginAction,
@@ -16,6 +17,8 @@ import {
   removePostLikeAction,
   unSubscribeAction,
   subscribeAction,
+  unSubscribeListAction,
+  subscribeListAction,
   loadBlogFollowListAction,
 } from './thunk';
 import { User, UserState } from './type';
@@ -37,6 +40,9 @@ const initialState: UserState = {
   addBlogFollow: { loading: false, data: null, error: null },
   removeBlogFollow: { loading: false, data: null, error: null },
   loadBlogFollowList: { loading: false, data: null, error: null },
+  loadBlogUser: { loading: false, data: null, error: null },
+  addBlogFollowList: { loading: false, data: null, error: null },
+  removeBlogFollowList: { loading: false, data: null, error: null },
 };
 
 //data항목을 success:boolean으로 바꿀지 생각해보기. 성공여부만 나타내도록
@@ -279,6 +285,12 @@ const userSlice = createSlice({
         state.removePostLike.data = null;
         state.removePostLike.error = payload;
       })
+      // 로드 블로그 유저 정보
+      .addCase(loadBlogUserAction.fulfilled, (state, { payload }) => {
+        state.loadBlogUser.loading = false;
+        state.loadBlogUser.data = payload;
+        state.loadBlogUser.error = null;
+      })
       .addCase(subscribeAction.pending, state => {
         state.addBlogFollow.loading = true;
         state.addBlogFollow.data = null;
@@ -290,7 +302,10 @@ const userSlice = createSlice({
         state.addBlogFollow.error = null;
         if (state.userData) {
           state.userData.writers?.push({ id: payload.writerId });
-        }
+        } //  로그인 유저의 작가구독목록에 추가
+        if ((state.loadBlogUser.data?.suberCount as number) >= 0) {
+          (state.loadBlogUser.data as BlogUserData).suberCount += 1;
+        } // 블로그 유저의 구독자수 +1 증가
       })
       .addCase(subscribeAction.rejected, (state, { payload }) => {
         state.addBlogFollow.loading = false;
@@ -309,8 +324,11 @@ const userSlice = createSlice({
         if (state.userData) {
           state.userData.writers = state.userData.writers?.filter(
             writer => writer.id !== payload.writerId
-          );
+          ); // 로그인 유저의 작가구독목록에서 제거
         }
+        if ((state.loadBlogUser.data?.suberCount as number) >= 0) {
+          (state.loadBlogUser.data as BlogUserData).suberCount -= 1;
+        } // 블로그 유저의 구독자수 -1 감소
       })
       .addCase(unSubscribeAction.rejected, (state, { payload }) => {
         state.removeBlogFollow.loading = false;
@@ -331,6 +349,50 @@ const userSlice = createSlice({
         state.loadBlogFollowList.loading = false;
         state.loadBlogFollowList.data = null;
         state.loadBlogFollowList.error = payload;
+      })
+      .addCase(subscribeListAction.pending, state => {
+        state.addBlogFollowList.loading = true;
+        state.addBlogFollowList.data = null;
+        state.addBlogFollowList.error = null;
+      })
+      .addCase(subscribeListAction.fulfilled, (state, { payload }) => {
+        state.addBlogFollowList.loading = false;
+        state.addBlogFollowList.data = payload;
+        state.addBlogFollowList.error = null;
+        if (state.userData) {
+          state.userData.writers?.push({ id: payload.writerId });
+        } // 구독 리스트에서 로그인 유저의 작가구독목록에 추가
+      })
+      .addCase(subscribeListAction.rejected, (state, { payload }) => {
+        state.addBlogFollowList.loading = false;
+        state.addBlogFollowList.data = null;
+        state.addBlogFollowList.error = payload;
+      })
+      .addCase(unSubscribeListAction.pending, state => {
+        state.removeBlogFollowList.loading = true;
+        state.removeBlogFollowList.data = null;
+        state.removeBlogFollowList.error = null;
+      })
+      .addCase(unSubscribeListAction.fulfilled, (state, { payload }) => {
+        state.removeBlogFollowList.loading = false;
+        state.removeBlogFollowList.data = payload;
+        state.removeBlogFollowList.error = null;
+        if (state.userData) {
+          state.userData.writers = state.userData.writers?.filter(
+            writer => writer.id !== payload.writerId
+          );
+        } // 구독 리스트에서 로그인 유저의 작가구독목록에서 제거
+        if (
+          state.userData?.id === state.loadBlogUser.data?.id &&
+          (state.loadBlogUser.data?.suberCount as number) >= 0
+        ) {
+          (state.loadBlogUser.data as BlogUserData).writerCount -= 1;
+        } // 로그인 유저 아이디와 불러온 블로그 유저의 아이디가 같으면 구독 해지시에만, 관심작가 수 -1
+      })
+      .addCase(unSubscribeListAction.rejected, (state, { payload }) => {
+        state.removeBlogFollowList.loading = false;
+        state.removeBlogFollowList.data = null;
+        state.removeBlogFollowList.error = payload;
       });
   },
 });

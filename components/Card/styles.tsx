@@ -649,6 +649,33 @@ export const PhotoBinderCardBox = styled.div`
   }
 `;
 
+export const FollowItemBox = styled.li`
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid ${({ theme }) => theme.grayScale[3]};
+  :last-of-type {
+    border-bottom: none;
+  }
+  & > div {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    img {
+      margin-right: 10px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  }
+  button {
+    width: 110px;
+  }
+`;
+
 export const ArchiveItemContainer = styled.li<{
   length: number | undefined;
   posterId: number;
@@ -921,7 +948,6 @@ export const BlogPostCardBox = styled.li`
         min-height: 100%;
       }
     }
-
     .post__description {
       margin-bottom: 1em;
       span {

@@ -282,9 +282,15 @@ export const BlogUserProfileBox = styled.div`
       align-items: center;
     }
     strong {
-      margin-bottom: 5px;
+      margin-bottom: 4px;
     }
     span {
+      font-weight: ${({ theme }) => theme.fontWeight.bold};
+      padding: 5px;
+      &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
     }
     .follower {
       margin-right: 60px;

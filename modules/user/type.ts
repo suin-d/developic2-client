@@ -1,3 +1,5 @@
+import { BlogUserData } from '../blog';
+
 // 초기 상태 타입
 export interface User {
   id: number;
@@ -56,6 +58,9 @@ export type UserState = {
     data: BlogFollowDataType[] | null;
     error: null | unknown;
   };
+  loadBlogUser: { loading: boolean; data: null | BlogUserData; error: null | unknown };
+  addBlogFollowList: { loading: boolean; data: null | unknown; error: null | unknown };
+  removeBlogFollowList: { loading: boolean; data: null | unknown; error: null | unknown };
 };
 
 // 액션 Payload 타입
