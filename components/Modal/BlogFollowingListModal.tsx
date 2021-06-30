@@ -34,7 +34,11 @@ export default function BlogFollowingListModal({
         <TitleLabel title="관심작가" desc="Following List" />
         <ul>
           {loadBlogFollowList.data.map((blogFollowingItem: BlogFollowDataType) => (
-            <FollowItem followData={blogFollowingItem} key={blogFollowingItem.id} />
+            <FollowItem
+              followData={blogFollowingItem}
+              key={blogFollowingItem.id}
+              onClose={onClose}
+            />
           ))}
         </ul>
         <div className="btn__group">

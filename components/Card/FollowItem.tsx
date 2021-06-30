@@ -8,12 +8,17 @@ import LoginModal from '../Modal/LoginModal';
 
 type FollowListDataPropsType = {
   followData?: BlogFollowDataType;
+  onClose: () => void;
 };
-export default function FollowItem({ followData }: FollowListDataPropsType): JSX.Element {
+export default function FollowItem({
+  followData,
+  onClose,
+}: FollowListDataPropsType): JSX.Element {
   const { userData, subscribeListDispatch, unSubscribeListDispatch } = useUser();
   const [isFollowing, setIsFollowing] = useState(false);
+
   const [loginOpen, setLoginOpen] = useState(false);
-  const toggleLoginModal = useCallback(() => setLoginOpen(!loginOpen), [loginOpen]);
+  const toggleLoginModal = useCallback(() => setLoginOpen(prev => !prev), []);
 
   useEffect(() => {
     if (!userData?.id) {
@@ -45,7 +50,7 @@ export default function FollowItem({ followData }: FollowListDataPropsType): JSX
     <>
       <FollowItemBox>
         <Link href={`/${followData?.id}/post`}>
-          <div>
+          <div onClick={onClose}>
             <img src={followData.avatar} alt="avatar__img" />
             <span>{followData.nickname}</span>
           </div>
