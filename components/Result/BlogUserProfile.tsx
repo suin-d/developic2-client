@@ -8,6 +8,7 @@ import useModal from '../../hooks/useModal';
 import _BlogFollowerListModal from '../Modal/BlogFollowerListModal';
 import _BlogFollowingListModal from '../Modal/BlogFollowingListModal';
 import LoginModal from '../Modal/LoginModal';
+import Image from 'next/image';
 
 export default function BlogUserProfile(): JSX.Element {
   const {
@@ -60,7 +61,13 @@ export default function BlogUserProfile(): JSX.Element {
     <>
       <BlogUserProfileBox>
         <div className="profile__top">
-          <img src={blogUserData.avatar} alt="profile" />
+          <Image
+            src={blogUserData.avatar}
+            alt="profile"
+            width={100}
+            height={100}
+            objectFit="cover"
+          />
           <h1>{blogUserData.nickname}</h1>
           <p>{blogUserData.introduce}</p>
           {blogUserData.id !== userData?.id && (

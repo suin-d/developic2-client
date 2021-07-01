@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -53,9 +54,11 @@ export default function BlogPicstoryCard({
             {picstoryData?.Posts &&
               picstoryData?.Posts?.slice(0, 6).map(picstoryImgItem => (
                 <li className="img__box" key={picstoryImgItem.id}>
-                  <img
+                  <Image
                     src={process.env.NEXT_PUBLIC_IMAGE_400 + picstoryImgItem.thumbnail}
                     alt="picstory-thumbnail"
+                    height={125}
+                    width={125}
                   />
                 </li>
               ))}

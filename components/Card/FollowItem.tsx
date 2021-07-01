@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 import { BlogFollowDataType } from '../../modules/user';
 import { FollowItemBox } from './styles';
@@ -51,7 +52,7 @@ export default function FollowItem({
       <FollowItemBox>
         <Link href={`/${followData?.id}/post`}>
           <div onClick={onClose}>
-            <img src={followData.avatar} alt="avatar__img" />
+            <Image src={followData.avatar} alt="avatar__img" width={80} height={80} />
             <span>{followData.nickname}</span>
           </div>
         </Link>

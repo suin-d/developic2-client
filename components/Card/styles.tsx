@@ -663,12 +663,17 @@ export const FollowItemBox = styled.li`
     display: flex;
     align-items: center;
     cursor: pointer;
-    img {
-      margin-right: 10px;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      object-fit: cover;
+    div {
+      img {
+        margin-right: 10px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+    }
+    & > span {
+      margin-left: 10px;
     }
   }
   button {
@@ -934,18 +939,22 @@ export const BlogPostCardBox = styled.li`
   font-family: 'Noto Serif KR';
   color: ${({ theme }) => theme.textColor.initial};
   article {
-    width: 100%;
     .img__wrapper {
+      width: 100%;
       background: #fff;
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
       margin-bottom: 0.714em;
-      & > img {
-        border-radius: 3px;
-        min-width: 100%;
-        min-height: 100%;
+      > div {
+        position: unset !important;
+        img {
+          object-fit: cover;
+          width: 410px !important;
+          position: relative !important;
+          height: unset !important;
+        }
       }
     }
     .post__description {

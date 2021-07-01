@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useCallback, useMemo } from 'react';
 import { MdBook, MdFavorite, MdRemoveRedEye } from 'react-icons/md';
@@ -86,9 +87,11 @@ export default function BlogPicstoryDetailBox(): JSX.Element {
           {posts &&
             posts.slice(0, 6).map(picstoryImgItem => (
               <li className="img__box" key={picstoryImgItem.id}>
-                <img
+                <Image
                   src={process.env.NEXT_PUBLIC_IMAGE_400 + picstoryImgItem.thumbnail}
                   alt="picstory__recent-img"
+                  height={125}
+                  width={125}
                 />
               </li>
             ))}

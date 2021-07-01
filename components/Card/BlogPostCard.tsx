@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { MdFavorite, MdRemoveRedEye } from 'react-icons/md';
@@ -15,9 +16,10 @@ export default function BlogPostCard({ postData }: BlogPostCardPropsType): JSX.E
       <BlogPostCardBox>
         <article>
           <div className="img__wrapper">
-            <img
+            <Image
               src={process.env.NEXT_PUBLIC_IMAGE_600 + postData.thumbnail}
               alt="post-thumbnail"
+              layout="fill"
             />
           </div>
           <div className="post__description">
