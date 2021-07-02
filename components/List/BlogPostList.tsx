@@ -20,7 +20,7 @@ export default function BlogPostList(): JSX.Element {
         offset: page * 12,
       });
     }
-  }, [page]);
+  }, [hasMore, loadBlogPostListDispatch, page, router.query.userId]);
 
   if (!loadBlogPostList.data) return <></>;
 

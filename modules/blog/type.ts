@@ -54,6 +54,7 @@ export interface BlogPicstory {
   thumbnail: string;
   createdAt?: Date;
   Posts: BlogPost[];
+  UserId: number;
 }
 
 export type BlogPicstoryDetailData = {

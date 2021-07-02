@@ -916,11 +916,9 @@ export const BlogPicstoryCardBox = styled.li<{
       width: 100%;
       .img__box {
         width: 16.6%;
-        height: 125px;
         margin-right: 12px;
         img {
-          width: 100%;
-          height: 100%;
+          height: 125px;
           object-fit: cover;
         }
       }

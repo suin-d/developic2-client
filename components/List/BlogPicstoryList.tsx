@@ -20,7 +20,7 @@ export default function BlogPicstoryList(): JSX.Element {
         offset: page * 12,
       });
     }
-  }, [page]);
+  }, [hasMore, loadBlogPicstoryListDispatch, page, router.query.userId]);
 
   if (!loadBlogPicstoryList.data) return <></>;
 

@@ -86,15 +86,23 @@ export default function BlogUserProfile(): JSX.Element {
         <div className="profile__bottom">
           <div className="follower">
             <strong>구독자</strong>
-            <span onClick={onBlogFollowerList}>
-              {blogUserData.suberCount ? blogUserData.suberCount : 0}
-            </span>
+            {blogUserData.suberCount > 0 ? (
+              <span className="follow__count" onClick={onBlogFollowerList}>
+                {blogUserData.suberCount}
+              </span>
+            ) : (
+              <span>0</span>
+            )}
           </div>
           <div className="following">
             <strong>관심작가</strong>
-            <span onClick={onBlogFollowingList}>
-              {blogUserData.writerCount ? blogUserData.writerCount : 0}
-            </span>
+            {blogUserData.writerCount > 0 ? (
+              <span className="follow__count" onClick={onBlogFollowingList}>
+                {blogUserData.writerCount}
+              </span>
+            ) : (
+              <span>0</span>
+            )}
           </div>
         </div>
         <BlogFollowerListModal />

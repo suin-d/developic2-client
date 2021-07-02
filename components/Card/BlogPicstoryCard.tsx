@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import React from 'react';
 import { MdBook, MdFavorite, MdRemoveRedEye } from 'react-icons/md';
 import { useThemeState } from '../../hooks/ThemeContext';
@@ -17,9 +16,6 @@ export default function BlogPicstoryCard({
 }: PicstoryCardPropsType): JSX.Element {
   const currentTheme = useThemeState();
 
-  const router = useRouter();
-  const { userId } = router.query;
-
   const likeCounts = picstoryData?.Posts?.map((post: BlogPost) =>
     post.likers ? post.likers.length : 0
   );
@@ -28,8 +24,7 @@ export default function BlogPicstoryCard({
   const viewCountSum = countSum(hits);
 
   return (
-    // picstoryData 안에 UserId 필요
-    <Link href={`/${userId}/picstory/${picstoryData.id}`}>
+    <Link href={`/${picstoryData.UserId}/picstory/${picstoryData.id}`}>
       <BlogPicstoryCardBox currentTheme={currentTheme}>
         <article>
           <div className="picstory__description">
@@ -57,8 +52,8 @@ export default function BlogPicstoryCard({
                   <Image
                     src={process.env.NEXT_PUBLIC_IMAGE_400 + picstoryImgItem.thumbnail}
                     alt="picstory-thumbnail"
-                    height={125}
-                    width={125}
+                    height={150}
+                    width={150}
                   />
                 </li>
               ))}

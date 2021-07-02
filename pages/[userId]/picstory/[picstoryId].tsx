@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import React from 'react';
 import Layout from '../../../components/Layout';
 import PicstoryDetailList from '../../../components/List/PicstoryDetailList';
@@ -28,14 +27,12 @@ const PicstoryDetailContainer = styled.section`
 `;
 
 export default function PicstoryId(): JSX.Element {
-  const router = useRouter();
-  const { userId } = router.query;
   const { loadBlogPicstoryDetail } = useBlog();
 
   return (
     <Layout>
       <PicstoryDetailContainer>
-        <Link href={`/${userId}/picstory`}>
+        <Link href={`/${loadBlogPicstoryDetail.data?.UserId}/picstory`}>
           <h1>Picstory</h1>
         </Link>
         <div className="empty_content">

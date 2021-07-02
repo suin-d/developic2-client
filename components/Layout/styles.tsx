@@ -260,9 +260,9 @@ export const BlogUserProfileBox = styled.div`
       border-radius: 45px;
       width: 90px;
       height: 90px;
-      margin-bottom: 15px;
     }
     h1 {
+      margin-top: 15px;
       margin-bottom: 25px;
       font-weight: 600;
       font-size: ${({ theme }) => theme.fontSize.medium};
@@ -287,6 +287,8 @@ export const BlogUserProfileBox = styled.div`
     span {
       font-weight: ${({ theme }) => theme.fontWeight.bold};
       padding: 5px;
+    }
+    .follow__count {
       &:hover {
         text-decoration: underline;
         cursor: pointer;
@@ -294,12 +296,6 @@ export const BlogUserProfileBox = styled.div`
     }
     .follower {
       margin-right: 60px;
-      strong {
-      }
-      span {
-      }
-    }
-    .following {
       strong {
       }
       span {
