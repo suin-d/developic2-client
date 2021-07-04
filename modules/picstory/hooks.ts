@@ -7,8 +7,13 @@ import {
   getPicstoryListAction,
   removePicPostAction,
   removePicstoryAction,
+  updatePicstoryAction,
 } from './thunk';
-import { CreatePicstoryPayload, TogglePicPostPayload } from './types';
+import {
+  CreatePicstoryPayload,
+  TogglePicPostPayload,
+  UpdatePicstoryPayload,
+} from './types';
 
 export default function usePicstory() {
   const { getPicstoryList, createPicstory } = useAppSelector(state => state.picstory);
@@ -34,6 +39,9 @@ export default function usePicstory() {
     dispatch(removePicPostAction(data));
   }, []);
 
+  const updatePicstoryDispatch = useCallback((data: UpdatePicstoryPayload) => {
+    dispatch(updatePicstoryAction(data));
+  }, []);
   return {
     getPicstoryList,
     getPicstoryListDispatch,
@@ -42,5 +50,6 @@ export default function usePicstory() {
     removePicstoryDispatch,
     addPicPostDispatch,
     removePicPostDispatch,
+    updatePicstoryDispatch,
   };
 }

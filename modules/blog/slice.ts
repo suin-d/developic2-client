@@ -1,17 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {
-  subscribeAction,
-  subscribeListAction,
-  unSubscribeAction,
-  unSubscribeListAction,
-} from '../user';
+import { updatePicstoryAction } from '../picstory';
 import {
   loadBlogUserAction,
   loadBlogPostListAction,
   loadBlogPicstoryListAction,
   loadBlogPicstoryDetailAction,
 } from './thunk';
-import { BlogPicstory, BlogPost, BlogState, BlogUserData } from './type';
+import { BlogPicstory, BlogPost, BlogState, BlogPicstoryDetailData } from './type';
 
 const initialState: BlogState = {
   loadBlogUser: { loading: false, data: null, error: null },
@@ -98,6 +93,13 @@ const blogSlice = createSlice({
         state.loadBlogPicstoryDetail.loading = false;
         state.loadBlogPicstoryDetail.data = null;
         state.loadBlogPicstoryDetail.error = payload;
+      })
+      .addCase(updatePicstoryAction.fulfilled, (state, { payload }) => {
+        state.loadBlogPicstoryDetail.data = {
+          ...(state.loadBlogPicstoryDetail.data as BlogPicstoryDetailData),
+          description: payload.description,
+          title: payload.title,
+        };
       });
   },
 });

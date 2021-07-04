@@ -64,6 +64,7 @@ export type BlogPicstoryDetailData = {
   thumbnail: string;
   createdAt?: Date;
   Posts: BlogPost[];
+  UserId: number;
 };
 
 export type LoadBlogListPayload = {

@@ -1,17 +1,20 @@
-import styled from '@emotion/styled';
+import React, { useCallback, useMemo, useState, useEffect } from 'react';
+import { MdBook, MdFavorite, MdRemoveRedEye } from 'react-icons/md';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { useCallback, useMemo } from 'react';
-import { MdBook, MdFavorite, MdRemoveRedEye } from 'react-icons/md';
+import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 import useModal from '../../hooks/useModal';
 import { BlogPicstory, BlogPost } from '../../modules/blog';
 import useBlog from '../../modules/blog/hooks';
+import useUser from '../../modules/user/hooks';
 import usePicstory from '../../modules/picstory/hooks';
 import SquareBtn from '../Button/SquareBtn';
 import { BlogPicstoryCardBox } from '../Card/styles';
 import ConfirmRemoveModal from '../Modal/ConfirmRemoveModal';
+import PicstoryEditModal from '../Modal/PicstoryEditModal';
 
-const BlogPicstoryDetailContainer = styled(BlogPicstoryCardBox)`
+const BlogPicstoryDetailContainer = styled(BlogPicstoryCardBox)<{ checkUserId: boolean }>`
   border-bottom: 1px solid ${({ theme }) => theme.grayScale[2]};
   box-shadow: none;
   height: 300px;
@@ -23,6 +26,16 @@ const BlogPicstoryDetailContainer = styled(BlogPicstoryCardBox)`
   article > p {
     margin-bottom: 28px;
   }
+  .picstory__btn {
+    button {
+      visibility: hidden;
+      ${({ checkUserId }) =>
+        checkUserId &&
+        css`
+          visibility: visible;
+        `}
+    }
+  }
 `;
 
 const countTotal = {
@@ -32,6 +45,7 @@ const countTotal = {
 };
 
 export default function BlogPicstoryDetailBox(): JSX.Element {
+  const { userData } = useUser();
   const { loadBlogPicstoryDetail } = useBlog();
   const { removePicstoryDispatch } = usePicstory();
   const router = useRouter();
@@ -39,6 +53,21 @@ export default function BlogPicstoryDetailBox(): JSX.Element {
 
   const likeCountTotal = useMemo(() => countTotal.like(posts), [posts]);
   const viewCountTotal = useMemo(() => countTotal.hit(posts), [posts]);
+
+  const [checkUserId, setCheckUserId] = useState(false);
+
+  useEffect(() => {
+    if (userData?.id === loadBlogPicstoryDetail?.data?.UserId) {
+      setCheckUserId(true);
+    } else {
+      setCheckUserId(false);
+    }
+  }, [loadBlogPicstoryDetail?.data?.UserId, userData?.id]);
+
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const onToggleEditModal = useCallback(() => {
+    setEditModalOpen(prev => !prev);
+  }, []);
 
   const onRemovePicstory = useCallback(() => {
     removePicstoryDispatch(+(router.query.picstoryId as string));
@@ -54,7 +83,7 @@ export default function BlogPicstoryDetailBox(): JSX.Element {
   if (!loadBlogPicstoryDetail.data) return <></>;
 
   return (
-    <BlogPicstoryDetailContainer currentTheme={null}>
+    <BlogPicstoryDetailContainer currentTheme={null} checkUserId={checkUserId}>
       <article>
         <div className="picstory__description">
           <h2>{loadBlogPicstoryDetail.data.title}</h2>
@@ -79,10 +108,9 @@ export default function BlogPicstoryDetailBox(): JSX.Element {
         </div>
         <p>{loadBlogPicstoryDetail.data.description}</p>
         <div className="picstory__btn">
-          <SquareBtn onClick={() => alert('준비중')}>편집</SquareBtn>
+          <SquareBtn onClick={onToggleEditModal}>편집</SquareBtn>
           <SquareBtn onClick={onToggleRemoveModal}>삭제</SquareBtn>
         </div>
-
         <ul className="picstory__recent-img">
           {posts &&
             posts.slice(0, 6).map(picstoryImgItem => (
@@ -97,6 +125,15 @@ export default function BlogPicstoryDetailBox(): JSX.Element {
             ))}
         </ul>
       </article>
+      {editModalOpen && (
+        <PicstoryEditModal
+          picstoryData={{
+            title: loadBlogPicstoryDetail.data.title,
+            description: loadBlogPicstoryDetail.data.description,
+          }}
+          onClose={onToggleEditModal}
+        />
+      )}
       <RemovePicstoryModal />
     </BlogPicstoryDetailContainer>
   );

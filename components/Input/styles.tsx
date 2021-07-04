@@ -117,6 +117,7 @@ export const CustomTextareaBox = styled.div<{ width: number }>`
     width: 100px;
   }
   textarea {
+    color: ${({ theme }) => theme.textColor.initial};
     font-size: 16px;
     transition: 0.3s;
     outline: none;

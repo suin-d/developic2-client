@@ -1,7 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { toastPopAction } from '../ui/hooks';
-import { CreatePicstoryPayload, Picstory, TogglePicPostPayload } from './types';
+import {
+  CreatePicstoryPayload,
+  Picstory,
+  TogglePicPostPayload,
+  UpdatePicstoryPayload,
+} from './types';
 
 axios.defaults.withCredentials = true;
 
@@ -39,6 +44,22 @@ export const createPicstoryAction = createAsyncThunk<
       newPicData
     );
     await toastPopAction(dispatch, `${newPicData.title}를 생성했습니다.`);
+    return data;
+  } catch (e) {
+    console.error(e);
+    await toastPopAction(dispatch, e.response.data);
+    return rejectWithValue({ message: e.response.data });
+  }
+});
+
+//픽스토리 수정
+export const updatePicstoryAction = createAsyncThunk<
+  UpdatePicstoryPayload,
+  UpdatePicstoryPayload,
+  { rejectValue: MyKnownError }
+>('picstory/updatePicstory', async (picstoryData, { dispatch, rejectWithValue }) => {
+  try {
+    const { data } = await axios.patch(`/picstory/detail`, picstoryData);
     return data;
   } catch (e) {
     console.error(e);

@@ -10,6 +10,12 @@ export type CreatePicstoryPayload = {
   UserId: number;
 };
 
+export type UpdatePicstoryPayload = {
+  title: string;
+  description: string;
+  PicstoryId: number;
+};
+
 export type TogglePicPostPayload = { PostId: number; PicstoryId: number };
 
 export type PicstoryState = {
@@ -24,6 +30,11 @@ export type PicstoryState = {
   removePost: {
     loading: boolean;
     data: null | { id: number };
+    error: null | unknown;
+  };
+  updatePicstory: {
+    loading: boolean;
+    data: UpdatePicstoryPayload | null;
     error: null | unknown;
   };
 };

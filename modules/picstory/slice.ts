@@ -6,6 +6,7 @@ import {
   getPicstoryListAction,
   removePicPostAction,
   removePicstoryAction,
+  updatePicstoryAction,
 } from './thunk';
 import { Picstory } from './types';
 
@@ -15,6 +16,7 @@ const initialState: PicstoryState = {
   removePicstory: { loading: false, data: null, error: null },
   addPost: { loading: false, data: null, error: null },
   removePost: { loading: false, data: null, error: null },
+  updatePicstory: { loading: false, data: null, error: null },
 };
 
 const picstorySlice = createSlice({
@@ -54,6 +56,21 @@ const picstorySlice = createSlice({
         state.createPicstory.loading = false;
         state.createPicstory.data = null;
         state.createPicstory.error = payload;
+      }) // 픽스토리 수정
+      .addCase(updatePicstoryAction.pending, state => {
+        state.updatePicstory.loading = true;
+        state.updatePicstory.data = null;
+        state.updatePicstory.error = null;
+      })
+      .addCase(updatePicstoryAction.fulfilled, (state, { payload }) => {
+        state.updatePicstory.loading = false;
+        state.updatePicstory.data = payload;
+        state.updatePicstory.error = null;
+      })
+      .addCase(updatePicstoryAction.rejected, (state, { payload }) => {
+        state.updatePicstory.loading = false;
+        state.updatePicstory.data = null;
+        state.updatePicstory.error = payload;
       })
       .addCase(removePicstoryAction.pending, state => {
         state.removePicstory.loading = true;
