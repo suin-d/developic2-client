@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const PageNavigationBox = styled.nav`
@@ -21,4 +22,29 @@ export const PageNavigationBox = styled.nav`
       font-weight: 600;
     }
   }
+`;
+
+export const PagingBarContainer = styled.ul<{ currentPage: number }>`
+  width: 90%;
+  padding: 0 80px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  li {
+    font-family: 'Noto Serif KR';
+    color: ${({ theme }) => theme.textColor.initial};
+    font-weight: ${({ theme }) => theme.fontWeight.regular};
+    width: 25px;
+    line-height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  ${({ currentPage, theme }) =>
+    currentPage &&
+    css`
+      li:nth-child(${currentPage + 1}) {
+        font-weight: ${theme.fontWeight.bold};
+      }
+    `}
 `;
