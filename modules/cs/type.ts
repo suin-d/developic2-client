@@ -38,8 +38,6 @@ export type CsState = {
     data: null | NoticeType[] | FaqType[];
     error: null | unknown;
   };
-  hasMore: boolean;
-  loadMore: boolean;
 };
 
 export type GetCsPayload = {

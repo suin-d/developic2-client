@@ -1,24 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getFaqAction, getNoticeAction } from './thunk';
-import { CsState, FaqType, NoticeType } from './type';
+import { CsState } from './type';
 
 const initialState: CsState = {
   getCs: { loading: false, data: null, error: null },
-  hasMore: false,
-  loadMore: false,
 };
 
 const csSlice = createSlice({
   name: 'cs',
   initialState,
-  reducers: {
-    hasMoreData(state, { payload }) {
-      state.hasMore = payload;
-    },
-    isMoreLoading(state, { payload }) {
-      state.loadMore = payload;
-    },
-  },
+  reducers: {},
   extraReducers: builder => {
     builder
       .addCase(getNoticeAction.pending, state => {
@@ -27,10 +18,8 @@ const csSlice = createSlice({
       })
       .addCase(getNoticeAction.fulfilled, (state, { payload }) => {
         state.getCs.loading = false;
+        state.getCs.data = payload;
         state.getCs.error = null;
-        state.getCs.data = state.loadMore
-          ? (state.getCs.data as NoticeType[]).concat(payload)
-          : payload;
       })
       .addCase(getNoticeAction.rejected, (state, { payload }) => {
         state.getCs.loading = false;
@@ -43,10 +32,8 @@ const csSlice = createSlice({
       })
       .addCase(getFaqAction.fulfilled, (state, { payload }) => {
         state.getCs.loading = false;
+        state.getCs.data = payload;
         state.getCs.error = null;
-        state.getCs.data = state.loadMore
-          ? (state.getCs.data as FaqType[]).concat(payload)
-          : payload;
       })
       .addCase(getFaqAction.rejected, (state, { payload }) => {
         state.getCs.loading = false;
@@ -56,5 +43,4 @@ const csSlice = createSlice({
   },
 });
 
-export const { hasMoreData, isMoreLoading } = csSlice.actions;
 export default csSlice.reducer;
