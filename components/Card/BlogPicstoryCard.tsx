@@ -50,8 +50,8 @@ export default function BlogPicstoryCard({
               picstoryData?.Posts?.slice(0, 6).map(picstoryImgItem => (
                 <li className="img__box" key={picstoryImgItem.id}>
                   <Image
-                    src={process.env.NEXT_PUBLIC_IMAGE_400 + picstoryImgItem.thumbnail}
-                    alt="picstory-thumbnail"
+                    src={process.env.NEXT_PUBLIC_IMAGE_600 + picstoryImgItem.thumbnail}
+                    alt={picstoryImgItem.title}
                     height={150}
                     width={150}
                   />

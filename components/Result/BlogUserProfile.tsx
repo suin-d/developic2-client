@@ -33,9 +33,6 @@ export default function BlogUserProfile(): JSX.Element {
 
   useEffect(() => {
     if (!blogUserData) return;
-    if (!userData?.id) {
-      setIsFollowing(false);
-    }
     if (userData?.writers.find(following => following.id == blogUserData.id)) {
       setIsFollowing(true);
     } else {
@@ -63,7 +60,7 @@ export default function BlogUserProfile(): JSX.Element {
         <div className="profile__top">
           <Image
             src={blogUserData.avatar}
-            alt="profile"
+            alt={blogUserData.nickname}
             width={100}
             height={100}
             objectFit="cover"

@@ -54,7 +54,7 @@ export default function BlogCommentCard({
       <section>
         <article>
           <Link href={`/${commentData.User.id}/post`}>
-            <img src={commentData.User.avatar} alt="user_avatar" />
+            <img src={commentData.User.avatar} alt={commentData.User.nickname} />
           </Link>
           <div>
             <strong>{commentData.User.nickname}</strong>

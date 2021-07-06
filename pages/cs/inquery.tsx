@@ -119,7 +119,7 @@ export default function Inquery(): JSX.Element {
             text="여러분의 소중한 의견을 전달해 주세요"
             desc="빠른 시일 내에 응답해 드리겠습니다."
           />
-          <img src="/cs_banner.png" alt="cs_banner.png" />
+          <img src="/cs_banner.png" alt="cs_banner" />
         </div>
         <div className="cs__right">
           <form onSubmit={onSend}>

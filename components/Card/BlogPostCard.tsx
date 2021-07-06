@@ -18,7 +18,7 @@ export default function BlogPostCard({ postData }: BlogPostCardPropsType): JSX.E
           <div className="img__wrapper">
             <Image
               src={process.env.NEXT_PUBLIC_IMAGE_600 + postData.thumbnail}
-              alt="post-thumbnail"
+              alt={postData.title}
               layout="fill"
             />
           </div>

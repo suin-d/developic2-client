@@ -26,6 +26,9 @@ const BlogPicstoryDetailContainer = styled(BlogPicstoryCardBox)<{ checkUserId: b
   article > p {
     margin-bottom: 28px;
   }
+  .img__box {
+    min-width: 125px;
+  }
   .picstory__btn {
     button {
       visibility: hidden;
@@ -116,8 +119,8 @@ export default function BlogPicstoryDetailBox(): JSX.Element {
             posts.slice(0, 6).map(picstoryImgItem => (
               <li className="img__box" key={picstoryImgItem.id}>
                 <Image
-                  src={process.env.NEXT_PUBLIC_IMAGE_400 + picstoryImgItem.thumbnail}
-                  alt="picstory__recent-img"
+                  src={process.env.NEXT_PUBLIC_IMAGE_600 + picstoryImgItem.thumbnail}
+                  alt={picstoryImgItem.title}
                   height={125}
                   width={125}
                 />

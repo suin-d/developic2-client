@@ -70,7 +70,7 @@ export default function PostDetailLayout({ postData }: PostDetaulLayout): JSX.El
         <h1>{postData.title}</h1>
         <Link href={`/${postData.User.id}/post`}>
           <article>
-            <img src={postData.User.avatar} alt="user_avatar" />
+            <img src={postData.User.avatar} alt={postData.User.nickname} />
             <strong>{postData.User.nickname}</strong>
             <span>님의 글</span>
           </article>
@@ -117,7 +117,7 @@ export default function PostDetailLayout({ postData }: PostDetaulLayout): JSX.El
       <section className="blog__posting">
         <img
           src={process.env.NEXT_PUBLIC_IMAGE_600 + postData.thumbnail}
-          alt="thumbnail"
+          alt={postData.title}
         />
         <PostContentViewer content={postData.content} />
         <LikeBtn isLike={isLike} onToggleLike={onToggleLike} />

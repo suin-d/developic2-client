@@ -74,7 +74,7 @@ export default function Header(): JSX.Element {
             {userData ? (
               <div className="user-menu__btn" onClick={toggleUserMenu}>
                 <span>{userData.nickname}님</span>
-                <img src={userData.avatar} alt="avatar"></img>
+                <img src={userData.avatar} alt="내 프로필"></img>
               </div>
             ) : (
               <>

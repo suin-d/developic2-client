@@ -52,8 +52,16 @@ export default function FollowItem({
       <FollowItemBox>
         <Link href={`/${followData?.id}/post`}>
           <div onClick={onClose}>
-            <Image src={followData.avatar} alt="avatar__img" width={80} height={80} />
-            <span>{followData.nickname}</span>
+            <Image
+              src={followData.avatar}
+              alt={followData.nickname}
+              width={80}
+              height={80}
+            />
+            <div>
+              <span>{followData.nickname}</span>
+              <p>{followData.introduce}</p>
+            </div>
           </div>
         </Link>
         <div>

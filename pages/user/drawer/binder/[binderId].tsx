@@ -60,7 +60,7 @@ const BinderDetailContainer = styled.div`
   }
 `;
 
-export default function binderId(): JSX.Element {
+export default function BinderId(): JSX.Element {
   const router = useRouter();
   const {
     getBinderDetail,

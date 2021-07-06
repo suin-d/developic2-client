@@ -184,7 +184,7 @@ export default function Signup(): JSX.Element {
           </form>
           <section>
             <PageLabel text="디비디 바비디 부 벨소리 울려라" desc="유산균 먹기" />
-            <img src="/cs_banner.png" alt="image" />
+            <img src="/cs_banner.png" alt="banner" />
           </section>
         </div>
       </SignupContainer>

@@ -25,9 +25,8 @@ export default function PopularPostCard({
       <PopularPostCardBox>
         <img
           src={process.env.NEXT_PUBLIC_IMAGE_400 + postData.thumbnail}
-          alt="thumbnail"
+          alt={postData.title}
         />
-
         <article>
           <h5>{postData.title}</h5>
           <p>{postData.User.nickname}</p>

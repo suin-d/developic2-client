@@ -25,7 +25,7 @@ export default function ArchiveItem({
       >
         <div className="img__wrapper">
           <div>
-            <img src={process.env.NEXT_PUBLIC_IMAGE_400 + data.poster} alt="poster" />
+            <img src={process.env.NEXT_PUBLIC_IMAGE_400 + data.poster} alt={data.title} />
           </div>
         </div>
         <article>

@@ -24,10 +24,10 @@ export default function DrawerPostCard({
       <DrawerPostCardContainer>
         <img
           src={process.env.NEXT_PUBLIC_IMAGE_400 + postData.thumbnail}
-          alt="thumnail"
+          alt={postData.title}
         />
         <div className="content">
-          <img src={postData.User.avatar} alt="avatar" />
+          <img src={postData.User.avatar} alt={postData.User.nickname} />
           <div className="writer">
             <strong>{postData.User.nickname} </strong>
             <small> 님의 글</small>

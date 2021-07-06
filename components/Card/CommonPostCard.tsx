@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { MdFavorite, MdRemoveRedEye } from 'react-icons/md';
 import Link from 'next/link';
 import { CommonPostCardBox, UserAvatarWithNameBox } from './styles';
@@ -13,9 +14,12 @@ export default function CommonPostCard({ postData }: PostCardPropsType): JSX.Ele
     <Link href={`/${postData.User?.id}/post/${postData.id}`}>
       <CommonPostCardBox>
         <article>
-          <img
+          <Image
             src={process.env.NEXT_PUBLIC_IMAGE_400 + postData.thumbnail}
-            alt="postImg"
+            alt=""
+            width={300}
+            height={176}
+            objectFit="cover"
           />
           <h3>{postData.title}</h3>
           <p>{postData.summary}</p>
@@ -23,7 +27,7 @@ export default function CommonPostCard({ postData }: PostCardPropsType): JSX.Ele
         <div className="info">
           <Link href={`/${postData.User?.id}/post`}>
             <UserAvatarWithNameBox>
-              <img src={postData.User?.avatar} alt="avatar" />
+              <img src={postData.User?.avatar} alt={postData.User?.nickname} />
               <strong>{postData.User?.nickname}</strong>
               <span>님의 글</span>
             </UserAvatarWithNameBox>

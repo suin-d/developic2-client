@@ -13,7 +13,7 @@ export default function UserProfileCard({
   return (
     <Link href={`/${userData.id}/post`}>
       <UserProfileCardBox>
-        <img src={userData.avatar} alt="avatar" />
+        <img src={userData.avatar} alt={userData.nickname} />
         <p>{userData.nickname}</p>
         <span>{userData.introduce}</span>
         <div className="move__btn">

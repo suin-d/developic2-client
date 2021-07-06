@@ -38,8 +38,8 @@ export default function Social(): JSX.Element {
   return (
     <Layout>
       <SocialAuthContainer>
-        <img src="/auth_loading.png" alt="이미지" className="banner" />
-        <img src="/loading.gif" alt="이미지" className="loading" />
+        <img src="/auth_loading.png" alt="loading" className="banner" />
+        <img src="/loading.gif" alt="loading" className="loading" />
         <p>잠시만 기다려주세요</p>
       </SocialAuthContainer>
     </Layout>

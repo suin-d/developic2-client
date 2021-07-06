@@ -19,7 +19,7 @@ export default function RecentUserCard({
     <Link href={`/${userData.id}/post`}>
       <RecentUserCardCardBox>
         <div>
-          <img src={userData.avatar} alt="avatar" />
+          <img src={userData.avatar} alt={userData.nickname} />
           <p>{userData.nickname}</p>
         </div>
         <p>{dayjs(userData.last_post).fromNow()}</p>
