@@ -33,4 +33,12 @@ export const PageLabelBox = styled.div<{ width: number }>`
     line-height: 1.78;
     color: ${({ theme }) => theme.textColor.lighten};
   }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    h1 {
+      text-align: center;
+    }
+    p {
+      text-align: center;
+    }
+  }
 `;

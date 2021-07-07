@@ -70,6 +70,10 @@ export const NoticeListContainer = styled.ul`
       }
     }
   }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    width: 100%;
+    padding: 0 10px;
+  }
 `;
 
 export const PhotoBinderGalleryContainer = styled.div`

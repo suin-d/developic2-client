@@ -22,12 +22,22 @@ export const PageNavigationBox = styled.nav`
       font-weight: 600;
     }
   }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    ul {
+      justify-content: space-between;
+      margin-bottom: 35px;
+      padding: 0 10px;
+      li {
+        margin: 0;
+      }
+    }
+  }
 `;
 
 export const PagingBarContainer = styled.ul<{ currentPage: number }>`
   width: 90%;
   padding: 0 80px;
-  margin-top: 20px;
+  margin: 30px 0;
   display: flex;
   justify-content: space-between;
   li {
@@ -47,4 +57,7 @@ export const PagingBarContainer = styled.ul<{ currentPage: number }>`
         font-weight: ${theme.fontWeight.bold};
       }
     `}
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    width: 100%;
+  }
 `;
