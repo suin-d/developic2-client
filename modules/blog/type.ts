@@ -45,6 +45,7 @@ export interface BlogPost {
   likers?: { id: number }[];
   createdAt: Date;
   UserId?: number;
+  isPublic: number;
 }
 
 export interface BlogPicstory {

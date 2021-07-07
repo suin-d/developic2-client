@@ -2,13 +2,14 @@ import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import Masonry from 'react-masonry-css';
 import useFetchMore from '../../hooks/useFetchMore';
-import { BlogPost } from '../../modules/blog';
 import useBlog from '../../modules/blog/hooks';
+import useUser from '../../modules/user/hooks';
 import BlogPostCard from '../Card/BlogPostCard';
 import { BlogPostListContainer } from './styles';
 
 export default function BlogPostList(): JSX.Element {
-  const { loadBlogPostListDispatch, loadBlogPostList, hasMore } = useBlog();
+  const { userData } = useUser();
+  const { loadBlogPostListDispatch, loadBlogPostList, hasMore, loadBlogUser } = useBlog();
   const [FetchMoreTrigger, page] = useFetchMore(hasMore);
   const router = useRouter();
 
@@ -34,9 +35,17 @@ export default function BlogPostList(): JSX.Element {
         className="my-masonry-grid"
         columnClassName="my-masonry-grid_column"
       >
-        {loadBlogPostList.data.map((blogPostItem: BlogPost) => (
-          <BlogPostCard key={blogPostItem.id} postData={blogPostItem} />
-        ))}
+        {userData?.id === loadBlogUser.data?.id
+          ? loadBlogPostList.data
+              .filter(data => data.isPublic === 1 || data.isPublic === 0)
+              .map(blogPostItem => (
+                <BlogPostCard key={blogPostItem.id} postData={blogPostItem} />
+              ))
+          : loadBlogPostList.data
+              .filter(data => data.isPublic === 1)
+              .map(blogPostItem => (
+                <BlogPostCard key={blogPostItem.id} postData={blogPostItem} />
+              ))}
       </Masonry>
       <FetchMoreTrigger />
     </BlogPostListContainer>

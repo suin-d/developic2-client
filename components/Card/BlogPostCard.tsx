@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { MdFavorite, MdRemoveRedEye } from 'react-icons/md';
+import { MdFavorite, MdRemoveRedEye, MdLockOutline } from 'react-icons/md';
 import { BlogPost } from '../../modules/blog';
 import { BlogPostCardBox } from './styles';
 
@@ -37,6 +37,12 @@ export default function BlogPostCard({ postData }: BlogPostCardPropsType): JSX.E
                 <span>{postData.hits}</span>
               </div>
             </div>
+            {postData.isPublic === 0 && (
+              <div className="lock__wrapper">
+                <MdLockOutline />
+                비공개
+              </div>
+            )}
             <div className="post__date">
               {dayjs(`${postData.createdAt}`).format('MMM D, YYYY')}
             </div>
