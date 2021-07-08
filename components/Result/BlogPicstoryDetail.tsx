@@ -1,9 +1,8 @@
-import React, { useCallback, useMemo, useState, useEffect } from 'react';
-import { MdBook, MdFavorite, MdRemoveRedEye } from 'react-icons/md';
+import React, { useCallback, useState, useEffect } from 'react';
+import { MdBook, MdFavorite, MdRemoveRedEye, MdLockOutline } from 'react-icons/md';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
-import { css } from '@emotion/react';
 import useModal from '../../hooks/useModal';
 import { BlogPicstory, BlogPost } from '../../modules/blog';
 import useBlog from '../../modules/blog/hooks';
@@ -13,8 +12,9 @@ import SquareBtn from '../Button/SquareBtn';
 import { BlogPicstoryCardBox } from '../Card/styles';
 import ConfirmRemoveModal from '../Modal/ConfirmRemoveModal';
 import PicstoryEditModal from '../Modal/PicstoryEditModal';
+import { countSum } from '../../utils/utils';
 
-const BlogPicstoryDetailContainer = styled(BlogPicstoryCardBox)<{ checkUserId: boolean }>`
+const BlogPicstoryDetailContainer = styled(BlogPicstoryCardBox)<{ isSameUser: boolean }>`
   border-bottom: 1px solid ${({ theme }) => theme.grayScale[2]};
   box-shadow: none;
   height: 300px;
@@ -26,26 +26,29 @@ const BlogPicstoryDetailContainer = styled(BlogPicstoryCardBox)<{ checkUserId: b
   article > p {
     margin-bottom: 28px;
   }
+  .picstory__btn {
+    height: 30px;
+  }
   .img__box {
     min-width: 125px;
-  }
-  .picstory__btn {
-    button {
-      visibility: hidden;
-      ${({ checkUserId }) =>
-        checkUserId &&
-        css`
-          visibility: visible;
-        `}
+    position: relative;
+    .lock__wrapper {
+      svg {
+        font-size: 13px;
+      }
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      display: flex;
+      align-items: center;
+      border: 0;
+      background: rgba(25, 25, 25, 0.6);
+      color: #fff;
+      border-radius: 50%;
+      padding: 0.3em 0.3em;
     }
   }
 `;
-
-const countTotal = {
-  like: (list: BlogPost[]) =>
-    list.reduce((acc, cur) => acc + (cur.likeCount as number), 0),
-  hit: (list: BlogPost[]) => list.reduce((acc, cur) => acc + cur.hits, 0),
-};
 
 export default function BlogPicstoryDetailBox(): JSX.Element {
   const { userData } = useUser();
@@ -53,19 +56,33 @@ export default function BlogPicstoryDetailBox(): JSX.Element {
   const { removePicstoryDispatch } = usePicstory();
   const router = useRouter();
   const { Posts: posts } = loadBlogPicstoryDetail.data as BlogPicstory;
-
-  const likeCountTotal = useMemo(() => countTotal.like(posts), [posts]);
-  const viewCountTotal = useMemo(() => countTotal.hit(posts), [posts]);
-
-  const [checkUserId, setCheckUserId] = useState(false);
+  const [isSameUser, setIsSameUser] = useState(false);
 
   useEffect(() => {
     if (userData?.id === loadBlogPicstoryDetail?.data?.UserId) {
-      setCheckUserId(true);
+      setIsSameUser(true);
     } else {
-      setCheckUserId(false);
+      setIsSameUser(false);
     }
   }, [loadBlogPicstoryDetail?.data?.UserId, userData?.id]);
+
+  const likeCounts = isSameUser
+    ? posts
+        .filter(data => data.isPublic === 1 || data.isPublic === 0)
+        .map((post: BlogPost) => (post.likeCount ? post.likeCount : 0))
+    : posts
+        .filter(data => data.isPublic === 1)
+        .map((post: BlogPost) => (post.likeCount ? post.likeCount : 0));
+
+  const likeCountTotal = countSum(likeCounts);
+
+  const viewCounts = isSameUser
+    ? posts
+        .filter(data => data.isPublic === 1 || data.isPublic === 0)
+        .map((post: BlogPost) => post.hits)
+    : posts.filter(data => data.isPublic === 1).map((post: BlogPost) => post.hits);
+
+  const viewCountTotal = countSum(viewCounts);
 
   const [editModalOpen, setEditModalOpen] = useState(false);
   const onToggleEditModal = useCallback(() => {
@@ -86,7 +103,7 @@ export default function BlogPicstoryDetailBox(): JSX.Element {
   if (!loadBlogPicstoryDetail.data) return <></>;
 
   return (
-    <BlogPicstoryDetailContainer currentTheme={null} checkUserId={checkUserId}>
+    <BlogPicstoryDetailContainer currentTheme={null} isSameUser={isSameUser}>
       <article>
         <div className="picstory__description">
           <h2>{loadBlogPicstoryDetail.data.title}</h2>
@@ -94,9 +111,10 @@ export default function BlogPicstoryDetailBox(): JSX.Element {
             <div>
               <MdBook />
               <span>
-                {loadBlogPicstoryDetail.data.Posts
-                  ? loadBlogPicstoryDetail.data.Posts.length
-                  : 0}
+                {isSameUser
+                  ? posts.filter(data => data.isPublic === 1 || data.isPublic === 0)
+                      .length
+                  : posts.filter(data => data.isPublic === 1).length}
               </span>
             </div>
             <div>
@@ -110,22 +128,48 @@ export default function BlogPicstoryDetailBox(): JSX.Element {
           </div>
         </div>
         <p>{loadBlogPicstoryDetail.data.description}</p>
+
         <div className="picstory__btn">
-          <SquareBtn onClick={onToggleEditModal}>편집</SquareBtn>
-          <SquareBtn onClick={onToggleRemoveModal}>삭제</SquareBtn>
+          {isSameUser && (
+            <>
+              <SquareBtn onClick={onToggleEditModal}>편집</SquareBtn>
+              <SquareBtn onClick={onToggleRemoveModal}>삭제</SquareBtn>
+            </>
+          )}
         </div>
         <ul className="picstory__recent-img">
-          {posts &&
-            posts.slice(0, 6).map(picstoryImgItem => (
-              <li className="img__box" key={picstoryImgItem.id}>
-                <Image
-                  src={process.env.NEXT_PUBLIC_IMAGE_600 + picstoryImgItem.thumbnail}
-                  alt={picstoryImgItem.title}
-                  height={125}
-                  width={125}
-                />
-              </li>
-            ))}
+          {isSameUser
+            ? posts
+                .filter(post => post.isPublic === 1 || post.isPublic === 0)
+                .slice(0, 6)
+                .map(picstoryImgItem => (
+                  <li className="img__box" key={picstoryImgItem.id}>
+                    <Image
+                      src={process.env.NEXT_PUBLIC_IMAGE_600 + picstoryImgItem.thumbnail}
+                      alt={picstoryImgItem.title}
+                      height={125}
+                      width={125}
+                    />
+                    {picstoryImgItem.isPublic === 0 && (
+                      <div className="lock__wrapper">
+                        <MdLockOutline />
+                      </div>
+                    )}
+                  </li>
+                ))
+            : posts
+                .filter(post => post.isPublic === 1)
+                .slice(0, 6)
+                .map(picstoryImgItem => (
+                  <li className="img__box" key={picstoryImgItem.id}>
+                    <Image
+                      src={process.env.NEXT_PUBLIC_IMAGE_600 + picstoryImgItem.thumbnail}
+                      alt={picstoryImgItem.title}
+                      height={125}
+                      width={125}
+                    />
+                  </li>
+                ))}
         </ul>
       </article>
       {editModalOpen && (

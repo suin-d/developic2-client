@@ -237,7 +237,8 @@ export const CommonPostCardBox = styled.li`
   text-align: start;
   position: relative;
   line-height: 1.5;
-  width: 273px;
+  max-width: 273px;
+  min-width: 200px;
   margin-bottom: 30px;
   article {
     cursor: pointer;
@@ -300,9 +301,9 @@ export const UserAvatarWithNameBox = styled.div`
     width: 20px;
     height: 20px;
     border-radius: 10px;
-    margin-right: 0.357em;
   }
   strong {
+    margin-left: 0.357em;
     font-weight: ${({ theme }) => theme.fontWeight.regular};
     margin-right: 0.143em;
   }
@@ -324,47 +325,46 @@ export const UserInfoCardBox = styled.li<{
       }
     `};
   font-family: 'Noto Serif KR';
+  font-size: ${({ theme }) => theme.fontSize.base};
   color: ${({ theme }) => theme.textColor.initial};
   background-color: #fff;
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.03), 0 20px 40px 10px rgba(224, 224, 224, 0.2);
   border: 0;
   border-radius: 3px;
   position: relative;
-  width: 100%;
+  max-width: 100%;
+  min-width: 280px;
+  cursor: pointer;
   article {
     display: flex;
     flex-direction: column;
     justify-content: Center;
     align-items: center;
     width: 100%;
+    margin-top: 2.357em;
     &:hover h3 {
       color: ${({ theme }) => theme.primary[1]};
     }
-    > img {
-      margin-top: 2.357em;
-      border-radius: 60px;
-      width: 120px;
-      height: 120px;
-      margin-bottom: 1.071em;
-      cursor: pointer;
+    .profile__wrapper > img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
     }
     h3 {
       cursor: pointer;
       transition: all 0.2s ease-in-out;
-      font-size: ${({ theme }) => theme.fontSize.xl};
+      font-size: ${({ theme }) => theme.fontSize.lg};
       font-weight: ${({ theme }) => theme.fontWeight.semiBold};
-      margin: 0.875em 0;
+      margin: 1.071em 0 0.875em 0;
     }
-    p {
+    .user__introduce {
       cursor: pointer;
-      font-size: ${({ theme }) => theme.fontSize.medium};
-      margin-bottom: 2em;
       padding: 0 2em;
       text-align: center;
-      line-height: 1.5;
+      height: 16px;
     }
     .writer__add-info {
-      font-size: ${({ theme }) => theme.fontSize.base};
+      margin-top: 2em;
       display: flex;
       justify-content: space-between;
       width: 40%;
@@ -377,7 +377,7 @@ export const UserInfoCardBox = styled.li<{
           font-weight: ${({ theme }) => theme.fontWeight.regular};
         }
         span {
-          font-size: ${({ theme }) => theme.fontSize.lg};
+          font-size: ${({ theme }) => theme.fontSize.medium};
           font-weight: ${({ theme }) => theme.fontWeight.semiBold};
         }
       }
@@ -385,10 +385,13 @@ export const UserInfoCardBox = styled.li<{
     .writer__recent-img {
       display: flex;
       width: 100%;
+      position: relative;
       .img__box {
         width: 33.3%;
-        height: 90px;
-        img {
+        div {
+          bottom: -1px;
+        }
+        div > img {
           object-fit: cover;
           width: 100%;
           height: 100%;
@@ -650,6 +653,7 @@ export const PhotoBinderCardBox = styled.div`
 `;
 
 export const FollowItemBox = styled.li`
+  font-family: 'Noto Serif KR';
   width: 90%;
   display: flex;
   align-items: center;
@@ -672,12 +676,20 @@ export const FollowItemBox = styled.li`
         object-fit: cover;
       }
     }
-    & > span {
+
+    & > div {
       margin-left: 10px;
+      line-height: 1.7;
+      span {
+        font-weight: 600;
+      }
+      p {
+        font-size: 13px;
+      }
     }
-  }
-  button {
-    width: 110px;
+    button {
+      width: 110px;
+    }
   }
 `;
 
@@ -915,13 +927,30 @@ export const BlogPicstoryCardBox = styled.li<{
       align-items: center;
       width: 100%;
       .img__box {
-        width: 16.6%;
+        min-width: 125px;
         margin-right: 12px;
+        position: relative;
         img {
           height: 125px;
           object-fit: cover;
         }
+        .lock__wrapper {
+          & > svg {
+            font-size: 13px;
+          }
+          position: absolute;
+          top: 5px;
+          right: 5px;
+          display: flex;
+          align-items: center;
+          border: 0;
+          background: rgba(25, 25, 25, 0.6);
+          color: #fff;
+          border-radius: 50%;
+          padding: 0.3em 0.3em;
+        }
       }
+
       li:nth-of-type(6) {
         margin-right: 0;
       }
@@ -982,7 +1011,7 @@ export const BlogPostCardBox = styled.li`
     }
     .post__info {
       display: flex;
-      justify-content: space-between;
+      position: relative;
       align-items: center;
       margin-bottom: 1.786em;
       font-size: ${({ theme }) => theme.fontSize.small};
@@ -990,8 +1019,8 @@ export const BlogPostCardBox = styled.li`
         display: flex;
         align-items: center;
         justify-content: space-between;
-        width: 18%;
         div:nth-of-type(1) {
+          margin-right: 0.75em;
           span {
             margin: 0 1em 0 -0.125em;
           }
@@ -999,6 +1028,7 @@ export const BlogPostCardBox = styled.li`
         div {
           display: flex;
           align-items: center;
+          margin-right: 2.083em;
           svg {
             color: ${({ theme }) => theme.grayScale[1]};
             padding-top: 0.071em;
@@ -1006,6 +1036,25 @@ export const BlogPostCardBox = styled.li`
             font-size: ${({ theme }) => theme.fontSize.medium};
           }
         }
+      }
+      .lock__wrapper {
+        svg {
+          margin-right: 0.2em;
+          font-size: 11px;
+        }
+        display: flex;
+        align-items: center;
+        border: 0;
+        background: ${({ theme }) => theme.grayScale[1]};
+        color: ${({ theme }) => theme.textColor.reverse};
+        border-radius: 5px;
+        padding: 0.1em 0.8em;
+        font-size: 10px;
+        letter-spacing: 0.2px;
+      }
+      .post__date {
+        position: absolute;
+        right: 0;
       }
     }
   }

@@ -1,9 +1,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { MdBook, MdFavorite, MdRemoveRedEye } from 'react-icons/md';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { MdBook, MdFavorite, MdRemoveRedEye, MdLockOutline } from 'react-icons/md';
 import { useThemeState } from '../../hooks/ThemeContext';
 import { BlogPicstory, BlogPost } from '../../modules/blog';
+import useBlog from '../../modules/blog/hooks';
+import useUser from '../../modules/user/hooks';
 import { countSum } from '../../utils/utils';
 import { BlogPicstoryCardBox } from './styles';
 
@@ -15,13 +19,36 @@ export default function BlogPicstoryCard({
   picstoryData,
 }: PicstoryCardPropsType): JSX.Element {
   const currentTheme = useThemeState();
+  const { userData } = useUser();
+  const { loadBlogUser } = useBlog();
+  const [isSameUser, setIsSameUser] = useState(false);
 
-  const likeCounts = picstoryData?.Posts?.map((post: BlogPost) =>
-    post.likers ? post.likers.length : 0
-  );
-  const likeCountSum = countSum(likeCounts);
-  const hits = picstoryData?.Posts?.map((post: BlogPost) => (post.hits ? post.hits : 0));
-  const viewCountSum = countSum(hits);
+  useEffect(() => {
+    if (userData?.id === loadBlogUser.data?.id) {
+      setIsSameUser(true);
+    } else {
+      setIsSameUser(false);
+    }
+  }, [loadBlogUser.data?.id, userData?.id]);
+
+  const likeCounts = isSameUser
+    ? picstoryData?.Posts?.filter(
+        data => data.isPublic === 1 || data.isPublic === 0
+      ).map((post: BlogPost) => (post.likers ? post.likers.length : 0))
+    : picstoryData?.Posts?.filter(data => data.isPublic === 1).map((post: BlogPost) =>
+        post.likers ? post.likers.length : 0
+      );
+  const likeCountTotal = countSum(likeCounts);
+
+  const viewCounts = isSameUser
+    ? picstoryData?.Posts?.filter(data => data.isPublic === 1 || data.isPublic === 0).map(
+        (post: BlogPost) => post.hits
+      )
+    : picstoryData?.Posts?.filter(data => data.isPublic === 1).map(
+        (post: BlogPost) => post.hits
+      );
+
+  const viewCountTotal = countSum(viewCounts);
 
   return (
     <Link href={`/${picstoryData.UserId}/picstory/${picstoryData.id}`}>
@@ -32,31 +59,62 @@ export default function BlogPicstoryCard({
             <div className="picstory__stats">
               <div>
                 <MdBook />
-                <span>{picstoryData.Posts && picstoryData.Posts.length}</span>
+                <span>
+                  {isSameUser
+                    ? picstoryData.Posts.filter(
+                        data => data.isPublic === 1 || data.isPublic === 0
+                      ).length
+                    : picstoryData.Posts.filter(data => data.isPublic === 1).length}
+                </span>
               </div>
               <div>
                 <MdFavorite />
-                <span>{likeCountSum}</span>
+                <span>{likeCountTotal}</span>
               </div>
               <div>
                 <MdRemoveRedEye />
-                <span>{viewCountSum}</span>
+                <span>{viewCountTotal}</span>
               </div>
             </div>
           </div>
           <p>{picstoryData.description}</p>
           <ul className="picstory__recent-img">
-            {picstoryData?.Posts &&
-              picstoryData?.Posts?.slice(0, 6).map(picstoryImgItem => (
-                <li className="img__box" key={picstoryImgItem.id}>
-                  <Image
-                    src={process.env.NEXT_PUBLIC_IMAGE_600 + picstoryImgItem.thumbnail}
-                    alt={picstoryImgItem.title}
-                    height={150}
-                    width={150}
-                  />
-                </li>
-              ))}
+            {isSameUser
+              ? picstoryData.Posts.filter(
+                  data => data.isPublic === 1 || data.isPublic === 0
+                )
+                  .slice(0, 6)
+                  .map(picstoryImgItem => (
+                    <li className="img__box" key={picstoryImgItem.id}>
+                      <Image
+                        src={
+                          process.env.NEXT_PUBLIC_IMAGE_600 + picstoryImgItem.thumbnail
+                        }
+                        alt={picstoryImgItem.title}
+                        height={150}
+                        width={150}
+                      />
+                      {picstoryImgItem.isPublic === 0 && (
+                        <div className="lock__wrapper">
+                          <MdLockOutline />
+                        </div>
+                      )}
+                    </li>
+                  ))
+              : picstoryData.Posts.filter(data => data.isPublic === 1)
+                  .slice(0, 6)
+                  .map(picstoryImgItem => (
+                    <li className="img__box" key={picstoryImgItem.id}>
+                      <Image
+                        src={
+                          process.env.NEXT_PUBLIC_IMAGE_600 + picstoryImgItem.thumbnail
+                        }
+                        alt={picstoryImgItem.title}
+                        height={150}
+                        width={150}
+                      />
+                    </li>
+                  ))}
           </ul>
         </article>
       </BlogPicstoryCardBox>
