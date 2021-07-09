@@ -8,18 +8,22 @@ import { loadBlogPicstoryDetailAction, loadBlogUserAction } from '../../../modul
 import useBlog from '../../../modules/blog/hooks';
 import wrapper from '../../../modules/store';
 import { authServersiceAction } from '../../../utils/getServerSidePropsTemplate';
+import { MdNavigateBefore } from 'react-icons/md';
 
 const PicstoryDetailContainer = styled.section`
   max-width: 850px;
   margin: 0 auto;
   font-family: 'Noto Serif KR';
-  h1 {
-    font-size: ${({ theme }) => theme.fontSize.xxl};
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 25px;
+  & > span {
+    font-size: ${({ theme }) => theme.fontSize.xxxl};
     cursor: pointer;
     color: ${({ theme }) => theme.textColor.initial};
+    svg {
+      border-radius: 50%;
+      &:hover {
+        background-color: ${({ theme }) => theme.grayScale[3]};
+      }
+    }
   }
   .empty_content {
     text-align: center;
@@ -33,7 +37,9 @@ export default function PicstoryId(): JSX.Element {
     <Layout>
       <PicstoryDetailContainer>
         <Link href={`/${loadBlogPicstoryDetail.data?.UserId}/picstory`}>
-          <h1>Picstory</h1>
+          <span>
+            <MdNavigateBefore />
+          </span>
         </Link>
         <div className="empty_content">
           {!loadBlogPicstoryDetail.data?.id && '픽스토리 정보가 없습니다.'}

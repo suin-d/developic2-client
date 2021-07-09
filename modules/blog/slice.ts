@@ -6,7 +6,7 @@ import {
   loadBlogPicstoryListAction,
   loadBlogPicstoryDetailAction,
 } from './thunk';
-import { BlogPicstory, BlogPost, BlogState, BlogPicstoryDetailData } from './type';
+import { BlogPicstory, BlogPost, BlogState } from './type';
 
 const initialState: BlogState = {
   loadBlogUser: { loading: false, data: null, error: null },
@@ -96,7 +96,7 @@ const blogSlice = createSlice({
       })
       .addCase(updatePicstoryAction.fulfilled, (state, { payload }) => {
         state.loadBlogPicstoryDetail.data = {
-          ...(state.loadBlogPicstoryDetail.data as BlogPicstoryDetailData),
+          ...(state.loadBlogPicstoryDetail.data as BlogPicstory),
           description: payload.description,
           title: payload.title,
         };

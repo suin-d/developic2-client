@@ -56,16 +56,12 @@ export interface BlogPicstory {
   createdAt?: Date;
   Posts: BlogPost[];
   UserId: number;
+  User: PicUser;
 }
 
-export type BlogPicstoryDetailData = {
+export type PicUser = {
   id: number;
-  title: string;
-  description: string;
-  thumbnail: string;
-  createdAt?: Date;
-  Posts: BlogPost[];
-  UserId: number;
+  nickname: string;
 };
 
 export type LoadBlogListPayload = {

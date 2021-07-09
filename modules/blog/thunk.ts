@@ -1,13 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { hasMoreData, isMoreLoading } from './slice';
-import {
-  LoadBlogListPayload,
-  BlogPost,
-  BlogPicstory,
-  BlogPicstoryDetailData,
-  BlogUserData,
-} from './type';
+import { LoadBlogListPayload, BlogPost, BlogPicstory, BlogUserData } from './type';
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_HOST;
@@ -83,7 +77,7 @@ export const loadBlogPicstoryListAction = createAsyncThunk<
 
 // 픽스토리 상세페이지 로드
 export const loadBlogPicstoryDetailAction = createAsyncThunk<
-  BlogPicstoryDetailData,
+  BlogPicstory,
   number,
   { rejectValue: MyKnownError }
 >('blog/loadBlogPicstoryDetail', async (picstoryId, { rejectWithValue }) => {
