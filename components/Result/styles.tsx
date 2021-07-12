@@ -148,25 +148,6 @@ export const BlogPicstoryDetailContainer = styled.div<{
       margin-right: 10px;
     }
   }
-  .img__box {
-    min-width: 125px;
-    position: relative;
-    .lock__wrapper {
-      svg {
-        font-size: 13px;
-      }
-      position: absolute;
-      top: 5px;
-      right: 5px;
-      display: flex;
-      align-items: center;
-      border: 0;
-      background: rgba(25, 25, 25, 0.6);
-      color: #fff;
-      border-radius: 50%;
-      padding: 0.3em 0.3em;
-    }
-  }
 `;
 
 export const EmptyBlogUserInfoBox = styled.div`

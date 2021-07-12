@@ -3,7 +3,8 @@ import Link from 'next/link';
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { MdBook, MdFavorite, MdRemoveRedEye, MdLockOutline } from 'react-icons/md';
+import { MdFavoriteBorder, MdLockOutline } from 'react-icons/md';
+import { AiOutlineEye, AiOutlineBook } from 'react-icons/ai';
 import { useThemeState } from '../../hooks/ThemeContext';
 import { BlogPicstory, BlogPost } from '../../modules/blog';
 import useBlog from '../../modules/blog/hooks';
@@ -47,7 +48,6 @@ export default function BlogPicstoryCard({
     : picstoryData?.Posts?.filter(data => data.isPublic === 1).map(
         (post: BlogPost) => post.hits
       );
-
   const viewCountTotal = countSum(viewCounts);
 
   return (
@@ -58,7 +58,7 @@ export default function BlogPicstoryCard({
             <h3>{picstoryData.title}</h3>
             <div className="picstory__stats">
               <div>
-                <MdBook />
+                <AiOutlineBook />
                 <span>
                   {isSameUser
                     ? picstoryData.Posts.filter(
@@ -68,11 +68,11 @@ export default function BlogPicstoryCard({
                 </span>
               </div>
               <div>
-                <MdFavorite />
+                <MdFavoriteBorder />
                 <span>{likeCountTotal}</span>
               </div>
               <div>
-                <MdRemoveRedEye />
+                <AiOutlineEye />
                 <span>{viewCountTotal}</span>
               </div>
             </div>

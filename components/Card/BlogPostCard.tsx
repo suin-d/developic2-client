@@ -2,7 +2,8 @@ import dayjs from 'dayjs';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { MdFavorite, MdRemoveRedEye, MdLockOutline } from 'react-icons/md';
+import { MdFavoriteBorder, MdLockOutline } from 'react-icons/md';
+import { AiOutlineEye } from 'react-icons/ai';
 import { BlogPost } from '../../modules/blog';
 import { BlogPostCardBox } from './styles';
 
@@ -29,11 +30,11 @@ export default function BlogPostCard({ postData }: BlogPostCardPropsType): JSX.E
           <div className="post__info">
             <div className="post__stats">
               <div>
-                <MdFavorite />
+                <MdFavoriteBorder />
                 <span>{postData.likeCount}</span>
               </div>
               <div>
-                <MdRemoveRedEye />
+                <AiOutlineEye />
                 <span>{postData.hits}</span>
               </div>
             </div>

@@ -887,20 +887,25 @@ export const BlogPicstoryCardBox = styled.li<{
         align-items: center;
         justify-content: space-between;
         width: 125px;
+
         & > div {
           margin-left: -0.125em;
           margin-right: 0.571em;
           display: flex;
           align-items: center;
           svg {
-            padding-top: 0.071em;
+            font-size: ${({ theme }) => theme.fontSize.base};
             margin-right: 0.143em;
           }
           span {
             font-size: 12px;
+            padding-bottom: 1px;
           }
         }
         & > div:nth-of-type(3) {
+          svg {
+            font-size: ${({ theme }) => theme.fontSize.lg};
+          }
           span {
             margin-right: -0.571em;
           }
@@ -1019,26 +1024,30 @@ export const BlogPostCardBox = styled.li`
         display: flex;
         align-items: center;
         justify-content: space-between;
-        div:nth-of-type(1) {
-          margin-right: 0.75em;
-          span {
-            margin: 0 1em 0 -0.125em;
-          }
-        }
         div {
           display: flex;
           align-items: center;
           margin-right: 2.083em;
           svg {
             color: ${({ theme }) => theme.grayScale[1]};
-            padding-top: 0.071em;
             margin-right: 0.25em;
             font-size: ${({ theme }) => theme.fontSize.medium};
+          }
+          &:nth-of-type(1) {
+            margin-right: 0.75em;
+            span {
+              margin: 0 1em 0 -0.125em;
+            }
+          }
+          &:nth-of-type(2) {
+            svg {
+              font-size: ${({ theme }) => theme.fontSize.xl};
+            }
           }
         }
       }
       .lock__wrapper {
-        svg {
+        & > svg {
           margin-right: 0.2em;
           font-size: 11px;
         }
