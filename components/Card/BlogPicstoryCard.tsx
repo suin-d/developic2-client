@@ -54,30 +54,45 @@ export default function BlogPicstoryCard({
     <Link href={`/${picstoryData.UserId}/picstory/${picstoryData.id}`}>
       <BlogPicstoryCardBox currentTheme={currentTheme}>
         <article>
-          <div className="picstory__description">
-            <h3>{picstoryData.title}</h3>
-            <div className="picstory__stats">
+          <div>
+            <div className="picstory__thumbnail">
+              <Image
+                src={process.env.NEXT_PUBLIC_IMAGE_600 + picstoryData.thumbnail}
+                alt=""
+                width={75}
+                height={90}
+                objectFit="cover"
+              />
+            </div>
+            <div className="picstory__description">
               <div>
-                <AiOutlineBook />
-                <span>
-                  {isSameUser
-                    ? picstoryData.Posts.filter(
-                        data => data.isPublic === 1 || data.isPublic === 0
-                      ).length
-                    : picstoryData.Posts.filter(data => data.isPublic === 1).length}
-                </span>
+                <h3>{picstoryData.title}</h3>
+                <div className="picstory__stats">
+                  <div>
+                    <AiOutlineBook />
+                    <span>
+                      {isSameUser
+                        ? picstoryData.Posts.filter(
+                            data => data.isPublic === 1 || data.isPublic === 0
+                          ).length
+                        : picstoryData.Posts.filter(data => data.isPublic === 1).length}
+                    </span>
+                  </div>
+                  <div>
+                    <MdFavoriteBorder />
+                    <span>{likeCountTotal}</span>
+                  </div>
+                  <div>
+                    <AiOutlineEye />
+                    <span>{viewCountTotal}</span>
+                  </div>
+                </div>
               </div>
-              <div>
-                <MdFavoriteBorder />
-                <span>{likeCountTotal}</span>
-              </div>
-              <div>
-                <AiOutlineEye />
-                <span>{viewCountTotal}</span>
-              </div>
+
+              <p>{picstoryData.description}</p>
             </div>
           </div>
-          <p>{picstoryData.description}</p>
+
           <ul className="picstory__recent-img">
             {isSameUser
               ? picstoryData.Posts.filter(

@@ -63,9 +63,8 @@ export const BlogPicstoryDetailContainer = styled.div<{
   currentTheme: null | string;
 }>`
   color: ${({ theme }) => theme.textColor.initial};
-  border-bottom: 1px solid ${({ theme }) => theme.grayScale[2]};
   margin-bottom: 50px;
-  height: 160px;
+  border-bottom: 1px solid ${({ theme }) => theme.grayScale[2]};
   cursor: auto;
   h2 {
     font-size: ${({ theme }) => theme.fontSize.xl};
@@ -80,16 +79,25 @@ export const BlogPicstoryDetailContainer = styled.div<{
       .picstory__description {
         font-size: ${({ theme }) => theme.fontSize.base};
         p {
-          font-size: ${({ theme }) => theme.fontSize.medium};
           margin-bottom: 16px;
+          color: #a5a5a5;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          line-height: 1.5em;
+          height: 3em;
         }
         & > div:nth-of-type(2) {
-          margin-top: 25px;
+          margin-top: 20px;
+          padding-bottom: 20px;
         }
         & > div {
           color: ${({ theme }) => theme.grayScale[1]};
           display: flex;
           justify-content: center;
+          align-items: center;
           & > span:nth-of-type(1) {
             cursor: pointer;
             &:hover {
@@ -101,7 +109,6 @@ export const BlogPicstoryDetailContainer = styled.div<{
               height: 2px;
               margin: 7px 10px 8px;
               background-color: ${({ theme }) => theme.textColor.initial};
-              vertical-align: 3px;
               border-radius: 50%;
               content: '';
             }
@@ -142,7 +149,6 @@ export const BlogPicstoryDetailContainer = styled.div<{
     height: 25px;
     button {
       font-size: 12px;
-      padding: 2px 16px;
     }
     button:nth-of-type(1) {
       margin-right: 10px;
