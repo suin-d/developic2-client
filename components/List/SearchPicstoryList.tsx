@@ -1,7 +1,7 @@
 import React from 'react';
 import { BlogPicstory } from '../../modules/blog';
-import BlogPicstoryCard from '../Card/BlogPicstoryCard';
-import { BlogPicstoryListContainer } from './styles';
+import SearchPicstoryCard from '../Card/SearchPicstoryCard';
+import { SearchPicstoryListContainer } from './styles';
 
 type PicstoryListPropsType = {
   searchPicstoryData: BlogPicstory[];
@@ -10,11 +10,11 @@ export default function SearchPicstoryList({
   searchPicstoryData,
 }: PicstoryListPropsType): JSX.Element {
   return (
-    <BlogPicstoryListContainer>
+    <SearchPicstoryListContainer>
       {searchPicstoryData.length >= 1 &&
         searchPicstoryData.map((picstoryItem: BlogPicstory) => (
-          <BlogPicstoryCard key={picstoryItem.id} picstoryData={picstoryItem} />
+          <SearchPicstoryCard key={picstoryItem.id} picstoryData={picstoryItem} />
         ))}
-    </BlogPicstoryListContainer>
+    </SearchPicstoryListContainer>
   );
 }

@@ -150,6 +150,17 @@ export const ImgItemBox = styled.div<{ selected: boolean }>`
     `}
 `;
 
+export const SearchPicstoryListContainer = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 70px 50px;
+  margin-bottom: 100px;
+  min-height: 250px;
+  .empty_content {
+    text-align: center;
+  }
+`;
+
 export const BlogPicstoryListContainer = styled.ul`
   margin-bottom: 100px;
   min-height: 250px;
