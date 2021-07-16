@@ -155,7 +155,12 @@ export default function PicstoryModal({
             setImage={setThumbnail}
           />
           <h5>설명</h5>
-          <textarea onChange={onChangeDesc} value={desc}></textarea>
+          <textarea
+            onChange={onChangeDesc}
+            value={desc}
+            maxLength={100}
+            placeholder="최대 100글자를 입력할 수 있습니다."
+          ></textarea>
           <div className="btn__group">
             <SquareBtn onClick={onClose}>확인</SquareBtn>
             <SquareBtn onClick={onCreatePicstory}>생성</SquareBtn>

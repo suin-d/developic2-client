@@ -62,6 +62,7 @@ export interface BlogPicstory {
 export type PicUser = {
   id: number;
   nickname: string;
+  avatar?: string;
 };
 
 export type LoadBlogListPayload = {

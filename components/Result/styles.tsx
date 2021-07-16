@@ -34,11 +34,12 @@ export const BlogUserInfoBox = styled.div`
   .user__info {
     strong {
       display: block;
-      font-weight: 600;
+      font-weight: 500;
       margin-bottom: 20px;
     }
     p {
       margin-bottom: 70px;
+      color: ${({ theme }) => theme.grayScale[5]};
     }
   }
   .user__info:nth-child(3) > p {
@@ -62,11 +63,12 @@ export const BlogPicstoryDetailContainer = styled.div<{
   isSameUser: boolean;
   currentTheme: null | string;
 }>`
-  color: ${({ theme }) => theme.textColor.initial};
+  color: ${({ theme }) => theme.grayScale[5]};
   margin-bottom: 50px;
   border-bottom: 1px solid ${({ theme }) => theme.grayScale[2]};
   cursor: auto;
   h2 {
+    color: ${({ theme }) => theme.textColor.initial};
     font-size: ${({ theme }) => theme.fontSize.xl};
     font-weight: bold;
     margin-bottom: 18px;
@@ -80,7 +82,6 @@ export const BlogPicstoryDetailContainer = styled.div<{
         font-size: ${({ theme }) => theme.fontSize.base};
         p {
           margin-bottom: 16px;
-          color: #a5a5a5;
           overflow: hidden;
           text-overflow: ellipsis;
           display: -webkit-box;
@@ -94,7 +95,6 @@ export const BlogPicstoryDetailContainer = styled.div<{
           padding-bottom: 20px;
         }
         & > div {
-          color: ${({ theme }) => theme.grayScale[1]};
           display: flex;
           justify-content: center;
           align-items: center;
@@ -108,12 +108,13 @@ export const BlogPicstoryDetailContainer = styled.div<{
               width: 2px;
               height: 2px;
               margin: 7px 10px 8px;
-              background-color: ${({ theme }) => theme.textColor.initial};
+              background-color: ${({ theme }) => theme.grayScale[5]};
               border-radius: 50%;
               content: '';
             }
           }
           .picstory__stats {
+            color: ${({ theme }) => theme.grayScale[5]};
             display: flex;
             align-items: center;
             justify-content: space-between;

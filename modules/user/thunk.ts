@@ -296,7 +296,6 @@ export const subscribeAction = createAsyncThunk<
 >('blog/addBlogFollow', async (addBlogFollowData, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.post(`/user/subscribe/add`, addBlogFollowData);
-    await toastPopAction(dispatch, `작가를 구독하였습니다.`);
     return data;
   } catch (e) {
     console.error(e);
@@ -315,7 +314,6 @@ export const unSubscribeAction = createAsyncThunk<
   async (removeBlogFollowData, { dispatch, rejectWithValue }) => {
     try {
       const { data } = await axios.post(`/user/subscribe/remove`, removeBlogFollowData);
-      await toastPopAction(dispatch, `구독을 취소하였습니다`);
       return data;
     } catch (e) {
       console.error(e);

@@ -22,6 +22,14 @@ export default function BlogUserInfo(): JSX.Element {
         userId={userData && userData.id}
       />
     );
+
+  const onLinkWebsite = () => {
+    if (!loadBlogUser.data?.website) return <></>;
+    if (loadBlogUser.data.website) {
+      window.open(`http://${loadBlogUser.data.website}`);
+    }
+  };
+
   return (
     <>
       <BlogUserInfoBox>
@@ -40,7 +48,7 @@ export default function BlogUserInfo(): JSX.Element {
         {loadBlogUser.data.website && (
           <div className="user__info">
             <strong>웹 사이트</strong>
-            <p>{loadBlogUser.data.website}</p>
+            <p onClick={onLinkWebsite}>{loadBlogUser.data.website}</p>
           </div>
         )}
       </BlogUserInfoBox>

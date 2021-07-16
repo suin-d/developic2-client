@@ -57,7 +57,7 @@ export default function BlogPicstoryCard({
           <div>
             <div className="picstory__thumbnail">
               <Image
-                src={process.env.NEXT_PUBLIC_IMAGE_600 + picstoryData.thumbnail}
+                src={process.env.NEXT_PUBLIC_IMAGE_200 + picstoryData.thumbnail}
                 alt=""
                 width={75}
                 height={90}
@@ -103,7 +103,7 @@ export default function BlogPicstoryCard({
                     <li className="img__box" key={picstoryImgItem.id}>
                       <Image
                         src={
-                          process.env.NEXT_PUBLIC_IMAGE_600 + picstoryImgItem.thumbnail
+                          process.env.NEXT_PUBLIC_IMAGE_200 + picstoryImgItem.thumbnail
                         }
                         alt={picstoryImgItem.title}
                         height={150}

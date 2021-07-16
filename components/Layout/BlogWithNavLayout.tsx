@@ -8,6 +8,7 @@ import Head from 'next/head';
 const BlogwithProfileContainer = styled.main`
   margin: 40px auto;
   max-width: 850px;
+  min-height: 650px;
   position: relative;
   color: ${({ theme }) => theme.textColor.initial};
 `;

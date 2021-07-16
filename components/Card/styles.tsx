@@ -681,10 +681,11 @@ export const FollowItemBox = styled.li`
       margin-left: 10px;
       line-height: 1.7;
       span {
-        font-weight: 600;
+        font-weight: 500;
       }
       p {
-        font-size: 13px;
+        font-size: ${({ theme }) => theme.fontSize.small};
+        color: ${({ theme }) => theme.grayScale[5]};
       }
     }
     button {
@@ -886,9 +887,9 @@ export const SearchPicstoryCardBox = styled.li`
           color: ${({ theme }) => theme.textColor.lighten};
         }
         p {
-          font-size: 13px;
+          font-size: ${({ theme }) => theme.fontSize.base};
           margin-bottom: 12px;
-          color: #a5a5a5;
+          color: ${({ theme }) => theme.grayScale[5]};
         }
       }
       .picstory__info {
@@ -994,12 +995,12 @@ export const BlogPicstoryCardBox = styled.li<{
         align-items: flex-start;
       }
       h3 {
-        font-weight: 600;
+        font-weight: 500;
         margin-bottom: 0.625em;
       }
       p {
-        font-size: 0.813rem;
-        color: #a5a5a5;
+        font-size: ${({ theme }) => theme.fontSize.base};
+        color: ${({ theme }) => theme.grayScale[5]};
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
@@ -1010,22 +1011,22 @@ export const BlogPicstoryCardBox = styled.li<{
       }
     }
     .picstory__stats {
+      color: ${({ theme }) => theme.grayScale[5]};
       display: flex;
       align-items: center;
       justify-content: space-between;
       width: 125px;
       & > div {
         margin-left: -0.125em;
-        margin-right: 0.571em;
+        margin-right: 0.5em;
         display: flex;
         align-items: center;
         svg {
-          font-size: 0.875rem;
-          margin-right: 0.143em;
+          font-size: ${({ theme }) => theme.fontSize.base};
+          margin-right: 0.214em;
         }
         span {
           font-size: 0.75rem;
-          padding-bottom: 0.083em;
         }
       }
       & > div:nth-of-type(3) {
@@ -1056,7 +1057,7 @@ export const BlogPicstoryCardBox = styled.li<{
         }
         .lock__wrapper {
           & > svg {
-            font-size: 0.813rem;
+            font-size: ${({ theme }) => theme.fontSize.base};
           }
           position: absolute;
           top: 0.313rem;
@@ -1081,7 +1082,7 @@ export const BlogPostCardBox = styled.li`
   cursor: pointer;
   font-size: ${({ theme }) => theme.fontSize.base};
   text-align: start;
-  line-height: 1.8;
+  line-height: 1.6;
   font-family: 'Noto Serif KR';
   color: ${({ theme }) => theme.textColor.initial};
   article {
@@ -1092,7 +1093,7 @@ export const BlogPostCardBox = styled.li`
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 0.714em;
+      margin-bottom: 1.429em;
       > div {
         position: unset !important;
         img {
@@ -1104,36 +1105,31 @@ export const BlogPostCardBox = styled.li`
       }
     }
     .post__description {
-      margin-bottom: 1em;
-      span {
-        font-size: 13px;
-        display: inline-block;
-        color: ${({ theme }) => theme.grayScale[1]};
-        border-bottom: 1px solid ${({ theme }) => theme.grayScale[2]};
-        margin-bottom: 0.214em;
-        cursor: pointer;
-      }
+      color: ${({ theme }) => theme.grayScale[5]};
       h3 {
         transition: all 0.25s ease-in-out;
         font-weight: 600;
-        font-size: ${({ theme }) => theme.fontSize.lg};
-        margin-bottom: 0.533em;
+        font-size: ${({ theme }) => theme.fontSize.xl};
+        color: ${({ theme }) => theme.grayScale[1]};
+        margin-bottom: 0.444em;
       }
       p {
-        height: 47px;
         overflow: hidden;
         text-overflow: ellipsis;
         transition: all 0.25s ease-in-out;
-        color: ${({ theme }) => theme.grayScale[1]};
-        margin-bottom: 1.286em;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        margin-bottom: 1.5em;
       }
     }
     .post__info {
       display: flex;
       position: relative;
       align-items: center;
-      margin-bottom: 1.786em;
+      margin-bottom: 1.75em;
       font-size: ${({ theme }) => theme.fontSize.small};
+      color: ${({ theme }) => theme.grayScale[5]};
       .post__stats {
         display: flex;
         align-items: center;
@@ -1141,11 +1137,10 @@ export const BlogPostCardBox = styled.li`
         div {
           display: flex;
           align-items: center;
-          margin-right: 2.083em;
+          margin-right: 2em;
           svg {
-            color: ${({ theme }) => theme.grayScale[1]};
-            margin-right: 0.25em;
             font-size: ${({ theme }) => theme.fontSize.medium};
+            margin-right: 0.267em;
           }
           &:nth-of-type(1) {
             margin-right: 0.75em;
@@ -1156,6 +1151,7 @@ export const BlogPostCardBox = styled.li`
           &:nth-of-type(2) {
             svg {
               font-size: ${({ theme }) => theme.fontSize.xl};
+              margin-right: 0.222em;
             }
           }
         }
@@ -1163,7 +1159,7 @@ export const BlogPostCardBox = styled.li`
       .lock__wrapper {
         & > svg {
           margin-right: 0.2em;
-          font-size: 11px;
+          font-size: 0.688rem;
         }
         display: flex;
         align-items: center;

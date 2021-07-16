@@ -30,6 +30,7 @@ export type colorTheme = {
     2: string;
     3: string;
     4: string;
+    5: string;
   };
   fontSize: {
     small: string;
@@ -85,6 +86,7 @@ const theme: ThemeType = {
       2: '#E1DFDC',
       3: '#484848',
       4: '#484848',
+      5: '#A5A5A5',
     },
     fontSize: {
       small: calcRem(12),
@@ -134,6 +136,7 @@ const theme: ThemeType = {
       2: '#C4C4C4',
       3: '#E1DFDC',
       4: '#EFEFEF',
+      5: '#959595',
     },
     fontSize: {
       small: calcRem(12),

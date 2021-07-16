@@ -113,6 +113,7 @@ export default function BlogPicstoryDetailBox(): JSX.Element {
           picstoryData={{
             title: loadBlogPicstoryDetail.data.title,
             description: loadBlogPicstoryDetail.data.description,
+            thumbnail: loadBlogPicstoryDetail.data.thumbnail,
           }}
           onClose={onToggleEditModal}
         />
