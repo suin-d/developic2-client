@@ -144,6 +144,34 @@ export const BinderEditModalBox = styled(ModalBox)`
   }
 `;
 
+export const PicstoryEditModalBox = styled(ModalBox)`
+  color: ${({ theme }) => theme.textColor.initial};
+  form {
+    h5 {
+      margin: 10px 0;
+    }
+    padding: 10px 0;
+    textarea {
+      font-family: 'Noto Serif KR';
+      font-size: ${({ theme }) => theme.fontSize.base};
+      width: 100%;
+      height: 100px;
+      outline: none;
+      resize: none;
+      padding: 5px;
+      border: 1px solid ${({ theme }) => theme.grayScale[2]};
+      margin-bottom: 10px;
+    }
+    .btn__group {
+      display: flex;
+      justify-content: flex-end;
+      button + button {
+        margin-left: 20px;
+      }
+    }
+  }
+`;
+
 export const ConfirmRemoveModalBox = styled(ModalBox)<{ valid: boolean }>`
   min-height: 300px;
   font-family: 'Noto Serif KR';

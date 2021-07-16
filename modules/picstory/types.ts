@@ -13,6 +13,7 @@ export type CreatePicstoryPayload = {
 export type UpdatePicstoryPayload = {
   title: string;
   description: string;
+  thumbnail: string;
   PicstoryId: number;
 };
 
