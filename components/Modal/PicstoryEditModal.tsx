@@ -55,7 +55,12 @@ export default function PicstoryEditModal({
       <PicstoryEditModalBox>
         <TitleLabel title="픽스토리 편집" desc="Picstory Edit" />
         <form>
-          <CustomInput title="제목" onChange={onChangeTitle} value={title} />
+          <CustomInput
+            title="제목"
+            onChange={onChangeTitle}
+            value={title}
+            maxLength={50}
+          />
           <h5>썸네일</h5>
           <ImageDropZone
             width={240}

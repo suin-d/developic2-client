@@ -9,6 +9,7 @@ type CustomInputPropsType = {
   name?: string;
   type?: string;
   placeholder?: string;
+  maxLength?: number;
 };
 export default function CustomInput({
   title,
@@ -18,6 +19,7 @@ export default function CustomInput({
   onChange,
   type = 'text',
   placeholder,
+  maxLength,
 }: CustomInputPropsType): JSX.Element {
   const inputEl = useRef<null | HTMLInputElement>(null);
   return (
@@ -31,6 +33,7 @@ export default function CustomInput({
         onChange={onChange}
         name={name}
         placeholder={placeholder}
+        maxLength={maxLength}
       />
     </CustomInputBox>
   );

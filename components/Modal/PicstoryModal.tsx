@@ -146,7 +146,12 @@ export default function PicstoryModal({
         </div>
         <div className="modal__right">
           <h4>새 픽스토리</h4>
-          <CustomInput title="제목" onChange={onChangeTitle} value={title} />
+          <CustomInput
+            title="제목"
+            onChange={onChangeTitle}
+            value={title}
+            maxLength={50}
+          />
           <h5>썸네일</h5>
           <ImageDropZone
             width={300}
