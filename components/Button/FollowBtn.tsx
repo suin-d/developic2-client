@@ -18,7 +18,7 @@ export default function FollowBtn({
   return (
     <RoundCornerBtnBox onClick={onClick} isFollow={isFollow} currentTheme={currentTheme}>
       {isFollow ? <MdDoneAll /> : <MdPersonAdd />}
-      {text}
+      <span>{text}</span>
     </RoundCornerBtnBox>
   );
 }

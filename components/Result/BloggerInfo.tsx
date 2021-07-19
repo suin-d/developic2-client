@@ -13,8 +13,7 @@ export default function BlogUserInfo(): JSX.Element {
     !loadBlogUser.data ||
     (!loadBlogUser.data.introduction &&
       !loadBlogUser.data.mostlyUseModel &&
-      !loadBlogUser.data.website &&
-      userData)
+      !loadBlogUser.data.website)
   )
     return (
       <EmptyBlogUserInfo

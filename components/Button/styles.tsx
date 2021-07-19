@@ -190,22 +190,22 @@ export const RoundCornerBtnBox = styled.button<{
   isFollow?: boolean;
   currentTheme: null | string;
 }>`
+  font-size: ${({ theme }) => theme.fontSize.lg};
   background-color: ${({ theme }) => theme.primary[1]};
   color: #fff;
   outline: none;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  width: 160px;
-  height: 35px;
+  width: 10em;
+  height: 2.188em;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
   transition: all 0.2s ease-in;
   & > svg {
-    margin-right: 5px;
-    font-size: ${({ theme }) => theme.fontSize.lg};
+    margin-right: 0.313em;
   }
   &:hover {
     background-color: #651fb5;
@@ -214,6 +214,9 @@ export const RoundCornerBtnBox = styled.button<{
       css`
         color: #fff;
       `}
+  }
+  span {
+    font-size: ${({ theme }) => theme.fontSize.base};
   }
   ${({ isFollow, theme }) =>
     isFollow &&
@@ -229,6 +232,11 @@ export const RoundCornerBtnBox = styled.button<{
         color: ${theme.textColor.initial};
       }
     `};
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    span {
+      font-size: ${({ theme }) => theme.fontSize.base};
+    }
+  }
 `;
 
 export const ScrollTopBtnBox = styled(FloatingButtonBox)<{ active: boolean }>`

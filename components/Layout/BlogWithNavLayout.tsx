@@ -11,6 +11,11 @@ const BlogwithProfileContainer = styled.main`
   min-height: 650px;
   position: relative;
   color: ${({ theme }) => theme.textColor.initial};
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: ${({ theme }) => theme.fontSize.base};
+  }
 `;
 const UserProfileWithTab = styled.div`
   margin: 0 auto;

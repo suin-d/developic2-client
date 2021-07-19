@@ -162,29 +162,40 @@ export const SearchPicstoryListContainer = styled.ul`
 `;
 
 export const BlogPicstoryListContainer = styled.ul`
-  margin-bottom: 100px;
-  min-height: 250px;
+  margin-bottom: 6.25em;
+  min-height: 14.286em;
   .empty_content {
     text-align: center;
+    margin-top: 7.143em;
   }
 `;
 export const BlogPostListContainer = styled.ul`
-  margin-bottom: 100px;
-  min-height: 250px;
+  margin-bottom: 6.25em;
+  min-height: 14.286em;
   .empty_content {
     text-align: center;
+    margin-top: 7.143em;
   }
   .my-masonry-grid {
     display: flex;
-    margin-left: -30px;
+    margin-left: -1.875em;
     width: auto;
   }
   .my-masonry-grid_column {
-    padding-left: 30px;
+    padding-left: 1.875em;
     background-clip: padding-box;
   }
   .my-masonry-grid_column > li {
-    margin-bottom: 50px;
+    margin-bottom: 3.125em;
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    font-size: ${({ theme }) => theme.fontSize.base};
+    .my-masonry-grid {
+      margin-left: -1.071em;
+    }
+    .my-masonry-grid_column {
+      padding-left: 1.071em;
+    }
   }
 `;
 

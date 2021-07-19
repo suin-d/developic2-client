@@ -27,9 +27,9 @@ export default function BlogPostList(): JSX.Element {
 
   return (
     <BlogPostListContainer>
-      <div className="empty_content">
-        {!hasMore && loadBlogPostList.data.length < 1 && '등록된 포스트가 없습니다.'}
-      </div>
+      {!hasMore && loadBlogPostList.data.length < 1 && (
+        <div className="empty_content">등록된 포스트가 없습니다.</div>
+      )}
       <Masonry
         breakpointCols={2}
         className="my-masonry-grid"

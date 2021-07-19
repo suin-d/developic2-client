@@ -3,23 +3,30 @@ import { css } from '@emotion/react';
 
 export const BlogTabBox = styled.nav`
   ul {
-    margin: 45px auto;
+    margin: 1.875em auto;
     display: flex;
     justify-content: center;
     li {
       text-align: center;
       width: 20%;
       display: inline-block;
-      padding: 15px 30px;
+      padding: 1em 2em;
       margin-bottom: -1px;
     }
     li:hover {
       cursor: pointer;
-      font-weight: bold;
     }
     li.nav--active {
       border-bottom: 2px solid ${({ theme }) => theme.primary[1]};
-      font-weight: bold;
+      font-weight: 600;
+    }
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    ul {
+      margin: 1em auto;
+      li {
+        width: 33.3%;
+      }
     }
   }
 `;

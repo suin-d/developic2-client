@@ -14,10 +14,12 @@ export default function EmptyBlogUserInfo({
   return (
     <EmptyBlogUserInfoBox>
       <img src="/not_found.png" alt="not_found" />
-      <p className="userInfo-empty">아직 작성된 소개가 없습니다.</p>
+      <p>아직 작성된 소개가 없습니다.</p>
       {blogUserId === userId && (
         <Link href="/user/setting/intro">
-          <RoundCornerBtnBox currentTheme={null}>소개 작성</RoundCornerBtnBox>
+          <RoundCornerBtnBox currentTheme={null}>
+            <span>소개 작성</span>
+          </RoundCornerBtnBox>
         </Link>
       )}
     </EmptyBlogUserInfoBox>

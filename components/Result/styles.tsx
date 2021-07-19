@@ -64,14 +64,16 @@ export const BlogPicstoryDetailContainer = styled.div<{
   currentTheme: null | string;
 }>`
   color: ${({ theme }) => theme.grayScale[5]};
-  margin-bottom: 50px;
+  margin-bottom: 1.786em;
   border-bottom: 1px solid ${({ theme }) => theme.grayScale[2]};
   cursor: auto;
+  line-height: 1.6em;
   h2 {
     color: ${({ theme }) => theme.textColor.initial};
     font-size: ${({ theme }) => theme.fontSize.xl};
     font-weight: bold;
-    margin-bottom: 18px;
+    margin-top: 1em;
+    margin-bottom: 1em;
   }
   article {
     .picstory__info {
@@ -81,18 +83,11 @@ export const BlogPicstoryDetailContainer = styled.div<{
       .picstory__description {
         font-size: ${({ theme }) => theme.fontSize.base};
         p {
-          margin-bottom: 16px;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          line-height: 1.5em;
-          height: 3em;
+          margin-bottom: 1.143em;
         }
         & > div:nth-of-type(2) {
-          margin-top: 20px;
-          padding-bottom: 20px;
+          margin-top: 1.429em;
+          padding-bottom: 1.429em;
         }
         & > div {
           display: flex;
@@ -107,7 +102,7 @@ export const BlogPicstoryDetailContainer = styled.div<{
               float: right;
               width: 2px;
               height: 2px;
-              margin: 7px 10px 8px;
+              margin: 0.714em 0.714em 0.571em;
               background-color: ${({ theme }) => theme.grayScale[5]};
               border-radius: 50%;
               content: '';
@@ -120,7 +115,7 @@ export const BlogPicstoryDetailContainer = styled.div<{
             justify-content: space-between;
             & > div {
               margin-left: -0.125em;
-              margin-right: 15px;
+              margin-right: 1.071em;
               display: flex;
               align-items: center;
               svg {
@@ -128,7 +123,7 @@ export const BlogPicstoryDetailContainer = styled.div<{
                 margin-right: 0.143em;
               }
               span {
-                font-size: 12px;
+                font-size: ${({ theme }) => theme.fontSize.small};
                 padding-bottom: 1px;
               }
               &:nth-of-type(3) {
@@ -147,27 +142,49 @@ export const BlogPicstoryDetailContainer = styled.div<{
   }
   .picstory__btn {
     text-align: center;
-    height: 25px;
+    height: 1.786em;
     button {
-      font-size: 12px;
+      font-size: ${({ theme }) => theme.fontSize.small};
     }
     button:nth-of-type(1) {
-      margin-right: 10px;
+      margin-right: 1em;
+    }
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    font-size: ${({ theme }) => theme.fontSize.base};
+    h2 {
+      font-size: ${({ theme }) => theme.fontSize.lg};
+    }
+    article {
+      .picstory__info {
+        .picstory__description {
+          font-size: ${({ theme }) => theme.fontSize.small};
+          p {
+            font-size: ${({ theme }) => theme.fontSize.base};
+          }
+        }
+      }
     }
   }
 `;
 
 export const EmptyBlogUserInfoBox = styled.div`
-  margin-bottom: 100px;
+  margin: 2.857em 0;
   text-align: center;
   color: ${({ theme }) => theme.textColor.initial};
   img {
     width: 60%;
   }
-  .userInfo-empty {
+  p {
     text-align: center;
-    font-size: ${({ theme }) => theme.fontSize.xxl};
-    margin: 40px 0;
+    font-size: ${({ theme }) => theme.fontSize.xl};
+    margin: 2.143em 0;
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    font-size: ${({ theme }) => theme.fontSize.small};
+    p {
+      font-size: ${({ theme }) => theme.fontSize.base};
+    }
   }
 `;
 

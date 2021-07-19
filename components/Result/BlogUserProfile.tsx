@@ -76,7 +76,9 @@ export default function BlogUserProfile(): JSX.Element {
           )}
           {blogUserData.id === userData?.id && (
             <Link href="/user/setting/info">
-              <RoundCornerBtnBox currentTheme={null}>프로필 수정</RoundCornerBtnBox>
+              <RoundCornerBtnBox currentTheme={null}>
+                <span>프로필 수정</span>
+              </RoundCornerBtnBox>
             </Link>
           )}
         </div>

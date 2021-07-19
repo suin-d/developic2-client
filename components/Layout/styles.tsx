@@ -255,26 +255,25 @@ export const BlogUserProfileBox = styled.div`
   font-size: ${({ theme }) => theme.fontSize.base};
   .profile__top {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 1.286em;
     img {
-      border-radius: 45px;
-      width: 90px;
-      height: 90px;
+      border-radius: 50%;
+      width: 6.429em;
+      height: 6.429em;
     }
     h1 {
-      margin-top: 15px;
-      margin-bottom: 25px;
+      margin-top: 1em;
+      margin-bottom: 1em;
       font-weight: 600;
-      font-size: ${({ theme }) => theme.fontSize.medium};
+      font-size: ${({ theme }) => theme.fontSize.xl};
     }
     p {
-      margin-bottom: 15px;
+      margin-bottom: 1.071em;
     }
   }
   .profile__bottom {
     display: flex;
     justify-content: space-between;
-
     & > div {
       display: flex;
       flex-direction: column;
@@ -282,11 +281,11 @@ export const BlogUserProfileBox = styled.div`
       align-items: center;
     }
     strong {
-      margin-bottom: 4px;
+      margin-bottom: 0.286em;
     }
     span {
       font-weight: ${({ theme }) => theme.fontWeight.bold};
-      padding: 5px;
+      padding: 0.357em;
     }
     .follow__count {
       &:hover {
@@ -295,10 +294,17 @@ export const BlogUserProfileBox = styled.div`
       }
     }
     .follower {
-      margin-right: 60px;
+      margin-right: 4.286em;
       strong {
       }
       span {
+      }
+    }
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    .profile__top {
+      h1 {
+        font-size: ${({ theme }) => theme.fontSize.lg};
       }
     }
   }
