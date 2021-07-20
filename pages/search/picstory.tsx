@@ -16,7 +16,7 @@ export default function SearchPicstory(): JSX.Element {
     if (query.keyword) {
       loadSearchListDispatch({ query: query.keyword, type: 'picstory' });
     }
-  }, [query]);
+  }, [loadSearchListDispatch, query]);
 
   return (
     <SearchPageWithNavLayout>

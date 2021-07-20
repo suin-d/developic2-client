@@ -26,7 +26,7 @@ export default function SearchWriter(): JSX.Element {
         term: currentDate.value as 'all' | 'day' | 'week' | 'month',
       });
     }
-  }, [query, currentSort, currentDate]);
+  }, [query, currentSort, currentDate, loadSearchListDispatch]);
 
   return (
     <SearchPageWithNavLayout>

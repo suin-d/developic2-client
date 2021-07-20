@@ -50,7 +50,7 @@ export default function SearchPost(): JSX.Element {
         term: currentDate.value as 'all' | 'day' | 'week' | 'month',
       });
     }
-  }, [query, currentSort, currentDate]);
+  }, [query, currentSort, currentDate, loadSearchListDispatch]);
 
   return (
     <SearchPageWithNavLayout>

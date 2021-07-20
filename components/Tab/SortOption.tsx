@@ -21,7 +21,7 @@ export default function SortOption({
   const [isSortActive, setIsSortActive] = useOutsideClick(sortDropdownRef, false);
   const onClickSortBtn = useCallback(() => {
     setIsSortActive(prev => !prev);
-  }, []);
+  }, [setIsSortActive]);
 
   return (
     <SearhSortOptionContainer currentTheme={currentTheme}>
