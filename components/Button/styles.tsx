@@ -190,6 +190,7 @@ export const RoundCornerBtnBox = styled.button<{
   isFollow?: boolean;
   currentTheme: null | string;
 }>`
+  font-family: 'Noto Serif KR';
   font-size: ${({ theme }) => theme.fontSize.lg};
   background-color: ${({ theme }) => theme.primary[1]};
   color: #fff;

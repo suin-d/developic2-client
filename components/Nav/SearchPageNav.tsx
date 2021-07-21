@@ -21,6 +21,16 @@ const SearchPageWithNavContainer = styled(PageWithNavContainer)`
   @media ${({ theme }) => theme.viewPortSize.mobile} {
     padding-left: 1rem;
     padding-right: 1rem;
+    .title {
+      margin: 15px 0;
+    }
+    .block {
+      background: ${({ theme }) => theme.grayScale[4]};
+      height: 1em;
+      margin: 0 -1rem;
+      box-shadow: 0px 4px 4px -4px rgb(0, 0, 0, 0.03) inset,
+        0px -4px 4px -4px rgb(0, 0, 0, 0.04) inset;
+    }
     font-size: ${({ theme }) => theme.fontSize.small};
   }
 `;
@@ -62,6 +72,7 @@ export default function SearchPageWithNavLayout({
           onChange={onChangeKeyword}
           onKeyPress={onKeyPress}
         />
+        <div className="block" />
         <SearchPageNavigation />
         {children}
       </SearchPageWithNavContainer>

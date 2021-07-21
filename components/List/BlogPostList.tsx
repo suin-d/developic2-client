@@ -7,6 +7,11 @@ import useUser from '../../modules/user/hooks';
 import BlogPostCard from '../Card/BlogPostCard';
 import { BlogPostListContainer } from './styles';
 
+export const breakpointBlogPostColumnsObj = {
+  default: 2,
+  450: 1,
+};
+
 export default function BlogPostList(): JSX.Element {
   const { userData } = useUser();
   const { loadBlogPostListDispatch, loadBlogPostList, hasMore, loadBlogUser } = useBlog();
@@ -31,7 +36,7 @@ export default function BlogPostList(): JSX.Element {
         <div className="empty_content">등록된 포스트가 없습니다.</div>
       )}
       <Masonry
-        breakpointCols={2}
+        breakpointCols={breakpointBlogPostColumnsObj}
         className="my-masonry-grid"
         columnClassName="my-masonry-grid_column"
       >

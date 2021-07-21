@@ -45,7 +45,7 @@ export default function BlogPostCard({ postData }: BlogPostCardPropsType): JSX.E
               </div>
             )}
             <div className="post__date">
-              {dayjs(`${postData.createdAt}`).format('MMM D, YYYY')}
+              {dayjs(`${postData.createdAt}`).locale('en').format('MMM D, YYYY')}
             </div>
           </div>
         </article>

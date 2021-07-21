@@ -28,6 +28,11 @@ const PicstoryDetailContainer = styled.section`
   .empty_content {
     text-align: center;
   }
+  @media ${({ theme }) => theme.viewPortSize.tablet} {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: ${({ theme }) => theme.fontSize.base};
+  }
   @media ${({ theme }) => theme.viewPortSize.mobile} {
     padding-left: 1rem;
     padding-right: 1rem;

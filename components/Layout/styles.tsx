@@ -252,6 +252,7 @@ export const BlogUserProfileBox = styled.div`
   align-items: center;
   width: 50%;
   margin: 0 auto;
+  margin-bottom: 1.875em;
   font-size: ${({ theme }) => theme.fontSize.base};
   .profile__top {
     text-align: center;
@@ -262,8 +263,7 @@ export const BlogUserProfileBox = styled.div`
       height: 6.429em;
     }
     h1 {
-      margin-top: 1em;
-      margin-bottom: 1em;
+      margin: 1em 0;
       font-weight: 600;
       font-size: ${({ theme }) => theme.fontSize.xl};
     }
@@ -302,6 +302,8 @@ export const BlogUserProfileBox = styled.div`
     }
   }
   @media ${({ theme }) => theme.viewPortSize.mobile} {
+    margin: 0 auto;
+    margin-bottom: 1.429em;
     .profile__top {
       h1 {
         font-size: ${({ theme }) => theme.fontSize.lg};

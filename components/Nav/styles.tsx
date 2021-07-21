@@ -36,13 +36,14 @@ export const SearchPageNavigationContainer = styled.nav`
       padding: 1em 3.125em 1em 0;
       margin-bottom: -0.063em;
       margin-right: 0.313em;
-      &:hover {
-        font-weight: 600;
+      &:last-of-type {
+        margin-right: -0.313em;
       }
     }
     li.nav--active {
       border-bottom: 0.125em solid ${({ theme }) => theme.primary[1]};
-      font-weight: bold;
+      color: ${({ theme }) => theme.primary[1]};
+      font-weight: 600;
     }
   }
   @media ${({ theme }) => theme.viewPortSize.mobile} {
@@ -55,6 +56,43 @@ export const SearchPageNavigationContainer = styled.nav`
         text-align: center;
         width: 33.3%;
         padding: 1.071em 0;
+      }
+    }
+  }
+`;
+
+export const BlogNavBox = styled.nav`
+  ul {
+    margin-bottom: 1.875em;
+    display: flex;
+    justify-content: center;
+    li {
+      text-align: center;
+      width: 20%;
+      display: inline-block;
+      padding: 1em 2em;
+      margin-bottom: -1px;
+    }
+    li:hover {
+      cursor: pointer;
+    }
+    li.nav--active {
+      border-bottom: 0.125em solid ${({ theme }) => theme.primary[1]};
+      color: ${({ theme }) => theme.primary[1]};
+      font-weight: 600;
+    }
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    font-size: ${({ theme }) => theme.fontSize.base};
+    ul {
+      margin: 0 auto 1.429em;
+      li {
+        width: 33.3%;
+        span {
+          font-size: ${({ theme }) => theme.fontSize.medium};
+        }
       }
     }
   }

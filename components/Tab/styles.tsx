@@ -1,59 +1,6 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
-export const BlogTabBox = styled.nav`
-  ul {
-    margin: 1.875em auto;
-    display: flex;
-    justify-content: center;
-    li {
-      text-align: center;
-      width: 20%;
-      display: inline-block;
-      padding: 1em 2em;
-      margin-bottom: -1px;
-    }
-    li:hover {
-      cursor: pointer;
-    }
-    li.nav--active {
-      border-bottom: 0.125em solid ${({ theme }) => theme.primary[1]};
-      font-weight: 600;
-    }
-  }
-  @media ${({ theme }) => theme.viewPortSize.mobile} {
-    margin-left: -1rem;
-    margin-right: -1rem;
-    font-size: ${({ theme }) => theme.fontSize.medium};
-
-    ul {
-      margin: 1em auto;
-      li {
-        width: 33.3%;
-      }
-    }
-  }
-`;
-
-export const SearchTabBox = styled.nav`
-  height: 30px;
-  margin-top: 50px;
-  margin-bottom: 30px;
-  border-bottom: 1px solid ${({ theme }) => theme.grayScale[2]};
-  a {
-    width: 100px;
-    padding: 12px 20px;
-    margin-right: 8px;
-    cursor: pointer;
-    color: ${({ theme }) => theme.textColor.initial};
-    font-weight: ${({ theme }) => theme.fontWeight.regular};
-    &.active {
-      font-weight: ${({ theme }) => theme.fontWeight.bold};
-      border-bottom: 2px solid ${({ theme }) => theme.primary[1]};
-    }
-  }
-`;
-
 export const SortTabBox = styled.div`
   font-size: ${({ theme }) => theme.fontSize.base};
   display: flex;
