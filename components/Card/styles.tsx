@@ -237,30 +237,39 @@ export const CommonPostCardBox = styled.li`
   text-align: start;
   position: relative;
   line-height: 1.5;
-  max-width: 273px;
-  min-width: 200px;
-  margin-bottom: 30px;
+  margin-bottom: 2.143em;
+  width: 100%;
   article {
     cursor: pointer;
     width: 100%;
     & > img {
       display: block;
       width: 100%;
-      height: 160px;
       object-fit: cover;
     }
     h3 {
-      font-weight: 400;
-      font-size: ${({ theme }) => theme.fontSize.medium};
-      margin: 0.857em 0 0.857em 0;
-    }
-    p {
-      height: 42px;
+      font-weight: 500;
+      font-size: ${({ theme }) => theme.fontSize.lg};
+      margin: 0.556em 0 0.444em 0;
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width: 100%;
-      color: ${({ theme }) => theme.grayScale[1]};
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      line-height: 1.5em;
+      max-height: 3em;
+    }
+    p {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      line-height: 1.5em;
+      max-height: 3em;
+      color: ${({ theme }) => theme.grayScale[5]};
       margin-bottom: 1.786em;
+      font-size: ${({ theme }) => theme.fontSize.base};
     }
     &:hover h3 {
       transition: all 0.25s ease-in-out;
@@ -271,45 +280,74 @@ export const CommonPostCardBox = styled.li`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: ${({ theme }) => theme.grayScale[5]};
+    & > div {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      img {
+        width: 1.571em;
+        height: 1.571em;
+        border-radius: 50%;
+      }
+      strong {
+        margin-left: 0.357em;
+        margin-right: 0.143em;
+        font-weight: ${({ theme }) => theme.fontWeight.regular};
+        color: ${({ theme }) => theme.grayScale[1]};
+        font-size: ${({ theme }) => theme.fontSize.base};
+      }
+      span {
+        font-size: ${({ theme }) => theme.fontSize.small};
+      }
+    }
     .stats {
       font-family: 'Montserrat';
-      width: 32%;
+      width: 28%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: ${({ theme }) => theme.fontSize.small};
-      p {
+      div {
+        margin-right: 1.125em;
         display: flex;
         align-items: center;
-        justify-content: space-between;
         svg {
-          padding-bottom: 0.071em;
-          margin-right: 0.214em;
           font-size: ${({ theme }) => theme.fontSize.base};
-          color: ${({ theme }) => theme.grayScale[1]};
+          margin-right: 0.143em;
+        }
+        span {
+          padding-top: 0.036em;
+        }
+      }
+      div:nth-of-type(2) {
+        margin-right: 0;
+        svg {
+          font-size: ${({ theme }) => theme.fontSize.lg};
         }
       }
     }
   }
-`;
-
-export const UserAvatarWithNameBox = styled.div`
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  img {
-    width: 20px;
-    height: 20px;
-    border-radius: 10px;
-  }
-  strong {
-    margin-left: 0.357em;
-    font-weight: ${({ theme }) => theme.fontWeight.regular};
-    margin-right: 0.143em;
-  }
-  span {
-    color: ${({ theme }) => theme.grayScale[1]};
+  @media ${({ theme }) => theme.viewPortSize.tablet} {
     font-size: ${({ theme }) => theme.fontSize.small};
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    font-size: ${({ theme }) => theme.fontSize.small};
+    .info {
+      .stats {
+        width: 26%;
+      }
+    }
+    article {
+      p {
+        font-size: ${({ theme }) => theme.fontSize.base};
+        margin-bottom: 1.071em;
+      }
+    }
+    .info {
+      .stats {
+        width: 26%;
+      }
+    }
   }
 `;
 
@@ -332,8 +370,7 @@ export const UserInfoCardBox = styled.li<{
   border: 0;
   border-radius: 3px;
   position: relative;
-  max-width: 100%;
-  min-width: 280px;
+  width: 100%;
   cursor: pointer;
   article {
     display: flex;
@@ -346,18 +383,18 @@ export const UserInfoCardBox = styled.li<{
       color: ${({ theme }) => theme.primary[1]};
     }
     .profile__wrapper > img {
-      width: 100px;
-      height: 100px;
+      width: 6.429em;
+      height: 6.429em;
       border-radius: 50%;
     }
     h3 {
       cursor: pointer;
       transition: all 0.2s ease-in-out;
-      font-size: ${({ theme }) => theme.fontSize.lg};
+      font-size: ${({ theme }) => theme.fontSize.xl};
       font-weight: ${({ theme }) => theme.fontWeight.semiBold};
       margin: 1.071em 0 0.875em 0;
     }
-    .user__introduce {
+    p {
       cursor: pointer;
       padding: 0 2em;
       text-align: center;
@@ -377,8 +414,7 @@ export const UserInfoCardBox = styled.li<{
           font-weight: ${({ theme }) => theme.fontWeight.regular};
         }
         span {
-          font-size: ${({ theme }) => theme.fontSize.medium};
-          font-weight: ${({ theme }) => theme.fontWeight.semiBold};
+          font-weight: 600;
         }
       }
     }
@@ -399,7 +435,25 @@ export const UserInfoCardBox = styled.li<{
       }
     }
   }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    font-size: ${({ theme }) => theme.fontSize.small};
+    article {
+      h3 {
+        font-size: ${({ theme }) => theme.fontSize.lg};
+      }
+      p {
+        font-size: ${({ theme }) => theme.fontSize.base};
+      }
+      .writer__add-info {
+        margin: 1.25em 0;
+        div {
+          font-size: ${({ theme }) => theme.fontSize.base};
+        }
+      }
+    }
+  }
 `;
+
 export const DrawerPostCardContainer = styled.li`
   cursor: pointer;
   font-family: 'Noto Serif KR';
@@ -855,6 +909,7 @@ export const BlogCommentCardBox = styled.li`
 export const SearchPicstoryCardBox = styled.li`
   font-family: 'Noto Serif KR';
   cursor: pointer;
+  font-size: ${({ theme }) => theme.fontSize.lg};
   article {
     display: flex;
     .picstory__thumbnail {
@@ -862,7 +917,6 @@ export const SearchPicstoryCardBox = styled.li`
       min-width: 50%;
       box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.03),
         0 20px 40px 10px rgba(224, 224, 224, 0.2);
-      margin-right: 15px;
       position: relative;
       & > div {
         position: unset !important;
@@ -872,43 +926,54 @@ export const SearchPicstoryCardBox = styled.li`
       }
     }
     & > div:nth-of-type(2) {
+      padding: 0.188em 0;
       width: 100%;
-      padding: 3px 0;
       line-height: 1.5;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       color: ${({ theme }) => theme.grayScale[1]};
+      margin-left: 1em;
       .picstory__description {
         h3 {
+          font-weight: 500;
           font-size: ${({ theme }) => theme.fontSize.lg};
-          font-weight: bold;
-          margin-bottom: 10px;
+          margin-bottom: 0.625em;
           color: ${({ theme }) => theme.textColor.lighten};
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          line-height: 1.5em;
+          max-height: 3em;
         }
         p {
           font-size: ${({ theme }) => theme.fontSize.base};
-          margin-bottom: 12px;
+          margin-bottom: 0.857em;
           color: ${({ theme }) => theme.grayScale[5]};
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          line-height: 1.5em;
+          max-height: 3em;
         }
-      }
-      .picstory__info {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
         & > div {
           display: flex;
           align-items: center;
+          margin-bottom: 0.5em;
           & > img {
-            width: 22px;
-            height: 22px;
+            width: 1.375em;
+            height: 1.375em;
             border-radius: 50%;
             object-fit: cover;
             box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.03),
               0 20px 40px 10px rgba(224, 224, 224, 0.2);
           }
           & > span {
-            margin-left: 7px;
+            margin-left: 0.5em;
             cursor: pointer;
             font-size: ${({ theme }) => theme.fontSize.base};
             &:hover {
@@ -919,6 +984,7 @@ export const SearchPicstoryCardBox = styled.li`
       }
       .picstory__stats {
         display: flex;
+        color: ${({ theme }) => theme.grayScale[5]};
         div {
           margin-left: -0.125em;
           margin-right: 1.125em;
@@ -929,8 +995,8 @@ export const SearchPicstoryCardBox = styled.li`
             margin-right: 0.143em;
           }
           span {
-            font-size: 12px;
-            padding-bottom: 1px;
+            font-size: ${({ theme }) => theme.fontSize.small};
+            padding-bottom: 0.083em;
           }
         }
         div:nth-of-type(3) {
@@ -942,6 +1008,32 @@ export const SearchPicstoryCardBox = styled.li`
           }
         }
       }
+    }
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    font-size: ${({ theme }) => theme.fontSize.base};
+    article {
+      margin: 1em 0;
+      & > div:nth-of-type(2) {
+        padding: 0.5em 0;
+        .picstory__description {
+          h3 {
+            font-size: ${({ theme }) => theme.fontSize.base};
+          }
+          p {
+            font-size: ${({ theme }) => theme.fontSize.small};
+          }
+          & > div {
+            & > span {
+              font-size: ${({ theme }) => theme.fontSize.small};
+            }
+          }
+        }
+      }
+    }
+    border-bottom: 1px solid ${({ theme }) => theme.grayScale[4]};
+    &:last-of-type {
+      border-bottom: none;
     }
   }
 `;

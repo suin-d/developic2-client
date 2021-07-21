@@ -38,25 +38,23 @@ export default function SearchPicstoryCard({
             <div className="picstory__description">
               <h3>{picstoryData.title}</h3>
               <p>{picstoryData.description}</p>
-            </div>
-            <div className="picstory__info">
               <div>
                 <img src={picstoryData.User.avatar} alt={picstoryData.User.nickname} />
                 <span>{picstoryData.User.nickname}</span>
               </div>
-              <div className="picstory__stats">
-                <div>
-                  <AiOutlineBook />
-                  <span>{picstoryData.Posts.length}</span>
-                </div>
-                <div>
-                  <MdFavoriteBorder />
-                  <span>{likeCountTotal}</span>
-                </div>
-                <div>
-                  <AiOutlineEye />
-                  <span>{viewCountTotal}</span>
-                </div>
+            </div>
+            <div className="picstory__stats">
+              <div>
+                <AiOutlineBook />
+                <span>{picstoryData.Posts.length}</span>
+              </div>
+              <div>
+                <MdFavoriteBorder />
+                <span>{likeCountTotal}</span>
+              </div>
+              <div>
+                <AiOutlineEye />
+                <span>{viewCountTotal}</span>
               </div>
             </div>
           </div>

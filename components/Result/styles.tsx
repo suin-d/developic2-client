@@ -53,9 +53,12 @@ export const EmptyContentContainer = styled.section`
   color: ${({ theme }) => theme.textColor.initial};
   margin: 0 auto;
   text-align: center;
-  margin: 100px 0;
+  margin: 6.667em 0;
   .empty_message {
-    margin-top: 50px;
+    margin-top: 4.167em;
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    font-size: ${({ theme }) => theme.fontSize.base};
   }
 `;
 
@@ -258,7 +261,7 @@ export const ToastPopUpBox = styled.div<{ visible: boolean }>`
 
 export const SearchCountBox = styled.div`
   font-family: 'Noto Serif KR';
-  margin-bottom: 25px;
+  margin-bottom: 1em;
   font-size: ${({ theme }) => theme.fontSize.base};
   color: ${({ theme }) => theme.grayScale[1]};
 `;

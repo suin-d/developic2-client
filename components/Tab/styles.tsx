@@ -17,11 +17,15 @@ export const BlogTabBox = styled.nav`
       cursor: pointer;
     }
     li.nav--active {
-      border-bottom: 2px solid ${({ theme }) => theme.primary[1]};
+      border-bottom: 0.125em solid ${({ theme }) => theme.primary[1]};
       font-weight: 600;
     }
   }
   @media ${({ theme }) => theme.viewPortSize.mobile} {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    font-size: ${({ theme }) => theme.fontSize.medium};
+
     ul {
       margin: 1em auto;
       li {
@@ -105,7 +109,7 @@ export const SearhSortOptionContainer = styled.div<{
     justify-content: center;
     cursor: pointer;
     svg {
-      margin-left: 8px;
+      margin-left: 0.571em;
     }
   }
   .sort__dropdown {
@@ -118,14 +122,14 @@ export const SearhSortOptionContainer = styled.div<{
     border-radius: 3px;
     background-color: #fff;
     position: absolute;
-    margin-top: 15px;
+    margin-top: 1.071em;
     z-index: 9999;
   }
   .dropdown.sort-active {
     visibility: visible;
   }
   ul {
-    padding: 20px 22px;
+    padding: 1.429em 1.571em;
     ${({ currentTheme, theme }) =>
       currentTheme === 'dark' &&
       css`
@@ -137,7 +141,7 @@ export const SearhSortOptionContainer = styled.div<{
     li {
       white-space: nowrap;
       cursor: pointer;
-      padding: 7px 0;
+      padding: 0.5em 0;
       &:hover {
         color: ${({ theme }) => theme.primary[1]};
       }
@@ -145,6 +149,11 @@ export const SearhSortOptionContainer = styled.div<{
         font-weight: ${({ theme }) => theme.fontWeight.bold};
         color: ${({ theme }) => theme.primary[1]};
       }
+    }
+  }
+  @media ${({ theme }) => theme.viewPortSize.desktop} {
+    span {
+      font-size: ${({ theme }) => theme.fontSize.base};
     }
   }
 `;

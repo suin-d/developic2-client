@@ -10,6 +10,19 @@ import SearchPageNavigation from './SearchPageNavigation';
 
 const SearchPageWithNavContainer = styled(PageWithNavContainer)`
   color: ${({ theme }) => theme.textColor.initial};
+  max-width: 1150px;
+  min-height: 650px;
+  @media ${({ theme }) => theme.viewPortSize.tablet} {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    max-width: 850px;
+    font-size: ${({ theme }) => theme.fontSize.small};
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: ${({ theme }) => theme.fontSize.small};
+  }
 `;
 
 type SearchPageWithNavPropsType = {

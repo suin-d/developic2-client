@@ -15,7 +15,20 @@ export const PostSearchListContainer = styled.ul`
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 50px 30px;
   margin-bottom: 100px;
+  @media ${({ theme }) => theme.viewPortSize.tablet} {
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 30px 30px;
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 25px 25px;
+  }
+  @media screen and (max-width: 539px) {
+    grid-template-columns: repeat(1, 1fr) !important;
+    grid-gap: 0;
+  }
 `;
+
 export const UserCardListContainer = styled.ul`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -23,6 +36,17 @@ export const UserCardListContainer = styled.ul`
   margin-bottom: 100px;
   .empty_content {
     text-align: center;
+  }
+  @media ${({ theme }) => theme.viewPortSize.tablet} {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 30px 30px;
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media screen and (max-width: 539px) {
+    grid-template-columns: repeat(1, 1fr) !important;
+    grid-gap: 20px 0;
   }
 `;
 
@@ -158,6 +182,10 @@ export const SearchPicstoryListContainer = styled.ul`
   min-height: 250px;
   .empty_content {
     text-align: center;
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 0;
   }
 `;
 

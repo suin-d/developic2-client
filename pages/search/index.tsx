@@ -26,11 +26,10 @@ export const SearchContentBox = styled.div`
   .sort-option {
     display: flex;
     justify-content: flex-end;
-    font-size: ${({ theme }) => theme.fontSize.base};
     position: relative;
-    margin-bottom: 20px;
-    & > div:first-of-type {
-      margin-right: 15px;
+    margin-bottom: 1em;
+    & > div + div {
+      margin-left: 1em;
     }
   }
 `;

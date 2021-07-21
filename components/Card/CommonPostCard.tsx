@@ -1,8 +1,10 @@
 import React from 'react';
 import Image from 'next/image';
 import { MdFavorite, MdRemoveRedEye } from 'react-icons/md';
+import { MdFavoriteBorder } from 'react-icons/md';
+import { AiOutlineEye } from 'react-icons/ai';
 import Link from 'next/link';
-import { CommonPostCardBox, UserAvatarWithNameBox } from './styles';
+import { CommonPostCardBox } from './styles';
 import { PostType } from '../../modules/list';
 
 type PostCardPropsType = {
@@ -15,10 +17,10 @@ export default function CommonPostCard({ postData }: PostCardPropsType): JSX.Ele
       <CommonPostCardBox>
         <article>
           <Image
-            src={process.env.NEXT_PUBLIC_IMAGE_400 + postData.thumbnail}
+            src={process.env.NEXT_PUBLIC_IMAGE_600 + postData.thumbnail}
             alt=""
-            width={300}
-            height={176}
+            width={500}
+            height={410}
             objectFit="cover"
           />
           <h3>{postData.title}</h3>
@@ -26,21 +28,21 @@ export default function CommonPostCard({ postData }: PostCardPropsType): JSX.Ele
         </article>
         <div className="info">
           <Link href={`/${postData.User?.id}/post`}>
-            <UserAvatarWithNameBox>
+            <div>
               <img src={postData.User?.avatar} alt={postData.User?.nickname} />
               <strong>{postData.User?.nickname}</strong>
               <span>님의 글</span>
-            </UserAvatarWithNameBox>
+            </div>
           </Link>
           <div className="stats">
-            <p>
-              <MdFavorite />
+            <div>
+              <MdFavoriteBorder />
               <span>{postData.likers?.length}</span>
-            </p>
-            <p>
-              <MdRemoveRedEye />
+            </div>
+            <div>
+              <AiOutlineEye />
               <span>{postData.hits}</span>
-            </p>
+            </div>
           </div>
         </div>
       </CommonPostCardBox>

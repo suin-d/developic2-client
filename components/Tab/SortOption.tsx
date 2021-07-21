@@ -42,7 +42,7 @@ export default function SortOption({
                 currentSort.value === sortOption.value ? 'item-active' : ' '
               }`}
             >
-              {sortOption.name}
+              <span>{sortOption.name}</span>
             </li>
           ))}
         </ul>

@@ -137,33 +137,33 @@ export const CustomTextareaBox = styled.div<{ width: number }>`
 export const SearchInputBox = styled.form<{
   currentTheme: null | string;
 }>`
-  // border: 0.5px solid ${({ theme }) => theme.grayScale[2]};
+  font-size: ${({ theme }) => theme.fontSize.lg};
   display: flex;
   flex-direction: row-reverse;
   justify-content: center;
   align-items: center;
-  height: 60px;
+  height: 3.75em;
   width: 100%;
   padding: 0.75em;
   padding-left: 0;
-  margin-bottom: 1.2em;
+  margin-bottom: 1em;
   transition: all 0.15s ease-in;
   max-width: 100%;
   svg {
-    width: 25px;
-    height: 25px;
+    width: 1.563em;
+    height: 1.563em;
     fill: ${({ theme }) => theme.grayScale[1]};
     margin-right: 0.5em;
     transition: all 0.125s ease-in;
-    margin-top: 3px;
+    margin-top: 0.188em;
   }
   input {
     font-family: 'Noto Serif KR', serif;
     font-size: ${({ theme }) => theme.fontSize.xxl};
     flex: 1;
     display: block;
-    line-height: 32px;
-    height: 30px;
+    line-height: 1.455em;
+    height: 1.455em;
     padding: 0;
     border: none;
     outline: none;
@@ -193,6 +193,13 @@ export const SearchInputBox = styled.form<{
           fill: ${theme.textColor.initial};
         }
       `};
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    font-size: ${({ theme }) => theme.fontSize.base};
+    margin-bottom: 0;
+    input {
+      font-size: ${({ theme }) => theme.fontSize.lg};
+    }
   }
 `;
 
