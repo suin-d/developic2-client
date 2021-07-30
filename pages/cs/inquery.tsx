@@ -20,7 +20,7 @@ const InqueryContainer = styled.section`
     display: flex;
     justify-content: flex-end;
     form {
-      width: 450px;
+      max-width: 450px;
       & > div {
         margin-bottom: 20px;
       }
@@ -51,6 +51,14 @@ const InqueryContainer = styled.section`
         button + button {
           margin-left: 30px;
         }
+      }
+    }
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    .cs__right {
+      form {
+        width: 100%;
+        padding: 0 15px;
       }
     }
   }

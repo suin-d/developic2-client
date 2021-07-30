@@ -13,9 +13,11 @@ const NoticeContainer = styled.section`
 
 export default function Notice(): JSX.Element {
   const { getNoticeDispatch, getCs } = useCS();
+
   useEffect(() => {
-    getNoticeDispatch({ limit: 5 });
+    getNoticeDispatch({ limit: 8, offset: 0 });
   }, []);
+  if (!getCs.data) return <></>;
   return (
     <PageWithNavLayout pageName="고객센터" pageDesc="Customer Center" navData={CSNavData}>
       <Head>
@@ -30,7 +32,7 @@ export default function Notice(): JSX.Element {
           />
         </div>
         <div className="cs__right">
-          <NoticeList data={getCs.data} />
+          <NoticeList data={getCs.data} getDataDispatch={getNoticeDispatch} />
         </div>
       </NoticeContainer>
     </PageWithNavLayout>

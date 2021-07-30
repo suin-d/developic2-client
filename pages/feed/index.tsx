@@ -8,6 +8,7 @@ import TitleLabel from '../../components/Label/TitleLabel';
 import Layout from '../../components/Layout';
 import useList from '../../modules/list/hooks';
 import useUser from '../../modules/user/hooks';
+import useUI from '../../modules/ui/hooks';
 import { useRouter } from 'next/router';
 import {
   FeedPageDataType,
@@ -85,7 +86,8 @@ const FeedContainer = styled.div`
     }
   }
 `;
-export default function Index(): JSX.Element {
+export default function index(): JSX.Element {
+  const { toastOpenDispatch } = useUI();
   const { userData } = useUser();
   const { getFeedPostDispatch, pageData, hasMore } = useList();
   const [FetchMoreTrigger, page] = useFetchMore(hasMore);
@@ -95,6 +97,7 @@ export default function Index(): JSX.Element {
   useEffect(() => {
     if (!userData) {
       router.back();
+      setTimeout(() => toastOpenDispatch('로그인 후 이용해주세요'), 1000);
       return;
     }
     if (hasMore && page > 0)
@@ -128,7 +131,7 @@ export default function Index(): JSX.Element {
         <section className="feed__posts">
           <h1>구독한 작가의 글</h1>
           <ul>
-            {pageData.post.map(post => (
+            {(pageData as FeedPageDataType).post.map(post => (
               <CommonPostCard key={post.id} postData={post} />
             ))}
           </ul>

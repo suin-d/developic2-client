@@ -12,10 +12,12 @@ const FaqContainer = styled.section`
 `;
 
 export default function Faq(): JSX.Element {
-  const { getCs, getFaqDispatch } = useCS();
+  const { getFaqDispatch, getCs } = useCS();
+
   useEffect(() => {
-    getFaqDispatch({ limit: 5 });
+    getFaqDispatch({ limit: 8, offset: 0 });
   }, []);
+  if (!getCs.data) return <></>;
   return (
     <PageWithNavLayout pageName="고객센터" pageDesc="Customer Center" navData={CSNavData}>
       <Head>
@@ -30,7 +32,7 @@ export default function Faq(): JSX.Element {
           />
         </div>
         <div className="cs__right">
-          <NoticeList data={getCs.data} />
+          <NoticeList data={getCs.data} getDataDispatch={getFaqDispatch} />
         </div>
       </FaqContainer>
     </PageWithNavLayout>

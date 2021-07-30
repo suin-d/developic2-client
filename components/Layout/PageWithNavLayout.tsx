@@ -24,6 +24,16 @@ export const PageWithNavContainer = styled.main`
     }
     .cs__right {
       flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    width: 100%;
+    & > section {
+      .cs__left {
+        display: none;
+      }
     }
   }
 `;

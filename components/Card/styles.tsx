@@ -753,9 +753,8 @@ export const ArchiveItemContainer = styled.li<{
   posterId: number;
   currentTheme: null | string;
 }>`
-  width: 1020px;
-  margin: 0 auto;
-  margin-top: 60px;
+  max-width: 1020px;
+  margin: 60px auto 0 auto;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -764,40 +763,21 @@ export const ArchiveItemContainer = styled.li<{
       text-decoration: underline;
     }
   }
-  .img__wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 232px;
+  & > img {
+    width: 248px;
     height: 350px;
-    div {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      max-height: 350px;
-      overflow: hidden;
-      ${props =>
-        props.currentTheme === 'light' &&
-        css`
-          & {
-            box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.15),
-              -3px -3px 15px rgba(0, 0, 0, 0.15);
-          }
-        `};
-      ${props =>
-        props.currentTheme === 'dark' &&
-        css`
-          & {
-            box-shadow: 3px 3px 15px rgba(255, 255, 255, 0.15),
-              -3px -3px 15px rgba(255, 255, 255, 0.15);
-          }
-        `};
-      img {
-        width: 100%;
-        height: auto;
-      }
-    }
+    object-fit: cover;
+    ${props =>
+      props.currentTheme === 'light' &&
+      css`
+        box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.15), -3px -3px 15px rgba(0, 0, 0, 0.15);
+      `}
+    ${props =>
+      props.currentTheme === 'dark' &&
+      css`
+        box-shadow: 3px 3px 15px rgba(255, 255, 255, 0.15),
+          -3px -3px 15px rgba(255, 255, 255, 0.15);
+      `}
   }
   article {
     width: 500px;
@@ -827,6 +807,42 @@ export const ArchiveItemContainer = styled.li<{
     }
     b {
       font-family: 'Montserrat';
+    }
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    margin-bottom: 60px;
+    padding: 20px 20px 0 20px;
+    padding-top: 20px;
+    flex-direction: column;
+    & > img {
+      width: auto;
+      flex: 1;
+      object-fit: cover;
+    }
+    article {
+      width: 100%;
+      height: 200px;
+      margin: 0 auto;
+      padding: 20px 10px 0 10px;
+      overflow: hidden;
+      h2 {
+        margin-top: 20px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      h2 + p {
+        margin-top: 20px;
+      }
+      p {
+        margin-top: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
   }
 `;

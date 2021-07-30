@@ -30,6 +30,13 @@ const ArchiveContainer = styled.div`
       flex-direction: row-reverse;
     }
   }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    & > ul {
+      li:nth-child(2n) {
+        flex-direction: column;
+      }
+    }
+  }
 `;
 export default function Archive(): JSX.Element {
   const { userData } = useUser();

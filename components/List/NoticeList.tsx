@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { NoticeListContainer } from './styles';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
-import { FaqType, NoticeType } from '../../modules/cs';
+import { FaqType, GetCsPayload, NoticeType } from '../../modules/cs';
 import dayjs from 'dayjs';
+import PagingBar from '../Nav/PagingBar';
 
 const isNotice = (target: NoticeType | FaqType): target is NoticeType => {
   return (target as NoticeType).title !== undefined;
@@ -48,22 +49,28 @@ function NoticeItem({
 
 type NoticeListPropsType = {
   data: NoticeType[] | FaqType[] | null;
+  getDataDispatch: (data: GetCsPayload) => void;
 };
-export default function NoticeList({ data }: NoticeListPropsType): JSX.Element {
+export default function NoticeList({
+  data,
+  getDataDispatch,
+}: NoticeListPropsType): JSX.Element {
   const [contentOpenIndex, setContentOpenIndex] = useState<null | number>(null);
 
   if (!data) return <></>;
-
   return (
-    <NoticeListContainer>
-      {data.map((v: NoticeType | FaqType) => (
-        <NoticeItem
-          key={v.id}
-          contentOpenIndex={contentOpenIndex}
-          setContentOpenIndex={setContentOpenIndex}
-          data={v}
-        />
-      ))}
-    </NoticeListContainer>
+    <>
+      <NoticeListContainer>
+        {data.map((v: NoticeType | FaqType) => (
+          <NoticeItem
+            key={v.id}
+            contentOpenIndex={contentOpenIndex}
+            setContentOpenIndex={setContentOpenIndex}
+            data={v}
+          />
+        ))}
+      </NoticeListContainer>
+      <PagingBar data={data} getDataDispatch={getDataDispatch} limit={8} />
+    </>
   );
 }
