@@ -23,7 +23,7 @@ export default function ArchiveItem({
         posterId={data.id}
         currentTheme={currentTheme}
       >
-        <img src={process.env.NEXT_PUBLIC_IMAGE_400 + data.poster} alt={data.title} />
+        <img src={process.env.NEXT_PUBLIC_IMAGE_400 + data.poster} alt={data.title+'포스터'} />
         <article>
           {data.cost === 0 ? (
             <small>무료</small>

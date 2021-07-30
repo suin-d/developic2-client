@@ -6,6 +6,7 @@ import { AiOutlineEye } from 'react-icons/ai';
 import Link from 'next/link';
 import { CommonPostCardBox } from './styles';
 import { PostType } from '../../modules/list';
+import dayjs from 'dayjs';
 
 type PostCardPropsType = {
   postData: PostType;
@@ -44,6 +45,9 @@ export default function CommonPostCard({ postData }: PostCardPropsType): JSX.Ele
               <span>{postData.hits}</span>
             </div>
           </div>
+        </div>
+        <div className="write_date">
+          {dayjs(postData.createdAt).format('YYYY년 MM월 DD일')}
         </div>
       </CommonPostCardBox>
     </Link>

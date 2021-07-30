@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { unSubscribeAction } from '../user';
 import {
   getFeedPostAction,
   getHashtagListAction,
@@ -162,6 +163,16 @@ const listSlice = createSlice({
         state.loadSearchList.loading = false;
         state.loadSearchList.data = null;
         state.loadSearchList.error = payload;
+      })
+      .addCase(unSubscribeAction.fulfilled, (state, { payload }) => {
+        state.getPostList.loading = false;
+        state.getPostList.data = true;
+        state.getPostList.error = null;
+        if ((state.pageData as FeedPageDataType).writer) {
+          (state.pageData as FeedPageDataType).writer = (state.pageData as FeedPageDataType).writer.filter(
+            writer => writer.id !== payload.writerId
+          );
+        }
       });
   },
 });

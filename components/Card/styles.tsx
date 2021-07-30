@@ -62,7 +62,6 @@ export const PopularPostCardBox = styled.div`
   &:hover {
     background-color: ${({ theme }) => theme.grayScale[4]};
   }
-  /* border: 1px solid ${({ theme }) => theme.grayScale[2]}; */
 `;
 
 export const UserProfileCardBox = styled.div`
@@ -151,6 +150,15 @@ export const RecentUserCardCardBox = styled.li`
     margin-top: 10px;
     font-size: 12px;
     color: ${({ theme }) => theme.grayScale[1]};
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    div {
+      width: 80px;
+      img {
+        width: 50px;
+        height: 50px;
+      }
+    }
   }
 `;
 
@@ -506,6 +514,8 @@ export const DrawerPostCardContainer = styled.li`
       }
       p:nth-child(2) {
         flex: 1;
+        text-overflow: ellipsis;
+        white-space: normal;
         overflow: hidden;
       }
       p:nth-child(3) {
@@ -568,6 +578,39 @@ export const DrawerPostCardContainer = styled.li`
       background-color: ${({ theme }) => theme.grayScale[4]};
     }
   }
+
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    width: 100%;
+    height: 250px;
+    & > img {
+      height: 120px;
+    }
+    .content {
+      width: 90%;
+      height: 54%;
+      article {
+        height: 90%;
+        h3 {
+          display: inline;
+          flex: 1;
+          text-overflow: ellipsis;
+          white-space: normal;
+          overflow: hidden;
+          font-size: 15px;
+        }
+        p:nth-child(2) {
+          display: none;
+        }
+        .circle {
+          width: 25px;
+          height: 25px;
+        }
+        &::before {
+          height: 70px;
+        }
+      }
+    }
+  }
 `;
 
 export const UnfinishedPostCardContainer = styled.div`
@@ -625,6 +668,9 @@ export const UnfinishedPostCardContainer = styled.div`
   }
   &:hover {
     transform: translateY(-3px);
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    width: 100%;
   }
 `;
 
@@ -703,6 +749,9 @@ export const PhotoBinderCardBox = styled.div`
     article > .left > h3 {
       text-decoration: underline;
     }
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    width: 100%;
   }
 `;
 
@@ -849,7 +898,7 @@ export const ArchiveItemContainer = styled.li<{
 
 export const BlogCommentCardBox = styled.li`
   position: relative;
-  width: 800px;
+  max-width: 800px;
   padding: 30px 0;
   font-family: 'Noto Serif KR';
   color: ${({ theme }) => theme.textColor.initial};
@@ -918,6 +967,39 @@ export const BlogCommentCardBox = styled.li`
       text-align: right;
       font-size: 12px;
       color: ${({ theme }) => theme.grayScale[1]};
+    }
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    padding: 20px 5px;
+    & > section {
+      article {
+        display: flex;
+        img {
+          position: relative;
+          top: auto;
+          left: auto;
+          width: 40px;
+          height: 40px;
+          margin-right: 10px;
+        }
+        div {
+          margin-top: 2px;
+          strong {
+            font-size: 14px;
+          }
+          p {
+            margin-top: 8px;
+            font-size: 12px;
+          }
+        }
+      }
+      & > div > span {
+        font-size: 12px;
+      }
+    }
+    & > p {
+      margin-top: 5px;
+      line-height: 25px;
     }
   }
 `;

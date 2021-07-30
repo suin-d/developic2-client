@@ -293,9 +293,9 @@ export const subscribeAction = createAsyncThunk<
   { writerId: number },
   BlogFollowPayload,
   { rejectValue: MyKnownError }
->('blog/addBlogFollow', async (addBlogFollowData, { dispatch, rejectWithValue }) => {
+>('blog/addSubscribe', async (addSubscribeData, { dispatch, rejectWithValue }) => {
   try {
-    const { data } = await axios.post(`/user/subscribe/add`, addBlogFollowData);
+    const { data } = await axios.post(`/user/subscribe/add`,addSubscribeData);
     return data;
   } catch (e) {
     console.error(e);

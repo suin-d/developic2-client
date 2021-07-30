@@ -171,6 +171,9 @@ export const BinderEditModalBox = styled(ModalBox)`
       }
     }
   }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    width: 95%;
+  }
 `;
 
 export const PicstoryEditModalBox = styled(ModalBox)`
@@ -247,6 +250,9 @@ export const ConfirmRemoveModalBox = styled(ModalBox)<{ valid: boolean }>`
         cursor: not-allowed;
       }
     `}
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    width: 95%;
+  }
 `;
 
 export const SignupAuthModalBox = styled(ModalBox)`
@@ -257,9 +263,7 @@ export const SignupAuthModalBox = styled(ModalBox)`
   .auth__input {
     div {
       width: 300px;
-      margin: 0 auto;
-      margin-top: 70px;
-      margin-bottom: 40px;
+      margin: 70px auto 40px auto;
       display: flex;
       justify-content: space-between;
       input {
@@ -296,6 +300,23 @@ export const SignupAuthModalBox = styled(ModalBox)`
     bottom: 0;
     margin-bottom: 70px;
   }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    width: 95%;
+    .auth__input {
+      div {
+        width: 100%;
+        margin: 20px auto 20px auto;
+        input {
+          margin-bottom: 10px;
+        }
+      }
+    }
+    .auth__btn {
+      position: relative;
+      bottom: 0;
+      margin: 20px auto 0 auto;
+    }
+  }
 `;
 
 export const SignupPenNameModalBox = styled(ModalBox)`
@@ -330,7 +351,7 @@ export const SignupPenNameModalBox = styled(ModalBox)`
   }
 `;
 
-export const PicstoryModalBox = styled(ModalBox)`
+export const PicstoryModalBox = styled(ModalBox)<{ makeMode: boolean }>`
   display: flex;
   font-family: 'Noto Serif KR';
   color: ${({ theme }) => theme.textColor.initial};
@@ -341,6 +362,10 @@ export const PicstoryModalBox = styled(ModalBox)`
   h5 {
     margin: 25px 0 10px 0;
     font-size: 16px;
+  }
+  .modal__left .mobile-btn__box,
+  .modal__right .mobile-btn__box {
+    display: none;
   }
   .modal__left {
     padding-right: 50px;
@@ -422,6 +447,50 @@ export const PicstoryModalBox = styled(ModalBox)`
       }
     }
   }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    flex-direction: column;
+    padding: 0 20px 20px 20px;
+    width: 95%;
+    height: auto;
+    .title__label {
+      h4 {
+        font-size: 20px;
+      }
+    }
+    .modal__left {
+      padding: 0;
+      & > button {
+        display: initial;
+        width: 100%;
+      }
+    }
+    .modal__right {
+      padding: 0;
+      display: none;
+      .btn__group {
+        display: none;
+      }
+    }
+  }
+  .mobile-btn__box {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    button + button {
+      margin-left: 20px;
+    }
+  }
+
+  ${({ makeMode }) =>
+    makeMode &&
+    css`
+      .modal__left {
+        display: none;
+      }
+      .modal__right {
+        display: initial;
+      }
+    `}
 `;
 
 export const ConfirmModalBox = styled(ModalBox)`
@@ -454,9 +523,10 @@ export const FollowListModalBox = styled(ModalBox)`
   }
   & > ul {
     overflow-y: auto;
+    overflow-x: hidden;
     padding: 20px 0;
-    height: 360px;
-    margin: 20px 0;
+    max-height: 360px;
+    margin: 25px 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -465,7 +535,79 @@ export const FollowListModalBox = styled(ModalBox)`
   }
   .btn__group {
     display: flex;
+    flex: 1;
+    align-items: flex-end;
     justify-content: flex-end;
+  }
+`;
+export const FollowingItemBox = styled.li`
+  margin: 10px 0 30px 0;
+  width: 220px;
+  height: 50px;
+  display: flex;
+  position: relative;
+  img {
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  & > .user__info {
+    width: 170px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-left: 20px;
+    font-family: 'Noto Serif KR';
+    span {
+      cursor: pointer;
+      display: block;
+      font-size: 15px;
+    }
+    & > ul > li {
+      cursor: pointer;
+      font-size: 12px;
+      small {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 100%;
+        font-size: 12px;
+      }
+    }
+  }
+  .unSub__btn {
+    position: absolute;
+    right: 0;
+    top: -10px;
+    font-size: 12px;
+    background: #fff;
+    display: none;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid black;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    &:hover {
+      background-color: ${({ theme }) => theme.grayScale[4]};
+    }
+    svg {
+      transform: rotate(40deg);
+    }
+  }
+  &:hover {
+    .unSub__btn {
+      display: inline-flex;
+    }
+    span,
+    ul > li {
+      text-decoration: underline;
+    }
   }
 `;
 
@@ -489,6 +631,20 @@ export const PhotoDetailBox = styled.div<{ infoOpen: boolean }>`
   }
   .front {
     transform: rotateY(0deg);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    ${({ theme }) =>
+      theme.background &&
+      css`
+        background-color: ${theme.background.modal};
+      `};
+    img {
+      max-width: 90vh;
+      max-height: 70vh;
+    }
   }
   .back {
     position: absolute;
@@ -519,7 +675,17 @@ export const PhotoDetailBox = styled.div<{ infoOpen: boolean }>`
         transform: rotateY(0deg);
       }
     `}
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    width: 97%;
+    .front {
+      img {
+        max-width: 100%;
+        max-height: 70vh;
+      }
+    }
+  }
 `;
+
 export const PhotoModalBtnBox = styled.div`
   position: fixed;
   top: 25px;
@@ -545,9 +711,13 @@ export const PhotoModalBtnBox = styled.div`
       background-color: #eee;
     }
   }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    top: 25px;
+    right: 20px;
+  }
 `;
 
-export const MakeBinderModalMox = styled(ModalBox)`
+export const MakeBinderModalMox = styled(ModalBox)<{ makeMode: boolean }>`
   .double__section {
     display: flex;
     padding-top: 20px;
@@ -580,12 +750,60 @@ export const MakeBinderModalMox = styled(ModalBox)`
         margin-top: 10px;
         width: 100%;
       }
+      button:last-child {
+        display: none;
+      }
     }
   }
   & > button {
     width: 110px;
     display: block;
     margin: 30px 0 0 auto;
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    .title__label {
+      h4 {
+        font-size: 24px;
+      }
+    }
+    width: 95%;
+    .double__section {
+      height: auto;
+      .section__left {
+        width: 100%;
+        border-right: none;
+        padding-right: 0px;
+        ul > li {
+          margin: 15px 0;
+        }
+      }
+      .section__right {
+        width: 100%;
+        padding-left: 0;
+        display: none;
+        button:last-child {
+          display: initial;
+        }
+      }
+    }
+    & > button {
+      width: 100%;
+      display: block;
+      margin: 10px 0 0 auto;
+    }
+    ${({ makeMode }) =>
+      makeMode &&
+      css`
+        & > button {
+          display: none;
+        }
+        .double__section > .section__left {
+          display: none;
+        }
+        .double__section > .section__right {
+          display: block;
+        }
+      `}
   }
 `;
 

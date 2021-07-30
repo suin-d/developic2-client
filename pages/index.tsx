@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import styled from '@emotion/styled';
+import { RiArrowDownSLine } from 'react-icons/ri';
 import PageLabel from '../components/Label/PageLabel';
 import Layout from '../components/Layout';
 import TitleLabel from '../components/Label/TitleLabel';
@@ -17,17 +18,20 @@ import {
 import Carousel from '../components/List/Carousel';
 import { authServersiceAction } from '../utils/getServerSidePropsTemplate';
 import wrapper from '../modules/store';
+import Welcome from '../components/Result/Welcome';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
 const MainContainer = styled.main`
-  width: 1150px;
+  max-width: 1150px;
   margin: 0 auto;
   margin-top: 50px;
   .banner__image {
     margin-top: 30px;
     margin-bottom: 150px;
-    width: 1150px;
+    max-width: 1150px;
     height: 436px;
-    background-color: #111;
+    background-color: #273bb9;
     img {
       width: 100%;
     }
@@ -45,6 +49,9 @@ const MainContainer = styled.main`
       }
     }
   }
+  .scroll__down {
+    display: none;
+  }
   section {
     margin: 50px 0 100px 0;
     h3 {
@@ -58,20 +65,145 @@ const MainContainer = styled.main`
       flex-wrap: wrap;
     }
   }
-  .circle {
-    position: absolute;
-    z-index: -0;
-    top: 1000px;
-    left: -240px;
-    width: 450px;
-    height: 450px;
-    border-radius: 50%;
-    background-color: ${({ theme }) => theme.primary[2]};
+  .more__btn {
+    margin: 0 auto;
+    font-family: 'Montserrat';
+    font-size: 14px;
+    border: 1px solid ${({ theme }) => theme.grayScale[1]};
+    width: 120px;
+    height: 35px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: ${({ theme }) => theme.grayScale[1]};
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    &::after {
+      content: 'MORE';
+    }
+    &:hover {
+      border: 4px solid ${({ theme }) => theme.primary[1]};
+      color: ${({ theme }) => theme.primary[1]};
+      &::after {
+        content: 'DISCOVER';
+      }
+    }
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    padding-top: 100vh;
+    .page__label {
+      height: 436px;
+      position: absolute;
+      z-index: 10;
+      top: 30vh;
+      padding: 0 20px;
+      h1 {
+        text-shadow: 1px 1px 10px black;
+        font-size: 42px;
+        color: #eee;
+      }
+      p {
+        text-shadow: 1px 1px 10px black;
+        color: #aaa;
+      }
+    }
+    .banner__image {
+      position: absolute;
+      top: 0;
+      z-index: 0;
+      width: 100%;
+      height: 90vh;
+      img {
+      }
+      border-bottom-left-radius: 50% 10%;
+      border-bottom-right-radius: 50% 10%;
+    }
+    .scroll__down {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: absolute;
+      top: 85vh;
+      left: 0;
+      right: 0;
+      color: #fff;
+      font-size: 30px;
+      span {
+        font-family: 'Montserrat';
+        font-size: 12px;
+      }
+      animation: MoveUp 1s ease-in-out infinite alternate;
+
+      @keyframes MoveUp {
+        0% {
+          transform: translateY(-10px);
+        }
+        100% {
+          transform: translateY(0px);
+        }
+      }
+    }
+    .main__nav {
+      position: absolute;
+      top: 60vh;
+      padding: 0 10px;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 100px;
+      z-index: 11;
+      & > li {
+        h4 {
+          color: #fff;
+        }
+        p {
+          color: #aaa;
+        }
+
+        margin-bottom: 40px;
+        width: 48%;
+      }
+    }
+    section {
+      h3 {
+        text-align: center;
+      }
+      & > .post__section {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 0 10px;
+        .popular-post__card {
+          width: 100%;
+          max-width: auto;
+          margin: 0 0px 50px 0;
+          img {
+            max-height: 400px;
+          }
+        }
+      }
+    }
   }
 `;
 
 export default function Home(): JSX.Element {
   const { pageData } = useList();
+
+  const [welcome, setWelcome] = useState(false);
+  useEffect(() => {
+    if (sessionStorage) {
+      const visited = sessionStorage.getItem('visited');
+      if (!visited) {
+        sessionStorage.setItem('visited', '1');
+        setWelcome(true);
+      }
+    }
+    const timeout = setTimeout(() => setWelcome(false), 4300);
+    return () => clearTimeout(timeout);
+  }, []);
+
+  if (welcome) return <Welcome />;
+
   if (!(pageData as MainPageDataType).archive) return <></>;
   if (!(pageData as MainPageDataType).writer) return <></>;
   if (!(pageData as MainPageDataType).post) return <></>;
@@ -85,6 +217,10 @@ export default function Home(): JSX.Element {
         <PageLabel text="디비디 바비디 부 벨소리 울려라" desc="지금은 새벽 4시 반" />
         <div className="banner__image">
           <img src="main_banner.png" alt="banner" />
+        </div>
+        <div className="scroll__down">
+          <RiArrowDownSLine />
+          <span>SCROLL DOWN</span>
         </div>
         <ul className="main__nav">
           <Link href="/feed">
@@ -147,6 +283,9 @@ export default function Home(): JSX.Element {
               <PopularPostCard key={postData.id + 'post'} postData={postData} />
             ))}
           </div>
+          <Link href="/discovery">
+            <div className="more__btn"></div>
+          </Link>
         </section>
       </MainContainer>
     </Layout>

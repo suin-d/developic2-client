@@ -36,6 +36,17 @@ export const PageWithNavContainer = styled.main`
       }
     }
   }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    padding: 0 10px;
+    .title__label {
+      h4 {
+        font-size: 24px;
+      }
+    }
+    & > section {
+      flex-direction: column;
+    }
+  }
 `;
 
 type PageWithNavLayoutPropsType = {

@@ -3,6 +3,7 @@ interface NavItem {
   link: string;
   routerName?: string;
 }
+
 export type NavDataType = NavItem[];
 
 export const CSNavData: NavDataType = [
@@ -11,12 +12,14 @@ export const CSNavData: NavDataType = [
   { name: '약관 및 정책', link: '/cs/term' },
   { name: '문의', link: '/cs/inquery' },
 ];
+
 export const DrawerNavData: NavDataType = [
   { name: '최근 본 글', link: '/user/drawer/recent' },
   { name: '좋아요 목록', link: '/user/drawer/like' },
-  { name: '임시저장 목록', link: '/user/drawer/save' },
+  { name: '작성중인 글', link: '/user/drawer/save' },
   { name: '포토 바인더', link: '/user/drawer/binder' },
 ];
+
 export const SettingNavData: NavDataType = [
   { name: '내 정보', link: '/user/setting/info' },
   { name: '소개', link: '/user/setting/intro' },
@@ -582,6 +585,7 @@ export const recentUsers: RecentUsersPropsType[] = [
     img: 'https://i.pinimg.com/originals/32/d3/89/32d389e4018184c11222fe09caa71617.jpg',
   },
 ];
+
 export const copyRightData = [
   'Copyright © All Rights Reserved',
   'CC BY (저작자표시)',

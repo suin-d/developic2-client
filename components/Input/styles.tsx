@@ -45,8 +45,9 @@ export const CustomInputBox = styled.div<{ width?: number }>`
   }
 `;
 
-export const CustomDateInputBox = styled.div`
+export const CustomDateInputBox = styled.div<{ width?: number }>`
   input {
+    width: 100%;
     font-family: 'Noto Serif KR', serif;
     border: none;
     border-bottom: 1px solid ${({ theme }) => theme.textColor.initial};
@@ -56,6 +57,11 @@ export const CustomDateInputBox = styled.div`
     padding: 5px 5px;
     color: ${({ theme }) => theme.textColor.initial};
   }
+  ${({ width }) =>
+    width &&
+    css`
+      width: ${width}px;
+    `}
 `;
 
 export const CustomSelectBox = styled.div<{ width?: number }>`
@@ -69,16 +75,18 @@ export const CustomSelectBox = styled.div<{ width?: number }>`
   width: ${props => (props.width ? `${props.width}px` : '100%')};
   label {
     width: 100px;
+    margin-right: 25px;
   }
   select {
     outline: none;
     width: 100%;
+    margin-left: 10px;
     padding: 5px 0;
-    -webkit-appearance: none; /* 네이티브 외형 감추기 */
+    -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     background: url('https://cdn.iconscout.com/icon/free/png-256/down-arrow-1767499-1502567.png')
-      no-repeat 99% 50%; /* 화살표 모양의 이미지 */
+      no-repeat 99% 50%;
     background-size: 25px;
     border: none;
     font-size: 16px;
@@ -284,6 +292,9 @@ export const ImageDropZoneContainer = styled.div<{
     css`
       height: ${height}px;
     `}
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    width: 100%;
+  }
 `;
 
 export const AvatarInputBox = styled.form`
@@ -318,6 +329,21 @@ export const AvatarInputBox = styled.form`
     cursor: pointer;
     &:hover {
       background: #eee;
+    }
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    width: 100%;
+    img {
+      margin: 0;
+      border-radius: 50%;
+      width: 100%;
+      height: 100%;
+      min-height: 70px;
+    }
+    .img-select__btn {
+      left: auto;
+      bottom: 0;
+      right: 10px;
     }
   }
 `;

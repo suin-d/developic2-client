@@ -29,6 +29,8 @@ const BlogwithProfileContainer = styled.main`
         0px -4px 4px -4px rgb(0, 0, 0, 0.04) inset;
     }
   }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+  }
 `;
 const UserProfileWithTab = styled.div`
   margin: 0 auto;

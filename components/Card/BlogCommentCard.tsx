@@ -35,19 +35,14 @@ export default function BlogCommentCard({
     setEditedComment(commentData.content);
   }, [commentData.content]);
 
-  const onUpdateComment = useCallback(
-    (e: React.KeyboardEvent) => {
-      if (e.shiftKey && e.key === 'Enter') {
-        updateCommentDispatch({
-          CommentId: commentData.id,
-          content: editedComment,
-          mentionedUser: null,
-        });
-        setEditMode(false);
-      }
-    },
-    [editedComment]
-  );
+  const onUpdateComment = useCallback(() => {
+    updateCommentDispatch({
+      CommentId: commentData.id,
+      content: editedComment,
+      mentionedUser: null,
+    });
+    setEditMode(false);
+  }, [editedComment]);
 
   return (
     <BlogCommentCardBox>
@@ -58,7 +53,10 @@ export default function BlogCommentCard({
           </Link>
           <div>
             <strong>{commentData.User.nickname}</strong>
-            <p>{dayjs(commentData.updatedAt).format('YYYY년 MM월 DD일')}</p>
+            <p>
+              {dayjs(commentData.updatedAt).format('YY년 MM월 DD일 HH시')}{' '}
+              {commentData.createdAt !== commentData.updatedAt && '(수정됨)'}
+            </p>
           </div>
         </article>
         <div>
@@ -66,7 +64,11 @@ export default function BlogCommentCard({
             userData.id === commentData.UserId ? (
               <>
                 <span onClick={onToggleEditMode}>{editMode ? '취소' : '수정'}</span>
-                <span onClick={toggleModal}>삭제</span>
+                {editMode ? (
+                  <span onClick={onUpdateComment}>적용</span>
+                ) : (
+                  <span onClick={toggleModal}>삭제</span>
+                )}
               </>
             ) : (
               <span>신고</span>
@@ -76,12 +78,7 @@ export default function BlogCommentCard({
       </section>
       {editMode ? (
         <form className="edit__form">
-          <textarea
-            value={editedComment}
-            onChange={onChangeEditedComment}
-            onKeyPress={onUpdateComment}
-          ></textarea>
-          <span>'Shift' + 'Enter' 를 입력해 완료</span>
+          <textarea value={editedComment} onChange={onChangeEditedComment}></textarea>
         </form>
       ) : (
         <p>{commentData.content}</p>

@@ -24,12 +24,9 @@ const ArchiveDetailContainer = styled.div`
     }
   }
   .detail__summary {
-    margin-top: 60px;
     border-top: 1px solid ${({ theme }) => theme.grayScale[2]};
-    font-family: 'Noto Serif KR';
-    color: ${({ theme }) => theme.textColor.initial};
     h1 {
-      margin: 40px 0 30px 0;
+      margin: 30px 0;
       font-size: ${({ theme }) => theme.fontSize.titleSize};
       font-weight: 500;
       line-height: 60px;
@@ -40,65 +37,55 @@ const ArchiveDetailContainer = styled.div`
       margin-top: 15px;
       word-break: break-word;
     }
-    & > div {
+    & > ul {
+      margin: 70px 0 0 auto;
+      border-left: 1px solid ${({ theme }) => theme.grayScale[2]};
+      padding: 10px 0 10px 30px;
       display: flex;
-      justify-content: flex-end;
-      margin-top: 70px;
-      & > ul {
-        border-left: 1px solid ${({ theme }) => theme.grayScale[2]};
-        padding: 10px 0 10px 30px;
+      flex-direction: column;
+      align-items: flex-end;
+      min-width: 210px;
+      max-width: 260px;
+      .detail__by {
         display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        min-width: 210px;
-        max-width: 300px;
-        .detail__by {
-          display: flex;
-          width: 100%;
-          span {
-            font-family: 'Montserrat';
-            width: 40px;
+        width: 100%;
+        ul {
+          flex: 1;
+          li {
+            font-size: ${({ theme }) => theme.fontSize.lg};
+            text-align: end;
           }
-          ul {
-            flex: 1;
-            li {
-              font-size: ${({ theme }) => theme.fontSize.lg};
-              text-align: end;
-            }
-            li + li {
-              margin-top: 10px;
-            }
+          li + li {
+            margin-top: 7px;
           }
         }
-        .detail__link {
-          text-decoration: underline;
-          cursor: pointer;
-          &:hover {
-            color: ${({ theme }) => theme.textColor.lighten};
-          }
+      }
+      .detail__link {
+        text-decoration: underline;
+        cursor: pointer;
+        &:hover {
+          color: ${({ theme }) => theme.textColor.lighten};
         }
-        & > li + li {
-          margin-top: 35px;
-        }
+      }
+      & > li + li {
+        margin-top: 35px;
       }
     }
   }
+  section > p {
+    font-size: ${({ theme }) => theme.fontSize.xxxl};
+    font-weight: 500;
+  }
   .detail__contact {
-    font-family: 'Noto Serif KR';
-    color: ${({ theme }) => theme.textColor.initial};
     margin-top: 150px;
     display: flex;
     justify-content: space-between;
-    p {
-      font-size: ${({ theme }) => theme.fontSize.xxxl};
-      font-weight: 600;
-    }
     ul {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
       li {
-        word-break: break-all;
+        white-space: nowrap;
         text-align: end;
       }
       li + li {
@@ -107,34 +94,24 @@ const ArchiveDetailContainer = styled.div`
     }
   }
   .detail__info {
-    font-family: 'Noto Serif KR';
-    color: ${({ theme }) => theme.textColor.initial};
     margin-top: 150px;
-    p {
-      font-size: ${({ theme }) => theme.fontSize.xxxl};
-      font-weight: 600;
-    }
     & > article {
       margin-top: 50px;
-      line-height: 35px;
       word-break: keep-all;
       padding: 0 50px;
       text-align: center;
-      color: ${({ theme }) => theme.textColor.initial};
       & > p {
         display: inline-block;
         font-size: ${({ theme }) => theme.fontSize.lg};
-        font-weight: 500;
-        word-break: break-word;
         img {
           width: 100%;
-          height: 450px;
+          max-height: 450px;
           object-fit: contain;
         }
       }
     }
   }
-  & > ul {
+  .btn__group {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -226,29 +203,27 @@ export default function ArchiveId(): JSX.Element {
             <b>{`${getArchiveDetail.data.startDate} - ${getArchiveDetail.data.endDate}`}</b>
           </p>
           <p>{getArchiveDetail.data.address}</p>
-          <div>
-            <ul>
-              <li className="detail__by">
-                <span>By</span>
-                <ul>
-                  {getArchiveDetail.data.author.split(',').map(name => (
-                    <li key={name}>{name}</li>
-                  ))}
-                </ul>
-              </li>
-              <li
-                className="detail__link"
-                onClick={() => window.open(`https://${getArchiveDetail.data?.webPage}`)}
-              >
-                사이트로 이동
-              </li>
-              <li>
-                {getArchiveDetail.data.cost === 0
-                  ? '무료관람'
-                  : `₩ ${getArchiveDetail.data.cost.toLocaleString()}`}
-              </li>
-            </ul>
-          </div>
+          <ul>
+            <li className="detail__by">
+              <b>By</b>
+              <ul>
+                {getArchiveDetail.data.author.split(',').map(name => (
+                  <li key={name}>{name}</li>
+                ))}
+              </ul>
+            </li>
+            <li
+              className="detail__link"
+              onClick={() => window.open(`https://${getArchiveDetail.data?.webPage}`)}
+            >
+              사이트로 이동
+            </li>
+            <li>
+              {getArchiveDetail.data.cost === 0
+                ? '무료관람'
+                : `₩ ${getArchiveDetail.data.cost.toLocaleString()}`}
+            </li>
+          </ul>
         </section>
         <section className="detail__contact">
           <p>전시지원</p>
@@ -266,18 +241,18 @@ export default function ArchiveId(): JSX.Element {
             dangerouslySetInnerHTML={{ __html: getArchiveDetail.data.description }}
           ></article>
         </section>
-        <ul>
+        <div className="btn__group">
           <Link href="/archive">
-            <li className="list__btn">
+            <div className="list__btn">
               <Button text="목록" bar width="100px" />
-            </li>
+            </div>
           </Link>
           <Link href="/cs/inquery">
-            <li className="edit__btn">
+            <div className="edit__btn">
               <Button text="수정요청" bar width="100px" />
-            </li>
+            </div>
           </Link>
-        </ul>
+        </div>
       </ArchiveDetailContainer>
     </Layout>
   );

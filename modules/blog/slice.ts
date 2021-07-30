@@ -13,8 +13,8 @@ const initialState: BlogState = {
   loadBlogPostList: { loading: false, data: null, error: null },
   loadBlogPicstoryList: { loading: false, data: null, error: null },
   loadBlogPicstoryDetail: { loading: false, data: null, error: null },
-  addBlogFollow: { loading: false, data: null, error: null },
-  removeBlogFollow: { loading: false, data: null, error: null },
+  addSubscribe: { loading: false, data: null, error: null },
+  removeSubscribe: { loading: false, data: null, error: null },
   loadMore: false,
   hasMore: false,
 };

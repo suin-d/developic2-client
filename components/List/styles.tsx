@@ -176,6 +176,15 @@ export const ImgItemBox = styled.div<{ selected: boolean }>`
         background-color: #8c30f5;
       }
     `}
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    .check__circle {
+      display: flex;
+      border: 1px solid #aaa;
+      &:hover {
+        background-color: #8c30f5;
+      }
+    }
+  }
 `;
 
 export const SearchPicstoryListContainer = styled.ul`
@@ -199,6 +208,9 @@ export const BlogPicstoryListContainer = styled.ul`
   .empty_content {
     text-align: center;
     margin-top: 7.143em;
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    padding: 0 10px;
   }
 `;
 export const BlogPostListContainer = styled.ul`
@@ -229,10 +241,13 @@ export const BlogPostListContainer = styled.ul`
       padding-left: 1.071em;
     }
   }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    padding: 0 10px;
+  }
 `;
 
 export const PostCommentListContainer = styled.div`
-  width: 1150px;
+  max-width: 1150px;
   margin: 0 auto;
   padding: 50px 175px 0 175px;
   border-top: 1px solid ${({ theme }) => theme.grayScale[2]};
@@ -257,10 +272,14 @@ export const PostCommentListContainer = styled.div`
       font-size: ${({ theme }) => theme.fontSize.base};
       font-weight: ${({ theme }) => theme.fontWeight.regular};
     }
-    button {
-    }
   }
   & > ul {
     margin-bottom: 100px;
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    padding: 30px 10px;
+    & > form > textarea {
+      width: 100%;
+    }
   }
 `;
