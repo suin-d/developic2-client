@@ -1,12 +1,13 @@
-import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import styled from '@emotion/styled';
-import PostCardList from '../../components/List/CommonPostCardList';
+import { useRouter } from 'next/router';
+import SearchPostCardList from '../../components/List/SearchPostCardList';
 import SearchPageWithNavLayout from '../../components/Nav/SearchPageNav';
 import EmptyContent from '../../components/Result/EmptyContent';
 import SearchResultCount from '../../components/Result/SearchResultCount';
+import { SearchContentBox } from '../../components/Result/styles';
 import SortOption from '../../components/Tab/SortOption';
-import { SearchPageData } from '../../modules/list';
+import useFetchMore from '../../hooks/useFetchMore';
+import { SearchPageDataType } from '../../modules/list';
 import useList from '../../modules/list/hooks';
 import { SearchNavData } from '../../utils/data';
 
@@ -22,64 +23,60 @@ export const dateOptionData = [
   { name: '최근 1개월', value: 'month' },
 ];
 
-export const SearchContentBox = styled.div`
-  .sort-option {
-    display: flex;
-    justify-content: flex-end;
-    position: relative;
-    margin-bottom: 1em;
-    & > div + div {
-      margin-left: 1em;
-    }
-  }
-`;
-
 export default function SearchPost(): JSX.Element {
-  const { pageData, loadSearchListDispatch } = useList();
+  const { pageData, getSearchListDispatch, hasMore } = useList();
   const [currentSort, setCurrentSort] = useState(sortOptionData[0]);
-  const { query } = useRouter();
   const [currentDate, setCurrentDate] = useState(dateOptionData[0]);
+  const [FetchMoreTrigger, page, setPage] = useFetchMore(hasMore);
+  const { query } = useRouter();
+
+  useEffect(() => {
+    setPage(0);
+  }, [query.keyword, currentSort, currentDate, setPage]);
 
   useEffect(() => {
     if (query.keyword) {
-      loadSearchListDispatch({
+      getSearchListDispatch({
         query: query.keyword,
         sort: currentSort.value as 'popular' | 'recent',
         type: 'post',
         term: currentDate.value as 'all' | 'day' | 'week' | 'month',
+        limit: 12,
+        offset: page * 12,
       });
     }
-  }, [query, currentSort, currentDate, loadSearchListDispatch]);
+  }, [query, currentSort, currentDate, getSearchListDispatch, page]);
 
   return (
     <SearchPageWithNavLayout>
       <SearchContentBox>
-        {(pageData as SearchPageData['post']) &&
-          (pageData as SearchPageData['post']).length < 1 && (
+        <div className="sort-option">
+          <SortOption
+            sortOptionData={sortOptionData}
+            setCurrentSort={setCurrentSort}
+            currentSort={currentSort}
+          />
+          {currentSort.value === sortOptionData[0].value && (
+            <SortOption
+              sortOptionData={dateOptionData}
+              setCurrentSort={setCurrentDate}
+              currentSort={currentDate}
+            />
+          )}
+        </div>
+        {(pageData as SearchPageDataType).post &&
+          (pageData as SearchPageDataType).post.length < 1 && (
             <EmptyContent message={'검색된 글이 없습니다.'} />
           )}
-        {(pageData as SearchPageData['post']) &&
-          (pageData as SearchPageData['post']).length >= 1 && (
+        {(pageData as SearchPageDataType).post &&
+          (pageData as SearchPageDataType).post.length >= 1 && (
             <>
-              <div className="sort-option">
-                <SortOption
-                  sortOptionData={sortOptionData}
-                  setCurrentSort={setCurrentSort}
-                  currentSort={currentSort}
-                />
-                {currentSort.value === sortOptionData[0].value && (
-                  <SortOption
-                    sortOptionData={dateOptionData}
-                    setCurrentSort={setCurrentDate}
-                    currentSort={currentDate}
-                  />
-                )}
-              </div>
               <SearchResultCount
                 searchTitle={SearchNavData[0].name}
-                resultCount={(pageData as SearchPageData['post']).length}
+                resultCount={(pageData as SearchPageDataType).post.length}
               />
-              <PostCardList searchPostListData={pageData as SearchPageData['post']} />
+              <SearchPostCardList />
+              <FetchMoreTrigger />
             </>
           )}
       </SearchContentBox>

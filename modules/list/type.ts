@@ -7,20 +7,8 @@ export type ListState = {
     | FeedPageDataType
     | DiscoverPageDataType
     | MainPageDataType
-    | SearchPageData['post' | 'writer' | 'picstory'];
-
-  loadSearchPostList: { loading: boolean; data: null | unknown; error: null | unknown };
-  loadMoreSearchPostList: {
-    loading: boolean;
-    data: null | unknown;
-    error: null | unknown;
-  };
-  loadSearchList: { loading: boolean; data: null | unknown; error: null | unknown };
-  loadMoreSearchList: {
-    loading: boolean;
-    data: null | unknown;
-    error: null | unknown;
-  };
+    | SearchPageDataType;
+  getSearchList: { loading: boolean; data: null | unknown; error: null | unknown };
   getArchiveList: { loading: boolean; data: null | unknown; error: null | unknown };
   getFeedList: { loading: boolean; data: null | unknown; error: null | unknown };
   getWriterList: { loading: boolean; data: null | unknown; error: null | unknown };
@@ -43,7 +31,7 @@ export type PostUser = {
   Posts?: SearchUserPost[];
 };
 
-export type SearchPageData = {
+export type SearchPageDataType = {
   post: PostType[];
   writer: PostUser[];
   picstory: BlogPicstory[];
@@ -140,5 +128,6 @@ export type LoadSearchListPayload = {
   sort?: 'recent' | 'popular';
   type: 'post' | 'writer' | 'picstory';
   offset?: number;
+  limit?: number;
   term?: 'all' | 'month' | 'week' | 'day';
 };
