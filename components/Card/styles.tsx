@@ -390,10 +390,12 @@ export const UserInfoCardBox = styled.li<{
     &:hover h3 {
       color: ${({ theme }) => theme.primary[1]};
     }
-    .profile__wrapper > img {
-      width: 6.429em;
-      height: 6.429em;
-      border-radius: 50%;
+    .profile__wrapper {
+      img {
+        width: 6.429em;
+        height: 6.429em;
+        border-radius: 50%;
+      }
     }
     h3 {
       cursor: pointer;
@@ -1062,7 +1064,7 @@ export const SearchPicstoryCardBox = styled.li`
           display: flex;
           align-items: center;
           margin-bottom: 0.5em;
-          & > img {
+          img {
             width: 1.375em;
             height: 1.375em;
             border-radius: 50%;
@@ -1111,7 +1113,7 @@ export const SearchPicstoryCardBox = styled.li`
   @media ${({ theme }) => theme.viewPortSize.mobile} {
     font-size: ${({ theme }) => theme.fontSize.base};
     article {
-      margin: 1em 0;
+      margin: 1.5em 0;
       & > div:nth-of-type(2) {
         padding: 0.5em 0;
         .picstory__description {

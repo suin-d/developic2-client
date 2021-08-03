@@ -25,7 +25,7 @@ export const PostSearchListContainer = styled.ul`
   }
   @media screen and (max-width: 539px) {
     grid-template-columns: repeat(1, 1fr) !important;
-    grid-gap: 0;
+    grid-gap: 14px;
   }
 `;
 
@@ -46,7 +46,22 @@ export const UserCardListContainer = styled.ul`
   }
   @media screen and (max-width: 539px) {
     grid-template-columns: repeat(1, 1fr) !important;
-    grid-gap: 20px 0;
+    grid-gap: 24px 0;
+  }
+`;
+
+export const SearchPicstoryListContainer = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 70px 50px;
+  margin-bottom: 100px;
+  min-height: 250px;
+  .empty_content {
+    text-align: center;
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 0;
   }
 `;
 
@@ -184,21 +199,6 @@ export const ImgItemBox = styled.div<{ selected: boolean }>`
         background-color: #8c30f5;
       }
     }
-  }
-`;
-
-export const SearchPicstoryListContainer = styled.ul`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 70px 50px;
-  margin-bottom: 100px;
-  min-height: 250px;
-  .empty_content {
-    text-align: center;
-  }
-  @media ${({ theme }) => theme.viewPortSize.mobile} {
-    grid-template-columns: repeat(1, 1fr);
-    grid-gap: 0;
   }
 `;
 

@@ -283,3 +283,15 @@ export const SearchCountBox = styled.div`
   font-size: ${({ theme }) => theme.fontSize.base};
   color: ${({ theme }) => theme.grayScale[1]};
 `;
+
+export const SearchContentBox = styled.div`
+  .sort-option {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    margin-bottom: 1em;
+    & > div + div {
+      margin-left: 1em;
+    }
+  }
+`;

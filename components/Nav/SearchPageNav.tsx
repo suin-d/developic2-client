@@ -1,39 +1,12 @@
-import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import _debounce from 'lodash/debounce';
 import React, { useCallback, useState } from 'react';
 import SearchInput from '../Input/SearchInput';
 import TitleLabel from '../Label/TitleLabel';
-import { PageWithNavContainer } from '../Layout/PageWithNavLayout';
 import Layout from '../Layout';
 import SearchPageNavigation from './SearchPageNavigation';
-
-const SearchPageWithNavContainer = styled(PageWithNavContainer)`
-  color: ${({ theme }) => theme.textColor.initial};
-  max-width: 1150px;
-  min-height: 650px;
-  @media ${({ theme }) => theme.viewPortSize.tablet} {
-    padding-left: 1rem;
-    padding-right: 1rem;
-    max-width: 850px;
-    font-size: ${({ theme }) => theme.fontSize.small};
-  }
-  @media ${({ theme }) => theme.viewPortSize.mobile} {
-    padding-left: 1rem;
-    padding-right: 1rem;
-    .title {
-      margin: 15px 0;
-    }
-    .block {
-      background: ${({ theme }) => theme.grayScale[4]};
-      height: 1em;
-      margin: 0 -1rem;
-      box-shadow: 0px 4px 4px -4px rgb(0, 0, 0, 0.03) inset,
-        0px -4px 4px -4px rgb(0, 0, 0, 0.04) inset;
-    }
-    font-size: ${({ theme }) => theme.fontSize.small};
-  }
-`;
+import Head from 'next/head';
+import { SearchPageWithNavContainer } from './styles';
 
 type SearchPageWithNavPropsType = {
   children: React.ReactNode;
@@ -63,6 +36,9 @@ export default function SearchPageWithNavLayout({
   };
   return (
     <Layout>
+      <Head>
+        <title>검색</title>
+      </Head>
       <SearchPageWithNavContainer>
         <div className="title">
           <TitleLabel title="검색" desc="Search" />

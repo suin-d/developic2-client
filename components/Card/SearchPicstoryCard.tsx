@@ -39,7 +39,13 @@ export default function SearchPicstoryCard({
               <h3>{picstoryData.title}</h3>
               <p>{picstoryData.description}</p>
               <div>
-                <img src={picstoryData.User.avatar} alt={picstoryData.User.nickname} />
+                <Image
+                  src={picstoryData.User.avatar as string}
+                  alt={picstoryData.User.nickname}
+                  width={40}
+                  height={40}
+                  objectFit="cover"
+                />
                 <span>{picstoryData.User.nickname}</span>
               </div>
             </div>

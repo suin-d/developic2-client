@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { PageWithNavContainer } from '../Layout/PageWithNavLayout';
 
 export const PageNavigationBox = styled.nav`
   border-top: 0.5px solid ${({ theme }) => theme.grayScale[2]};
@@ -83,8 +84,9 @@ export const SearchPageNavigationContainer = styled.nav`
   font-size: ${({ theme }) => theme.fontSize.lg};
   ul {
     display: flex;
+    font-weight: 600;
+    font-family: 'Noto Serif KR';
     li {
-      font-family: 'Noto Serif KR';
       cursor: pointer;
       padding: 1em 3.125em 1em 0;
       margin-bottom: -0.063em;
@@ -94,21 +96,20 @@ export const SearchPageNavigationContainer = styled.nav`
       }
     }
     li.nav--active {
-      border-bottom: 0.125em solid ${({ theme }) => theme.primary[1]};
+      border-bottom: 0.1em solid ${({ theme }) => theme.primary[1]};
       color: ${({ theme }) => theme.primary[1]};
-      font-weight: 600;
     }
   }
   @media ${({ theme }) => theme.viewPortSize.mobile} {
     margin-left: -1rem;
     margin-right: -1rem;
     margin-bottom: 1.2em;
-    font-size: ${({ theme }) => theme.fontSize.medium};
     ul {
+      text-align: center;
       li {
-        text-align: center;
         width: 33.3%;
-        padding: 1.071em 0;
+        padding: 0.875em 0;
+        margin-right: 0;
       }
     }
   }
@@ -119,11 +120,12 @@ export const BlogNavBox = styled.nav`
     margin-bottom: 1.875em;
     display: flex;
     justify-content: center;
+    font-weight: 600;
+    text-align: center;
     li {
-      text-align: center;
       width: 20%;
       display: inline-block;
-      padding: 1em 2em;
+      padding: 1em;
       margin-bottom: -1px;
     }
     li:hover {
@@ -132,7 +134,6 @@ export const BlogNavBox = styled.nav`
     li.nav--active {
       border-bottom: 0.125em solid ${({ theme }) => theme.primary[1]};
       color: ${({ theme }) => theme.primary[1]};
-      font-weight: 600;
     }
   }
   @media ${({ theme }) => theme.viewPortSize.mobile} {
@@ -144,9 +145,36 @@ export const BlogNavBox = styled.nav`
       li {
         width: 33.3%;
         span {
-          font-size: ${({ theme }) => theme.fontSize.medium};
+          font-size: ${({ theme }) => theme.fontSize.lg};
         }
       }
     }
+  }
+`;
+
+export const SearchPageWithNavContainer = styled(PageWithNavContainer)`
+  color: ${({ theme }) => theme.textColor.initial};
+  max-width: 1150px;
+  min-height: 650px;
+  @media ${({ theme }) => theme.viewPortSize.tablet} {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    max-width: 850px;
+    font-size: ${({ theme }) => theme.fontSize.small};
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    .title {
+      margin: 15px 0;
+    }
+    .block {
+      background: ${({ theme }) => theme.grayScale[4]};
+      height: 1em;
+      margin: 0 -1rem;
+      box-shadow: 0px 4px 4px -4px rgb(0, 0, 0, 0.03) inset,
+        0px -4px 4px -4px rgb(0, 0, 0, 0.04) inset;
+    }
+    font-size: ${({ theme }) => theme.fontSize.small};
   }
 `;

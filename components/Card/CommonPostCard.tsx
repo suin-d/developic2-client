@@ -1,12 +1,10 @@
 import React from 'react';
 import Image from 'next/image';
-import { MdFavorite, MdRemoveRedEye } from 'react-icons/md';
 import { MdFavoriteBorder } from 'react-icons/md';
 import { AiOutlineEye } from 'react-icons/ai';
 import Link from 'next/link';
 import { CommonPostCardBox } from './styles';
 import { PostType } from '../../modules/list';
-import dayjs from 'dayjs';
 
 type PostCardPropsType = {
   postData: PostType;
@@ -30,7 +28,13 @@ export default function CommonPostCard({ postData }: PostCardPropsType): JSX.Ele
         <div className="info">
           <Link href={`/${postData.User?.id}/post`}>
             <div>
-              <img src={postData.User?.avatar} alt={postData.User?.nickname} />
+              <Image
+                src={postData.User?.avatar}
+                alt={postData.User?.nickname}
+                width={40}
+                height={40}
+                objectFit="cover"
+              />
               <strong>{postData.User?.nickname}</strong>
               <span>님의 글</span>
             </div>
@@ -45,9 +49,6 @@ export default function CommonPostCard({ postData }: PostCardPropsType): JSX.Ele
               <span>{postData.hits}</span>
             </div>
           </div>
-        </div>
-        <div className="write_date">
-          {dayjs(postData.createdAt).format('YYYY년 MM월 DD일')}
         </div>
       </CommonPostCardBox>
     </Link>

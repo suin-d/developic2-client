@@ -20,7 +20,13 @@ export default function UserInfoCard({
       <UserInfoCardBox currentTheme={currentTheme}>
         <article>
           <div className="profile__wrapper">
-            <img src={userInfoData.avatar} alt={userInfoData.nickname} />
+            <Image
+              src={userInfoData.avatar}
+              alt={userInfoData.nickname}
+              width={100}
+              height={100}
+              objectFit="cover"
+            />
           </div>
           <h3>{userInfoData.nickname}</h3>
           <p>{userInfoData.introduce}</p>
