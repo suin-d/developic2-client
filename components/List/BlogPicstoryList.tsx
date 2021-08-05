@@ -13,14 +13,13 @@ export default function BlogPicstoryList(): JSX.Element {
   const [FetchMoreTrigger, page] = useFetchMore(hasMore);
 
   useEffect(() => {
-    if (hasMore && page > 0) {
-      loadBlogPicstoryListDispatch({
-        userId: +(router.query.userId as string),
-        limit: 12,
-        offset: page * 12,
-      });
-    }
-  }, [hasMore, loadBlogPicstoryListDispatch, page, router.query.userId]);
+    if (!hasMore && page > 0) return;
+    loadBlogPicstoryListDispatch({
+      userId: +(router.query.userId as string),
+      limit: 12,
+      offset: page * 12,
+    });
+  }, [page, hasMore, loadBlogPicstoryListDispatch, router.query.userId]);
 
   if (!loadBlogPicstoryList.data) return <></>;
 

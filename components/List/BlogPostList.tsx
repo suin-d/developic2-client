@@ -19,14 +19,13 @@ export default function BlogPostList(): JSX.Element {
   const router = useRouter();
 
   useEffect(() => {
-    if (hasMore && page > 0) {
-      loadBlogPostListDispatch({
-        userId: +(router.query.userId as string),
-        limit: 12,
-        offset: page * 12,
-      });
-    }
-  }, [hasMore, loadBlogPostListDispatch, page, router.query.userId]);
+    if (!hasMore && page > 0) return;
+    loadBlogPostListDispatch({
+      userId: +(router.query.userId as string),
+      limit: 12,
+      offset: page * 12,
+    });
+  }, [page, hasMore, loadBlogPostListDispatch, router.query.userId]);
 
   if (!loadBlogPostList.data) return <></>;
 
