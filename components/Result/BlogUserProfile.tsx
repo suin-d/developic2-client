@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useLayoutEffect, useState } from 'react';
 import useUser from '../../modules/user/hooks';
 import FollowBtn from '../Button/FollowBtn';
 import { RoundCornerBtnBox } from '../Button/styles';
@@ -31,14 +31,14 @@ export default function BlogUserProfile(): JSX.Element {
   );
   const [isFollowing, setIsFollowing] = useState(false);
 
-  useEffect(() => {
-    if (!blogUserData) return;
+  useLayoutEffect(() => {
+    if (!blogUserData?.id) return;
     if (userData?.writers.find(following => following.id == blogUserData.id)) {
       setIsFollowing(true);
     } else {
       setIsFollowing(false);
     }
-  }, [blogUserData, userData?.id, userData?.writers]);
+  }, [blogUserData?.id, userData?.writers]);
 
   const onFollowToggle = () => {
     if (!blogUserData) return;

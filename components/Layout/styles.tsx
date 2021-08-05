@@ -524,3 +524,50 @@ export const ScrollBar = styled.div<{ width: number }>`
       width: ${width}%;
     `}
 `;
+
+export const BlogwithProfileContainer = styled.main`
+  font-family: 'Noto Serif KR';
+  margin: 40px auto;
+  max-width: 850px;
+  min-height: 650px;
+  position: relative;
+  color: ${({ theme }) => theme.textColor.initial};
+  @media ${({ theme }) => theme.viewPortSize.tablet} {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    margin: 25px auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: ${({ theme }) => theme.fontSize.base};
+    .block {
+      background: ${({ theme }) => theme.grayScale[4]};
+      height: 1em;
+      margin: 0 -1rem;
+      box-shadow: 0px 4px 4px -4px rgb(0, 0, 0, 0.03) inset,
+        0px -4px 4px -4px rgb(0, 0, 0, 0.04) inset;
+    }
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+  }
+`;
+export const UserProfileWithTab = styled.div`
+  margin: 0 auto;
+`;
+
+export const BlogPostContainer = styled.section`
+  max-width: 850px;
+  margin: 0 auto;
+`;
+
+export const BlogPicstoryContainer = styled.section`
+  max-width: 850px;
+  margin: 0 auto;
+`;
+
+export const BlogUserInfoContainer = styled.section`
+  max-width: 850px;
+  margin: 0 auto;
+  font-family: 'Noto Serif KR';
+`;

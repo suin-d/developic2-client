@@ -1,5 +1,4 @@
 import React from 'react';
-import { BlogUserData } from '../../modules/blog';
 import useBlog from '../../modules/blog/hooks';
 import useUser from '../../modules/user/hooks';
 import EmptyBlogUserInfo from './EmptyBlogUserInfo';
@@ -17,7 +16,7 @@ export default function BlogUserInfo(): JSX.Element {
   )
     return (
       <EmptyBlogUserInfo
-        blogUserId={(loadBlogUser.data as BlogUserData).id}
+        blogUserId={loadBlogUser.data?.id}
         userId={userData && userData.id}
       />
     );

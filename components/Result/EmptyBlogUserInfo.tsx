@@ -4,7 +4,7 @@ import { RoundCornerBtnBox } from '../Button/styles';
 import { EmptyBlogUserInfoBox } from './styles';
 
 type EmptyBlogUserInfoPropsType = {
-  blogUserId: number | null;
+  blogUserId?: number | null;
   userId: number | null;
 };
 export default function EmptyBlogUserInfo({

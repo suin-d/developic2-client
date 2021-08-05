@@ -49,9 +49,6 @@ export const BlogUserInfoBox = styled.div`
 
   @media ${({ theme }) => theme.viewPortSize.mobile} {
     padding: 0 20px;
-    .user__info {
-      text-align: center;
-    }
   }
 `;
 
