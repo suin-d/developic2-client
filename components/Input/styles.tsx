@@ -225,14 +225,15 @@ export const CustomCheckBoxBox = styled.div`
     width: 19px;
     height: 19px;
     border-radius: 50%;
-    background-color: ${({ theme }) => theme.primary[1]};
+    border: 2px solid ${({ theme }) => theme.primary[1]};
+    background-color: #fff;
     margin-right: 12px;
     cursor: pointer;
   }
   input:checked + span::after {
     content: '';
     display: block;
-    background-color: #fff;
+    background-color: ${({ theme }) => theme.primary[1]};
     width: 10px;
     height: 10px;
     border-radius: 50%;

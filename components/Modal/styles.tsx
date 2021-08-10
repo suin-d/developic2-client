@@ -377,8 +377,7 @@ export const PicstoryModalBox = styled(ModalBox)<{ makeMode: boolean }>`
       li {
         display: flex;
         align-items: center;
-        padding: 5px 0;
-        height: 35px;
+        margin-bottom: 10px;
         .checked {
           cursor: pointer;
           width: 20px;
@@ -396,7 +395,6 @@ export const PicstoryModalBox = styled(ModalBox)<{ makeMode: boolean }>`
         }
         p {
           cursor: default;
-          height: 19px;
           color: ${({ theme }) => theme.textColor.lighten};
           flex: 1;
           font-size: 14px;
@@ -422,9 +420,6 @@ export const PicstoryModalBox = styled(ModalBox)<{ makeMode: boolean }>`
       &:focus-within {
         .line {
           transform: translateX(60px);
-        }
-        span {
-          width: 60px;
         }
       }
     }
@@ -452,6 +447,7 @@ export const PicstoryModalBox = styled(ModalBox)<{ makeMode: boolean }>`
     padding: 0 20px 20px 20px;
     width: 95%;
     height: auto;
+
     .title__label {
       h4 {
         font-size: 20px;
@@ -471,13 +467,13 @@ export const PicstoryModalBox = styled(ModalBox)<{ makeMode: boolean }>`
         display: none;
       }
     }
-  }
-  .mobile-btn__box {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 20px;
-    button + button {
-      margin-left: 20px;
+    .mobile-btn__box {
+      display: flex !important;
+      justify-content: flex-end;
+      margin-top: 20px;
+      button + button {
+        margin-left: 20px;
+      }
     }
   }
 

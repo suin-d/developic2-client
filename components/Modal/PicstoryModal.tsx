@@ -15,30 +15,17 @@ import { ModalLayout, PicstoryModalBox } from './styles';
 type PicstoryListItemPropsType = {
   checked: boolean;
   addPicstory: (id: number) => void;
-  removePicstory: (id: number) => void;
   picstoryData: { id: number; title: string };
 };
 function PicstoryListItem({
   checked,
   addPicstory,
-  removePicstory,
   picstoryData,
 }: PicstoryListItemPropsType): JSX.Element {
-  const onRemovePicstory = useCallback(
-    (e: React.MouseEvent<HTMLSpanElement>) => {
-      e.stopPropagation();
-      removePicstory(picstoryData.id);
-    },
-    [picstoryData]
-  );
-
   return (
     <li onClick={() => addPicstory(picstoryData.id)}>
       <div className="checked">{checked && <MdCheck />}</div>
       <p>{picstoryData.title}</p>
-      <span onClick={onRemovePicstory}>
-        <MdCancel />
-      </span>
     </li>
   );
 }
@@ -60,7 +47,6 @@ export default function PicstoryModal({
     getPicstoryListDispatch,
     createPicstory,
     createPicstoryDispatch,
-    removePicstoryDispatch,
     addPicPostDispatch,
     removePicPostDispatch,
   } = usePicstory();
@@ -86,10 +72,6 @@ export default function PicstoryModal({
     },
     [picstoryList, postId]
   );
-
-  const destroyPicstory = useCallback((id: number) => {
-    removePicstoryDispatch(id);
-  }, []);
 
   const onCreatePicstory = () => {
     if (!userData) return;
@@ -140,7 +122,6 @@ export default function PicstoryModal({
                   checked={picstoryList.findIndex(pic => picstory.id === pic) !== -1}
                   addPicstory={addPicstory}
                   picstoryData={picstory}
-                  removePicstory={destroyPicstory}
                 />
               ))}
           </ul>
@@ -172,7 +153,7 @@ export default function PicstoryModal({
             placeholder="최대 100글자를 입력할 수 있습니다."
           ></textarea>
           <div className="btn__group">
-            <SquareBtn onClick={onClose}>확인</SquareBtn>
+            <SquareBtn onClick={onClose}>닫기</SquareBtn>
             <SquareBtn onClick={onCreatePicstory}>생성</SquareBtn>
           </div>
           <div className="mobile-btn__box">
