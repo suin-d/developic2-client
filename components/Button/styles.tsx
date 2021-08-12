@@ -20,7 +20,6 @@ to{
 }
 `;
 const Btn = styled.button`
-  font-family: 'Noto Serif KR';
   border: none;
   outline: none;
   background: none;
@@ -151,7 +150,7 @@ export const ButtonBox = styled.div<{
 }>`
   button {
     cursor: pointer;
-    font-family: 'Noto Serif KR';
+
     width: ${props => (props.width ? `${props.width}` : '160px')};
     height: ${props => (props.height ? `${props.height}` : '35px')};
     color: ${({ theme }) => theme.textColor.initial};
@@ -203,7 +202,6 @@ export const RoundCornerBtnBox = styled.button<{
   isFollow?: boolean;
   currentTheme: null | string;
 }>`
-  font-family: 'Noto Serif KR';
   font-size: ${({ theme }) => theme.fontSize.lg};
   background-color: ${({ theme }) => theme.primary[1]};
   color: #fff;
@@ -265,7 +263,6 @@ export const ScrollTopBtnBox = styled(FloatingButtonBox)<{ active: boolean }>`
     overflow: hidden;
     transition: all 0.3s ease-in-out;
     white-space: nowrap;
-    font-family: 'Montserrat';
   }
   svg {
     font-size: 30px;

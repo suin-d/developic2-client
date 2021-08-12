@@ -28,7 +28,7 @@ const WelcomeContainer = styled.div`
     right: 0;
     text-align: center;
     display: block;
-    font-family: 'Montserrat', sans-serif;
+     
     color: #fff;
     letter-spacing: 2.88px;
     opacity: 0;

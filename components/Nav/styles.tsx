@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { PageWithNavContainer } from '../Layout/PageWithNavLayout';
+import { PageWithNavContainer } from '../Layout';
 
 export const PageNavigationBox = styled.nav`
   border-top: 0.5px solid ${({ theme }) => theme.grayScale[2]};
@@ -14,7 +14,7 @@ export const PageNavigationBox = styled.nav`
       min-width: 90px;
       text-align: center;
       margin-right: 60px;
-      font-family: 'Noto Serif KR';
+
       font-size: 18px;
       cursor: pointer;
       line-height: 2;
@@ -56,7 +56,6 @@ export const PagingBarContainer = styled.ul<{ currentPage: number }>`
   display: flex;
   justify-content: space-between;
   li {
-    font-family: 'Noto Serif KR';
     color: ${({ theme }) => theme.textColor.initial};
     font-weight: ${({ theme }) => theme.fontWeight.regular};
     width: 25px;
@@ -85,7 +84,7 @@ export const SearchPageNavigationContainer = styled.nav`
   ul {
     display: flex;
     font-weight: 600;
-    font-family: 'Noto Serif KR';
+
     li {
       cursor: pointer;
       padding: 1em 3.125em 1em 0;

@@ -29,7 +29,7 @@ const Slides = styled.div<{
   }
   & > div:nth-child(${({ currentSlide }) => currentSlide + 1}) {
     transform: scale(${({ scale }) => scale});
-    text-shadow: 0 0 3px ${({ theme }) => theme.grayScale[2]};
+    // text-shadow: 0 0 3px ${({ theme }) => theme.grayScale[2]};
   }
 `;
 

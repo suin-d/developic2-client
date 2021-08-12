@@ -17,7 +17,7 @@ export const InfoPostContainer = styled.div`
   max-width: 1000px;
   margin: 0 auto 50px;
   display: flex;
-  font-family: 'Noto Serif KR';
+
   h5 {
     margin: 35px 0 15px 0;
     font-size: 18px;
@@ -43,7 +43,6 @@ export const InfoPostContainer = styled.div`
       height: 100px;
       resize: none;
       font-size: 16px;
-      font-family: san-serif;
     }
   }
   .right__section {

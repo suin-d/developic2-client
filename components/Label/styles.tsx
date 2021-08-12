@@ -8,12 +8,11 @@ export const TitleLabelBox = styled.div`
   div {
     line-height: 1.43;
     h4 {
-      font-family: 'Noto Serif KR', serif;
+       
       font-size: 28px;
       color: ${({ theme }) => theme.textColor.initial};
     }
     p {
-      font-family: 'Montserrat', sans-serif;
       font-size: 16px;
       color: ${({ theme }) => theme.textColor.lighten};
     }
@@ -33,7 +32,6 @@ export const TitleLabelBox = styled.div`
 
 export const PageLabelBox = styled.div<{ width: number }>`
   width: ${({ width }) => width}px;
-  font-family: 'Nanum Myeongjo', serif;
   h1 {
     font-size: 48px;
     line-height: 1.31;

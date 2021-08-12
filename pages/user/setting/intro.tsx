@@ -39,7 +39,7 @@ const InfoContainer = styled.section`
         display: block;
         margin-bottom: 30px;
         font-size: 16px;
-        font-family: 'Noto Serif KR';
+
         color: ${({ theme }) => theme.textColor.initial};
       }
       & > div {
@@ -53,7 +53,6 @@ const InfoContainer = styled.section`
         width: 100%;
         height: 250px;
         padding: 5px;
-        font-family: 'san-serif';
         line-height: 1.2;
         font-size: 15px;
       }

@@ -15,7 +15,6 @@ const NotAllowComment = styled.div`
   max-width: 800px;
   margin: 0 auto 100px auto;
   text-align: center;
-  font-family: 'Noto Serif KR';
 `;
 export default function PostId(): JSX.Element {
   const { getPostDetail } = usePost();

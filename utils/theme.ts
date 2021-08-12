@@ -40,6 +40,7 @@ export type colorTheme = {
     xl: string;
     xxl: string;
     xxxl: string;
+    xxxxl: string;
     titleSize: string;
   };
   fontWeight: {
@@ -95,7 +96,8 @@ const theme: ThemeType = {
       lg: calcRem(16),
       xl: calcRem(18),
       xxl: calcRem(22),
-      xxxl: calcRem(30),
+      xxxl: calcRem(26),
+      xxxxl: calcRem(30),
       titleSize: calcRem(48),
     },
     fontWeight: {
@@ -145,7 +147,8 @@ const theme: ThemeType = {
       lg: calcRem(16),
       xl: calcRem(18),
       xxl: calcRem(22),
-      xxxl: calcRem(30),
+      xxxl: calcRem(26),
+      xxxxl: calcRem(30),
       titleSize: calcRem(48),
     },
     fontWeight: {

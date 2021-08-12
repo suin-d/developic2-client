@@ -16,7 +16,7 @@ import { ComputedListType, sortByDate } from '../../../utils/sortByDate';
 
 export const RecentViewListContainer = styled.ul`
   width: 100%;
-  font-family: 'Noto Serif KR';
+
   & > li {
     .date {
       margin-top: 70px;

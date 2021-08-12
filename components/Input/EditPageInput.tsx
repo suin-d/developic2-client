@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import React from 'react';
 
 export const CommonInputContainer = styled.div`
-  font-family: 'Noto Serif KR';
   display: flex;
   align-items: center;
   justify-content: flex-start;

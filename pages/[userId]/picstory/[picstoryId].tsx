@@ -13,9 +13,9 @@ import { MdNavigateBefore } from 'react-icons/md';
 const PicstoryDetailContainer = styled.section`
   max-width: 850px;
   margin: 0 auto;
-  font-family: 'Noto Serif KR';
+
   & > span {
-    font-size: ${({ theme }) => theme.fontSize.xxxl};
+    font-size: ${({ theme }) => theme.fontSize.xxxxl};
     cursor: pointer;
     color: ${({ theme }) => theme.textColor.initial};
     svg {

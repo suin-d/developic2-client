@@ -4,7 +4,6 @@ import { MentionsInput } from 'react-mentions';
 export const ToastEditorStyle = styled.div`
   z-index: 0;
   .tui-editor-contents {
-    font-family: 'Noto Serif KR';
   }
   .btn_group {
     margin: 30px 0 60px 0;
@@ -53,7 +52,7 @@ export const HashTagContainer = styled.div`
   align-items: center;
   justify-content: center;
   margin: 30px 0;
-  font-family: 'Noto Serif KR';
+
   span {
     color: ${({ theme }) => theme.textColor.initial};
     display: inline-block;
@@ -74,7 +73,6 @@ export const HashTagContainer = styled.div`
 `;
 
 export const HashTagSearchContainer = styled.div`
-  font-family: 'Noto Serif KR';
   margin-bottom: 30px;
   .result__list {
     border: 1px solid ${({ theme }) => theme.grayScale[4]};

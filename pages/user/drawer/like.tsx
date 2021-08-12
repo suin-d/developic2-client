@@ -15,7 +15,7 @@ import { authServersiceAction } from '../../../utils/getServerSidePropsTemplate'
 
 const LikeListContainer = styled.div`
   width: 100%;
-  font-family: 'Noto Serif KR';
+
   ul {
     display: grid;
     grid-template-columns: repeat(4, 1fr);

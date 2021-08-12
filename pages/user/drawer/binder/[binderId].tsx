@@ -25,7 +25,7 @@ const BinderDetailContainer = styled.div`
       position: sticky;
       top: 90px;
       width: 100%;
-      font-family: 'Noto Serif KR';
+
       color: ${({ theme }) => theme.textColor.initial};
 
       h2 {

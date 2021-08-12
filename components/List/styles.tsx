@@ -69,7 +69,7 @@ export const NoticeListContainer = styled.ul`
   width: 90%;
   li {
     border-bottom: 0.5px solid ${({ theme }) => theme.grayScale[4]};
-    font-family: 'Noto Serif KR';
+
     width: 100%;
     display: flex;
     align-items: flex-start;
@@ -253,7 +253,6 @@ export const PostCommentListContainer = styled.div`
   border-top: 1px solid ${({ theme }) => theme.grayScale[2]};
   & > p {
     color: ${({ theme }) => theme.textColor.initial};
-    font-family: 'Noto Serif KR';
   }
   & > form {
     display: flex;
@@ -268,7 +267,7 @@ export const PostCommentListContainer = styled.div`
       margin-top: 10px;
       padding: 10px;
       line-height: 24px;
-      font-family: 'Noto Serif KR';
+
       font-size: ${({ theme }) => theme.fontSize.base};
       font-weight: ${({ theme }) => theme.fontWeight.regular};
     }

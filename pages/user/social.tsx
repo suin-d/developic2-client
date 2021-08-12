@@ -19,7 +19,6 @@ const SocialAuthContainer = styled.div`
   p {
     margin: 20px 0 100px 0;
     font-size: 20px;
-    font-family: 'Noto Serif KR';
   }
 `;
 export default function Social(): JSX.Element {

@@ -11,7 +11,6 @@ const ArchiveDetailContainer = styled.div`
   max-width: 900px;
   margin: 20px auto 100px auto;
   b {
-    font-family: 'Montserrat';
   }
   .detail__poster__wrapper {
     display: flex;
@@ -73,7 +72,7 @@ const ArchiveDetailContainer = styled.div`
     }
   }
   section > p {
-    font-size: ${({ theme }) => theme.fontSize.xxxl};
+    font-size: ${({ theme }) => theme.fontSize.xxxxl};
     font-weight: 500;
   }
   .detail__contact {

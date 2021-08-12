@@ -49,7 +49,6 @@ export const SortTabBox = styled.div`
 export const SearhSortOptionContainer = styled.div<{
   currentTheme: null | string;
 }>`
-  font-family: 'Noto Serif KR';
   position: relative;
   .option__btn {
     display: flex;

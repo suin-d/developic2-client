@@ -5,14 +5,13 @@ export const CustomInputBox = styled.div<{ width?: number }>`
   position: relative;
   display: flex;
   align-items: center;
-  font-family: 'Noto Serif KR', serif;
+
   overflow: hidden;
   padding: 5px 0;
   width: ${props => (props.width ? `${props.width}px` : '100%')};
   color: ${({ theme }) => theme.textColor.initial};
   span {
     width: 100px;
-    font-family: 'Noto Serif KR', serif;
   }
   input {
     border: none;
@@ -24,7 +23,6 @@ export const CustomInputBox = styled.div<{ width?: number }>`
     padding: 5px 10px;
     border-radius: 0;
     color: ${({ theme }) => theme.textColor.initial};
-    font-family: 'Noto Serif KR', serif;
   }
 
   .line {
@@ -48,7 +46,7 @@ export const CustomInputBox = styled.div<{ width?: number }>`
 export const CustomDateInputBox = styled.div<{ width?: number }>`
   input {
     width: 100%;
-    font-family: 'Noto Serif KR', serif;
+
     border: none;
     border-bottom: 1px solid ${({ theme }) => theme.textColor.initial};
     outline: none;
@@ -69,7 +67,7 @@ export const CustomSelectBox = styled.div<{ width?: number }>`
   position: relative;
   display: flex;
   align-items: center;
-  font-family: 'Noto Serif KR', serif;
+
   overflow: hidden;
   padding: 5px 0;
   width: ${props => (props.width ? `${props.width}px` : '100%')};
@@ -115,7 +113,7 @@ export const CustomSelectBox = styled.div<{ width?: number }>`
 export const CustomTextareaBox = styled.div<{ width: number }>`
   color: ${({ theme }) => theme.textColor.initial};
   position: relative;
-  font-family: 'Noto Serif KR', serif;
+
   overflow: hidden;
   padding: 5px 0;
   width: ${props => (props.width ? `${props.width}px` : '100%')};
@@ -130,7 +128,7 @@ export const CustomTextareaBox = styled.div<{ width: number }>`
     transition: 0.3s;
     outline: none;
     border-radius: 0;
-    font-family: 'Noto Serif KR', serif;
+
     padding: 5px;
     background-color: ${({ theme }) => theme.background.initial};
     width: 100%;
@@ -166,7 +164,6 @@ export const SearchInputBox = styled.form<{
     margin-top: 0.188em;
   }
   input {
-    font-family: 'Noto Serif KR', serif;
     font-size: ${({ theme }) => theme.fontSize.xxl};
     flex: 1;
     display: block;
@@ -215,7 +212,7 @@ export const CustomCheckBoxBox = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  font-family: 'Noto Serif KR', serif;
+
   input {
   }
   span {
@@ -303,7 +300,7 @@ export const AvatarInputBox = styled.form`
   margin-bottom: 70px;
   h5 {
     font-size: 16px;
-    font-family: 'Noto Serif KR';
+
     margin: 0 0 10px 0;
   }
   img {

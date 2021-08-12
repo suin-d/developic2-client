@@ -31,7 +31,6 @@ const FeedContainer = styled.div`
     margin-top: 60px;
     border-top: 1px solid ${({ theme }) => theme.grayScale[2]};
     & > h1 {
-      font-family: 'Noto Serif KR';
       line-height: 62px;
       font-size: ${({ theme }) => theme.fontSize.xxxl};
       color: ${({ theme }) => theme.textColor.initial};

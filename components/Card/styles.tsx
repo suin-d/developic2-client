@@ -18,7 +18,7 @@ export const PopularPostCardBox = styled.div`
   }
   article {
     width: 100%;
-    font-family: 'Noto Serif KR';
+
     h5 {
       margin: 5px 0;
       color: ${({ theme }) => theme.textColor.initial};
@@ -45,7 +45,7 @@ export const PopularPostCardBox = styled.div`
     small {
       display: flex;
       align-items: center;
-      font-family: 'Montserrat';
+
       margin-left: 20px;
       svg {
         font-size: 14px;
@@ -65,7 +65,6 @@ export const PopularPostCardBox = styled.div`
 `;
 
 export const UserProfileCardBox = styled.div`
-  font-family: 'Noto Serif KR';
   width: 220px;
   cursor: pointer;
   display: flex;
@@ -168,7 +167,7 @@ export const HashTagBox = styled.div`
   align-items: center;
   justify-content: center;
   padding: 3px 13px;
-  font-family: 'Noto Serif KR';
+
   font-size: 14px;
   border: solid 1px ${({ theme }) => theme.grayScale[2]};
   color: ${({ theme }) => theme.grayScale[1]};
@@ -179,7 +178,7 @@ export const HashTagBox = styled.div`
 
 export const ExhibitionCardBox = styled.div`
   cursor: pointer;
-  font-family: 'Noto Serif KR';
+
   width: 230px;
   position: relative;
   margin: 25px 0;
@@ -203,23 +202,22 @@ export const ExhibitionCardBox = styled.div`
       font-size: 14px;
     }
     ul {
-      font-family: 'Montserrat';
+      font-size: 13px;
+      line-height: 1.2;
+
       li {
         display: flex;
         justify-content: space-between;
-        font-size: 12px;
-        line-height: 1.2;
       }
     }
   }
   .cost__box {
-    font-family: 'Montserrat';
     position: absolute;
     bottom: -30px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 12px;
-    padding: 2px 10px;
+    padding: 3px 10px;
     border-radius: 32px;
     transition: 0.2s;
     background-color: ${({ theme }) => theme.background.initial};
@@ -239,7 +237,6 @@ export const ExhibitionCardBox = styled.div`
 `;
 
 export const CommonPostCardBox = styled.li`
-  font-family: 'Noto Serif KR';
   color: ${({ theme }) => theme.textColor.initial};
   font-size: ${({ theme }) => theme.fontSize.base};
   text-align: start;
@@ -310,7 +307,6 @@ export const CommonPostCardBox = styled.li`
       }
     }
     .stats {
-      font-family: 'Montserrat';
       width: 28%;
       display: flex;
       align-items: center;
@@ -370,7 +366,7 @@ export const UserInfoCardBox = styled.li<{
         box-shadow: 0px 0px 5px 2px #e0e0e0;
       }
     `};
-  font-family: 'Noto Serif KR';
+
   font-size: ${({ theme }) => theme.fontSize.base};
   color: ${({ theme }) => theme.textColor.initial};
   background-color: #fff;
@@ -466,7 +462,7 @@ export const UserInfoCardBox = styled.li<{
 
 export const DrawerPostCardContainer = styled.li`
   cursor: pointer;
-  font-family: 'Noto Serif KR';
+
   width: 270px;
   height: 300px;
   background-color: ${({ theme }) => theme.background.modal};
@@ -616,7 +612,6 @@ export const DrawerPostCardContainer = styled.li`
 `;
 
 export const UnfinishedPostCardContainer = styled.div`
-  font-family: 'Noto Serif KR';
   width: 350px;
   background-color: ${({ theme }) => theme.background.modal};
   margin-bottom: 30px;
@@ -758,7 +753,6 @@ export const PhotoBinderCardBox = styled.div`
 `;
 
 export const FollowItemBox = styled.li`
-  font-family: 'Noto Serif KR';
   width: 90%;
   display: flex;
   align-items: center;
@@ -833,14 +827,14 @@ export const ArchiveItemContainer = styled.li<{
   article {
     width: 500px;
     margin: 0 100px;
-    font-family: 'Noto Serif KR';
+
     small {
       font-size: ${({ theme }) => theme.fontSize.base};
       color: ${({ theme }) => theme.textColor.lighten};
     }
     h2 {
       font-weight: 500;
-      font-size: ${({ theme }) => theme.fontSize.xxxl};
+      font-size: ${({ theme }) => theme.fontSize.xxxxl};
       color: ${({ theme }) => theme.textColor.initial};
       margin-top: 35px;
       line-height: 33px;
@@ -857,7 +851,6 @@ export const ArchiveItemContainer = styled.li<{
       }
     }
     b {
-      font-family: 'Montserrat';
     }
   }
   @media ${({ theme }) => theme.viewPortSize.mobile} {
@@ -902,7 +895,7 @@ export const BlogCommentCardBox = styled.li`
   position: relative;
   max-width: 800px;
   padding: 30px 0;
-  font-family: 'Noto Serif KR';
+
   color: ${({ theme }) => theme.textColor.initial};
   font-size: ${({ theme }) => theme.fontSize.base};
   font-weight: ${({ theme }) => theme.fontWeight.regular};
@@ -932,7 +925,6 @@ export const BlogCommentCardBox = styled.li`
           font-weight: ${({ theme }) => theme.fontWeight.medium};
         }
         p {
-          font-family: 'Montserrat';
           margin-top: 12px;
         }
       }
@@ -956,7 +948,6 @@ export const BlogCommentCardBox = styled.li`
   }
   & > .edit__form {
     textarea {
-      font-family: 'san-serif';
       margin-top: 15px;
       width: 100%;
       height: 40px;
@@ -1007,7 +998,6 @@ export const BlogCommentCardBox = styled.li`
 `;
 
 export const SearchPicstoryCardBox = styled.li`
-  font-family: 'Noto Serif KR';
   cursor: pointer;
   font-size: ${({ theme }) => theme.fontSize.lg};
   article {
@@ -1095,8 +1085,8 @@ export const SearchPicstoryCardBox = styled.li`
             margin-right: 0.143em;
           }
           span {
-            font-size: ${({ theme }) => theme.fontSize.small};
-            padding-bottom: 0.083em;
+            font-size: 13px;
+            //padding-bottom: 0.083em;
           }
         }
         div:nth-of-type(3) {
@@ -1149,7 +1139,7 @@ export const BlogPicstoryCardBox = styled.li<{
       }
     `};
   color: ${({ theme }) => theme.grayScale[1]};
-  font-family: 'Noto Serif KR';
+
   padding: 1.563em 1.563em 1.125em 1.563em;
   border: 1px solid rgba(0, 0, 0, 0.09);
   margin-bottom: 1.875em;
@@ -1296,7 +1286,7 @@ export const BlogPostCardBox = styled.li`
   font-size: ${({ theme }) => theme.fontSize.base};
   text-align: start;
   line-height: 1.6;
-  font-family: 'Noto Serif KR';
+
   color: ${({ theme }) => theme.textColor.initial};
   article {
     .img__wrapper {
@@ -1391,6 +1381,7 @@ export const BlogPostCardBox = styled.li`
         letter-spacing: 0.2px;
       }
       .post__date {
+        font-size: 1.083em;
         position: absolute;
         right: 0;
       }

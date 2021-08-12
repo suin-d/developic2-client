@@ -33,7 +33,7 @@ const DiscoveryContainer = styled.div`
       display: flex;
       flex-wrap: wrap;
       width: auto;
-      font-family: 'Noto Serif KR';
+
       li:first-child {
         color: #522424;
         font-weight: 600;
@@ -59,7 +59,6 @@ const DiscoveryContainer = styled.div`
   }
   .discovery__main {
     h1 {
-      font-family: 'Noto Serif KR';
       font-size: ${({ theme }) => theme.fontSize.xxxl};
       color: ${({ theme }) => theme.textColor.initial};
       margin-bottom: 15px;

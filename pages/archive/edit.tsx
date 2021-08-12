@@ -21,7 +21,7 @@ const ArchiveEditContainer = styled.div`
     border-top: 1px solid ${({ theme }) => theme.grayScale[2]};
     margin-top: 50px;
     padding: 0 50px;
-    font-family: 'Noto Serif KR';
+
     & > div {
       & > p {
         font-size: ${({ theme }) => theme.fontSize.xxl};
@@ -247,7 +247,7 @@ export default function Edit(): JSX.Element {
   return (
     <Layout>
       <Head>
-        <title>아카이브 | 전시회 등록</title>
+        <title>아카이브 | 전시 등록</title>
       </Head>
       <ArchiveEditContainer>
         <TitleLabel title="전시등록" desc="Exhibition Archive" />

@@ -163,7 +163,7 @@ export const BinderEditModalBox = styled(ModalBox)`
     }
     & > span {
       cursor: pointer;
-      font-family: 'Noto Serif KR';
+
       font-size: 14px;
       border-bottom: 1px solid ${({ theme }) => theme.textColor.initial};
       &:hover {
@@ -184,7 +184,6 @@ export const PicstoryEditModalBox = styled(ModalBox)`
     }
     padding: 10px 0;
     textarea {
-      font-family: 'Noto Serif KR';
       font-size: ${({ theme }) => theme.fontSize.base};
       width: 100%;
       height: 100px;
@@ -206,7 +205,7 @@ export const PicstoryEditModalBox = styled(ModalBox)`
 
 export const ConfirmRemoveModalBox = styled(ModalBox)<{ valid: boolean }>`
   min-height: 300px;
-  font-family: 'Noto Serif KR';
+
   color: ${({ theme }) => theme.textColor.initial};
   & > .modal__content {
     padding: 20px 0 20px 0;
@@ -270,7 +269,7 @@ export const SignupAuthModalBox = styled(ModalBox)`
         width: 40px;
         height: 50px;
         text-align: center;
-        font-size: ${({ theme }) => theme.fontSize.xxxl};
+        font-size: ${({ theme }) => theme.fontSize.xxxxl};
         font-weight: 600;
         background-color: ${({ theme }) => theme.background.modal};
         color: ${({ theme }) => theme.primary[1]};
@@ -353,7 +352,7 @@ export const SignupPenNameModalBox = styled(ModalBox)`
 
 export const PicstoryModalBox = styled(ModalBox)<{ makeMode: boolean }>`
   display: flex;
-  font-family: 'Noto Serif KR';
+
   color: ${({ theme }) => theme.textColor.initial};
   h4 {
     margin: 25px 0 10px 0;
@@ -424,7 +423,6 @@ export const PicstoryModalBox = styled(ModalBox)<{ makeMode: boolean }>`
       }
     }
     textarea {
-      font-family: 'san-serif';
       font-size: 16px;
       width: 100%;
       height: 100px;
@@ -495,7 +493,7 @@ export const ConfirmModalBox = styled(ModalBox)`
   width: 370px;
   height: 160px;
   color: ${({ theme }) => theme.textColor.initial};
-  font-family: 'Noto Serif KR';
+
   span {
   }
   .btn__group {
@@ -555,7 +553,7 @@ export const FollowingItemBox = styled.li`
     flex-direction: column;
     justify-content: space-around;
     padding-left: 20px;
-    font-family: 'Noto Serif KR';
+
     span {
       cursor: pointer;
       display: block;
@@ -654,7 +652,7 @@ export const PhotoDetailBox = styled.div<{ infoOpen: boolean }>`
     justify-content: center;
     background-color: ${({ theme }) => theme.background.initial};
     color: ${({ theme }) => theme.textColor.initial};
-    font-family: 'Noto Serif KR';
+
     font-weight: 100;
     font-size: 14px;
     line-height: 1.5;
@@ -718,7 +716,7 @@ export const MakeBinderModalMox = styled(ModalBox)<{ makeMode: boolean }>`
     display: flex;
     padding-top: 20px;
     height: 320px;
-    font-family: 'Noto Serif KR';
+
     h5 {
       margin: 5px 0 10px 0;
     }
