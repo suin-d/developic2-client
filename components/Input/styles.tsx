@@ -241,6 +241,55 @@ export const CustomCheckBoxBox = styled.div`
   }
 `;
 
+export const CustomMultiRadioBtnBox = styled.ul`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  li {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  input {
+    display: none;
+  }
+  label {
+    width: 100%;
+    font-size: 14px;
+    color: ${({ theme }) => theme.textColor.initial};
+  }
+  span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    border: 2px solid ${({ theme }) => theme.primary[1]};
+    background-color: #fff;
+    margin-right: 12px;
+    cursor: pointer;
+  }
+  input:checked + span {
+    background: white;
+  }
+  span:after {
+    content: '';
+    display: none;
+  }
+  input:checked ~ span:after {
+    display: block;
+  }
+  span:after {
+    top: 11px;
+    left: 11px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: ${({ theme }) => theme.primary[1]};
+  }
+`;
+
 export const ImageDropZoneContainer = styled.div<{
   width?: number;
   height?: number;
