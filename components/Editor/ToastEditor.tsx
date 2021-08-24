@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import 'codemirror/lib/codemirror.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
@@ -39,10 +39,49 @@ export default function ToastEditor({
     }, [EditorRef.current, temporarySave]),
   });
 
-  const onFinalSubmit = useCallback(() => {
-    setContent(EditorRef.current?.getInstance().getHtml() as string);
-    temporarySave(EditorRef.current?.getInstance().getHtml() as string);
-  }, [EditorRef.current, temporarySave]);
+  const [toUrl, setToUrl] = useState('');
+  const [confirmed, setConfirmed] = useState(false);
+  const [RunModal, toggleModal] = useModal(ConfirmModal, {
+    onConfirm: () => setConfirmed(true),
+    content: '변경내용이 사라지게 됩니다. 페이지를 나가시겠습니까?',
+  });
+
+  const routeChangeStart = useCallback(
+    (url: string) => {
+      if (router.asPath.split('?')[0] !== url.split('?')[0] && !confirmed) {
+        setToUrl(url);
+        toggleModal();
+        router.events.emit('routeChangeError');
+        throw 'Abort route change. Please ignore this error.';
+      }
+    },
+    [confirmed, router.asPath, router.events, toggleModal]
+  );
+
+  useEffect(() => {
+    router.events.on('routeChangeStart', routeChangeStart);
+    return () => {
+      router.events.off('routeChangeStart', routeChangeStart);
+    };
+  }, [routeChangeStart, router.events]);
+
+  useEffect(() => {
+    if (confirmed) {
+      toggleModal();
+      router.replace(toUrl);
+    }
+  }, [toUrl, confirmed]);
+
+  const onFinalSubmit = useCallback(
+    e => {
+      if (e.target.className === 'submit css-1o39ywg') {
+        router.events.off('routeChangeStart', routeChangeStart);
+      }
+      setContent(EditorRef.current?.getInstance().getHtml() as string);
+      temporarySave(EditorRef.current?.getInstance().getHtml() as string);
+    },
+    [routeChangeStart, router.events, setContent, temporarySave]
+  );
 
   const uploadImageToServer = useCallback(async (image: Blob | File) => {
     if (!userData) return;
@@ -111,9 +150,12 @@ export default function ToastEditor({
         />
         <div className="btn_group">
           <SquareBtn onClick={toggleConfirmModal}>임시저장</SquareBtn>
-          <SquareBtn onClick={onFinalSubmit}>제출</SquareBtn>
+          <SquareBtn className="submit" onClick={onFinalSubmit}>
+            제출
+          </SquareBtn>
         </div>
       </ToastEditorStyle>
+      <RunModal />
       <TempSubmitModal />
     </>
   );
