@@ -10,7 +10,7 @@ import usePost from '../../../modules/post/hooks';
 import Head from 'next/head';
 
 const EditContainer = styled.div`
-  max-width: 1100px;
+  max-width: 830px;
   margin: 0 auto;
 
   @media ${({ theme }) => theme.viewPortSize.mobile} {
