@@ -111,7 +111,7 @@ export default function HashTagInstant({
         <span>해시태그</span>
 
         <input
-          placeholder="#를 통해 구분해 주세요."
+          placeholder="#를 통해 작성 후, 엔터를 눌러 태그를 등록해주세요."
           type="text"
           onChange={onChangeTagValue}
           value={tagValue}

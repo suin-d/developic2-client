@@ -1,6 +1,50 @@
 import { css, keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
+export const PageWithNavContainer = styled.main`
+  max-width: 1150px;
+  margin: 0 auto;
+  .title {
+    margin: 30px 0;
+  }
+  & > section {
+    display: flex;
+    justify-content: space-between;
+    .cs__left {
+      flex: 1;
+      img {
+        margin-top: 50px;
+        margin-left: 30px;
+        width: 500px;
+      }
+    }
+    .cs__right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    width: 100%;
+    & > section {
+      .cs__left {
+        display: none;
+      }
+    }
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    padding: 0 10px;
+    .title__label {
+      h4 {
+        font-size: 24px;
+      }
+    }
+    & > section {
+      flex-direction: column;
+    }
+  }
+`;
+
 export const slideToLeft = keyframes`
 from{
   transform:translateX(500px)
@@ -38,7 +82,7 @@ export const FooterContainer = styled.footer`
     .menu__list {
       .logo {
         display: block;
-        font-family: 'Montserrat', sans-serif;
+
         font-size: 24px;
         font-weight: 600;
         letter-spacing: 2.88px;
@@ -112,7 +156,7 @@ export const HeaderContainer = styled.header<{ active: boolean }>`
       align-items: center;
       .logo {
         display: block;
-        font-family: 'Montserrat', sans-serif;
+
         font-size: 24px;
         font-weight: 600;
         color: ${({ theme }) => theme.textColor.initial};
@@ -217,7 +261,6 @@ export const UserMenuContainer = styled.div`
   cursor: pointer;
   z-index: 1001;
   .user-menu__drawer {
-    font-family: 'Noto Serif KR', serif;
     cursor: initial;
     position: absolute;
     height: 100%;
@@ -321,7 +364,6 @@ export const BlogUserProfileBox = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  width: 50%;
   margin: 0 auto;
   margin-bottom: 1.875em;
   font-size: ${({ theme }) => theme.fontSize.base};
@@ -383,14 +425,14 @@ export const BlogUserProfileBox = styled.div`
   }
 `;
 export const PostDetailContainer = styled.div`
-  max-width: 1000px;
+  max-width: 850px;
   margin: 0 auto;
   margin-bottom: 100px;
+  padding: 0 16px;
+  word-break: keep-all;
   .blog__head {
-    max-width: 900px;
     margin: 0 auto;
     color: ${({ theme }) => theme.textColor.initial};
-    font-family: 'Noto Serif KR';
     padding-top: 150px;
     & > h1 {
       font-size: ${({ theme }) => theme.fontSize.titleSize};
@@ -467,7 +509,7 @@ export const PostDetailContainer = styled.div`
     & > img {
       display: block;
       margin: 0 auto;
-      width: 900px;
+      width: 100%;
       height: 450px;
       object-fit: cover;
       margin-bottom: 50px;
@@ -484,7 +526,7 @@ export const PostDetailContainer = styled.div`
         overflow: hidden;
         text-overflow: ellipsis;
       }
-      padding: 100px 10px 0 10px;
+      padding-top: 60px;
       & > article {
         margin-top: 20px;
       }
@@ -526,7 +568,6 @@ export const ScrollBar = styled.div<{ width: number }>`
 `;
 
 export const BlogwithProfileContainer = styled.main`
-  font-family: 'Noto Serif KR';
   margin: 40px auto;
   max-width: 850px;
   min-height: 650px;
@@ -569,5 +610,4 @@ export const BlogPicstoryContainer = styled.section`
 export const BlogUserInfoContainer = styled.section`
   max-width: 850px;
   margin: 0 auto;
-  font-family: 'Noto Serif KR';
 `;

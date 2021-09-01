@@ -28,7 +28,6 @@ export const postPreSaveAction = createAsyncThunk<
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/post/presave`,
       postData
     );
-    await toastPopAction(dispatch, `게시글이 임시저장 되었습니다..`);
     return data;
   } catch (e) {
     console.error(e);

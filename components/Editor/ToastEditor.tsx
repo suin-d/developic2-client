@@ -12,6 +12,7 @@ import useUser from '../../modules/user/hooks';
 import _delay from 'lodash/delay';
 import useModal from '../../hooks/useModal';
 import ConfirmModal from '../Modal/ConfirmModal';
+import useUI from '../../modules/ui/hooks';
 
 type ToastEditorPropsType = {
   content: string;
@@ -28,6 +29,7 @@ export default function ToastEditor({
 }: ToastEditorPropsType): JSX.Element {
   const { userData } = useUser();
   const { preSavePost } = usePost();
+  const { toastOpenDispatch } = useUI();
   const router = useRouter();
   const EditorRef = useRef<null | Editor>(null);
   const [TempSubmitModal, toggleConfirmModal] = useModal(ConfirmModal, {
@@ -36,6 +38,7 @@ export default function ToastEditor({
       setContent(EditorRef.current?.getInstance().getHtml() as string);
       temporarySave(EditorRef.current?.getInstance().getHtml() as string);
       router.replace(`/user/drawer/save`);
+      toastOpenDispatch('게시글이 임시저장 되었습니다.');
     }, [EditorRef.current, temporarySave]),
   });
 
@@ -43,7 +46,7 @@ export default function ToastEditor({
   const [confirmed, setConfirmed] = useState(false);
   const [RunModal, toggleModal] = useModal(ConfirmModal, {
     onConfirm: () => setConfirmed(true),
-    content: '변경내용이 사라지게 됩니다. 페이지를 나가시겠습니까?',
+    content: '작성 내용이 사라지게 됩니다. 페이지를 나가시겠습니까?',
   });
 
   const routeChangeStart = useCallback(

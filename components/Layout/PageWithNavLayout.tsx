@@ -1,53 +1,9 @@
-import styled from '@emotion/styled';
 import React from 'react';
+import PageNavigation from '../Nav/PageNavigation';
 import TitleLabel from '../Label/TitleLabel';
 import Layout from '.';
-import PageNavigation from '../Nav/PageNavigation';
 import { NavDataType } from '../../utils/data';
-
-export const PageWithNavContainer = styled.main`
-  max-width: 1150px;
-  margin: 0 auto;
-  .title {
-    margin: 30px 0;
-  }
-  & > section {
-    display: flex;
-    justify-content: space-between;
-    .cs__left {
-      flex: 1;
-      img {
-        margin-top: 50px;
-        margin-left: 30px;
-        width: 500px;
-      }
-    }
-    .cs__right {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-  }
-  @media ${({ theme }) => theme.viewPortSize.mobile} {
-    width: 100%;
-    & > section {
-      .cs__left {
-        display: none;
-      }
-    }
-  }
-  @media ${({ theme }) => theme.viewPortSize.mobile} {
-    padding: 0 10px;
-    .title__label {
-      h4 {
-        font-size: 24px;
-      }
-    }
-    & > section {
-      flex-direction: column;
-    }
-  }
-`;
+import { PageWithNavContainer } from './styles';
 
 type PageWithNavLayoutPropsType = {
   children: React.ReactNode;
