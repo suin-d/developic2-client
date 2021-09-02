@@ -22,7 +22,7 @@ export default function CustomSelect({
       <label htmlFor={randomId}>{title}</label>
       <select name="" id={randomId} value={value} onChange={onChange}>
         {data.map(opt => (
-          <option value={opt.value} id={opt.id + 'check'}>
+          <option key={opt.id} value={opt.value} id={opt.id + 'check'}>
             {opt.value}
           </option>
         ))}

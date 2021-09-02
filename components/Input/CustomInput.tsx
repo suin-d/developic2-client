@@ -29,7 +29,7 @@ export default function CustomInput({
       <input
         type={type}
         ref={inputEl}
-        value={value}
+        value={value || ''}
         onChange={onChange}
         name={name}
         placeholder={placeholder}
