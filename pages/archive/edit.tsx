@@ -26,7 +26,7 @@ const ArchiveEditContainer = styled.div`
       & > p {
         font-size: ${({ theme }) => theme.fontSize.xxl};
         color: ${({ theme }) => theme.textColor.initial};
-        margin-top: 80px 0 50px 0;
+        margin: 30px 0;
       }
       & > article {
         max-width: 800px;
@@ -209,7 +209,7 @@ export default function Edit(): JSX.Element {
 
   const onSubmit = (content: string) => {
     if (!userData) return;
-    if (!cost) return toastOpenDispatch('가격을 입력해주세요');
+    if (!checkFree && !cost) return toastOpenDispatch('가격을 입력해주세요');
     if (!webPage) return toastOpenDispatch('웹페이지를 입력해주세요');
     if (!contact) return toastOpenDispatch('연락처를 입력해주세요');
     if (!email) return toastOpenDispatch('연락 이메일을 입력해주세요');
@@ -255,7 +255,13 @@ export default function Edit(): JSX.Element {
           <div className="archive__poster">
             <p>포스터 업로드</p>
             <article>
-              <ImageDropZone image={poster} setImage={setPoster} axiosPath="poster" />
+              <ImageDropZone
+                image={poster}
+                setImage={setPoster}
+                axiosPath="poster"
+                width={248}
+                height={350}
+              />
             </article>
           </div>
           <div className="archive__summary">

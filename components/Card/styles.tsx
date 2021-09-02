@@ -178,10 +178,9 @@ export const HashTagBox = styled.div`
 
 export const ExhibitionCardBox = styled.div`
   cursor: pointer;
-
   width: 230px;
   position: relative;
-  margin: 25px 0;
+  margin: 25px 0 60px 0;
   img {
     width: 100%;
     height: 258px;
@@ -193,7 +192,14 @@ export const ExhibitionCardBox = styled.div`
     color: ${({ theme }) => theme.textColor.initial};
     h5 {
       font-size: 16px;
-      line-height: 1.2;
+      line-height: 1.5em;
+      max-height: 3em;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      word-wrap: break-word;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      -webkit-line-clamp: 2;
     }
     p {
       text-align: right;
@@ -221,17 +227,16 @@ export const ExhibitionCardBox = styled.div`
     border-radius: 32px;
     transition: 0.2s;
     background-color: ${({ theme }) => theme.background.initial};
-    border: 1px solid ${({ theme }) => theme.primary[1]};
-    color: ${({ theme }) => theme.textColor.initial};
+    border: 1px solid ${({ theme }) => theme.grayScale[2]};
+    color: ${({ theme }) => theme.grayScale[5]};
   }
   &:hover {
     h5 {
       text-decoration: underline;
     }
     .cost__box {
-      background-color: ${({ theme }) => theme.primary[1]};
-      border: 1px solid ${({ theme }) => theme.background.initial};
-      color: ${({ theme }) => theme.background.initial};
+      color: ${({ theme }) => theme.primary[1]};
+      border: 1px solid ${({ theme }) => theme.primary[1]};
     }
   }
 `;
@@ -837,7 +842,14 @@ export const ArchiveItemContainer = styled.li<{
       font-size: ${({ theme }) => theme.fontSize.xxxxl};
       color: ${({ theme }) => theme.textColor.initial};
       margin-top: 35px;
-      line-height: 33px;
+      line-height: 1.5em;
+      max-height: 3em;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      word-wrap: break-word;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      -webkit-line-clamp: 2;
     }
     h2 + p {
       margin-top: 35px;

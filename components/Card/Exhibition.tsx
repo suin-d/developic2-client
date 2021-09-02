@@ -21,16 +21,16 @@ export default function Exhibition({ archiveData }: ExhibitionPropsType): JSX.El
           <ul>
             <li>
               <small>From.</small>
-              <strong>{dayjs(archiveData.startDate).format('YY년 MM월 DD일')}</strong>
+              <strong>{dayjs(archiveData.startDate).format('YYYY-MM-DD')}</strong>
             </li>
             <li>
               <small>To.</small>
-              <strong>{dayjs(archiveData.endDate).format('YY년 MM월 DD일')}</strong>
+              <strong>{dayjs(archiveData.endDate).format('YYYY-MM-DD')}</strong>
             </li>
           </ul>
         </article>
         <div className="cost__box">
-          {archiveData.cost === 0 ? 'FREE' : `${archiveData.cost}원`}
+          {archiveData.cost === 0 ? 'FREE' : `₩ ${archiveData.cost.toLocaleString()}`}
         </div>
       </ExhibitionCardBox>
     </Link>

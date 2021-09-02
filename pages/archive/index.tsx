@@ -52,7 +52,7 @@ export default function Archive(): JSX.Element {
   return (
     <Layout>
       <Head>
-        <title>ARCHIVE | 전시회 정보</title>
+        <title>ARCHIVE | 전시정보</title>
       </Head>
       <ArchiveContainer>
         <section>
