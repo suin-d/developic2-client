@@ -179,9 +179,7 @@ export default function Edit(): JSX.Element {
   const [poster, setPoster] = useState('');
   const [checkFree, setCheckFree] = useState<boolean>(false);
   const [imageList, setImageList] = useState<{ imageId: number; src: string }[]>([]);
-  const [description] = useState(
-    '세부 전시 내용(작가 정보, 텍스트, 평론, 운영 시간 등)을 작성해 주세요.'
-  );
+  const [description] = useState('');
 
   const { toastOpenDispatch } = useUI();
 
