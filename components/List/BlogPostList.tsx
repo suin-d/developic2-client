@@ -15,17 +15,23 @@ export const breakpointBlogPostColumnsObj = {
 export default function BlogPostList(): JSX.Element {
   const { userData } = useUser();
   const { loadBlogPostListDispatch, loadBlogPostList, hasMore, loadBlogUser } = useBlog();
-  const [FetchMoreTrigger, page] = useFetchMore(hasMore);
   const router = useRouter();
+  const [FetchMoreTrigger, page, setPage] = useFetchMore(hasMore);
 
   useEffect(() => {
-    if (!hasMore && page > 0) return;
+    setPage(0);
+  }, [router.query.userId, setPage]);
+
+  useEffect(() => {
+    if (!hasMore && page > 0) {
+      return;
+    }
     loadBlogPostListDispatch({
       userId: +(router.query.userId as string),
       limit: 12,
       offset: page * 12,
     });
-  }, [page, hasMore, loadBlogPostListDispatch, router.query.userId]);
+  }, [hasMore, loadBlogPostListDispatch, page, router.query.userId]);
 
   if (!loadBlogPostList.data) return <></>;
 

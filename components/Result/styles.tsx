@@ -290,3 +290,19 @@ export const SearchContentBox = styled.div`
     }
   }
 `;
+
+export const FetchMoreTriggerContainer = styled.div`
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  img {
+    display: block;
+    height: 80px;
+  }
+  p {
+    color: ${({ theme }) => theme.textColor.initial};
+    font-size: 14px;
+  }
+`;
