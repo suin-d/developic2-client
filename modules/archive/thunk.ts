@@ -30,7 +30,7 @@ export const getArchiveListAction = createAsyncThunk<
     return data;
   } catch (e) {
     console.error(e);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -44,7 +44,7 @@ export const getArchiveDetailAction = createAsyncThunk<
     return data;
   } catch (e) {
     console.error(e);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -58,6 +58,6 @@ export const addArchiveAction = createAsyncThunk<
     return data;
   } catch (e) {
     console.error(e);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });

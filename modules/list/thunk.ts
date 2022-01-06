@@ -1,4 +1,4 @@
-import { LoadSearchListPayload, SearchPageData, SearchPageDataType } from './type';
+import { LoadSearchListPayload, SearchPageDataType } from './type';
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
@@ -36,7 +36,7 @@ export const getArchiveListAction = createAsyncThunk<
     return data;
   } catch (e) {
     console.error(e);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -48,7 +48,7 @@ export const getFeedPostAction = createAsyncThunk<
 >('list/getFeedList', async (payloadData, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/list/feed/${payloadData.UserId}?${
+      `/list/feed/${payloadData.UserId}?${
         payloadData.limit ? '&limit=' + payloadData.limit : ''
       }${payloadData.offset ? '&offset=' + payloadData.offset : ''}`
     );
@@ -61,7 +61,7 @@ export const getFeedPostAction = createAsyncThunk<
     return data;
   } catch (e) {
     console.error(e);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -73,16 +73,14 @@ export const getWriterListAction = createAsyncThunk<
 >('list/getWriterList', async (payloadData, { rejectWithValue }) => {
   try {
     const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/list/writer?${
-        payloadData.type ? '&type=' + payloadData.type : ''
-      }${payloadData.limit ? '&limit=' + payloadData.limit : ''}${
-        payloadData.userId ? '&userId=' + payloadData.userId : ''
-      }`
+      `/list/writer?${payloadData.type ? '&type=' + payloadData.type : ''}${
+        payloadData.limit ? '&limit=' + payloadData.limit : ''
+      }${payloadData.userId ? '&userId=' + payloadData.userId : ''}`
     );
     return data;
   } catch (e) {
     console.error(e);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -94,16 +92,16 @@ export const getHashtagListAction = createAsyncThunk<
 >('list/getHashtagList', async (payloadData, { rejectWithValue }) => {
   try {
     const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/list/tag?${
-        payloadData.sort ? '&sort=' + payloadData.sort : ''
-      }${payloadData.term ? '&term=' + payloadData.term : ''}${
-        payloadData.limit ? '&limit=' + payloadData.limit : ''
-      }${payloadData.offset ? '&offset=' + payloadData.offset : ''}`
+      `/list/tag?${payloadData.sort ? '&sort=' + payloadData.sort : ''}${
+        payloadData.term ? '&term=' + payloadData.term : ''
+      }${payloadData.limit ? '&limit=' + payloadData.limit : ''}${
+        payloadData.offset ? '&offset=' + payloadData.offset : ''
+      }`
     );
     return data;
   } catch (e) {
     console.error(e);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -115,9 +113,9 @@ export const getTaggedPostListAction = createAsyncThunk<
 >('list/getTaggedPostList', async (payloadData, { rejectWithValue, dispatch }) => {
   try {
     const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/list/post/tag/${
-        payloadData.HashtagId || 0
-      }?${payloadData.sort ? '&sort=' + payloadData.sort : ''}${
+      `/list/post/tag/${payloadData.HashtagId || 0}?${
+        payloadData.sort ? '&sort=' + payloadData.sort : ''
+      }${
         payloadData.HashtagName
           ? '&HashtagName=' + encodeURIComponent(payloadData.HashtagName)
           : ''
@@ -134,7 +132,7 @@ export const getTaggedPostListAction = createAsyncThunk<
     return data;
   } catch (e) {
     console.error(e);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -146,11 +144,11 @@ export const getPostListAction = createAsyncThunk<
 >('list/getPostList', async (payloadData, { rejectWithValue, dispatch }) => {
   try {
     const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/list/post?${
-        payloadData.sort ? '&sort=' + payloadData.sort : ''
-      }${payloadData.term ? '&term=' + payloadData.term : ''}${
-        payloadData.limit ? '&limit=' + payloadData.limit : ''
-      }${payloadData.offset ? '&offset=' + payloadData.offset : ''}`
+      `/list/post?${payloadData.sort ? '&sort=' + payloadData.sort : ''}${
+        payloadData.term ? '&term=' + payloadData.term : ''
+      }${payloadData.limit ? '&limit=' + payloadData.limit : ''}${
+        payloadData.offset ? '&offset=' + payloadData.offset : ''
+      }`
     );
     dispatch(
       hasMoreData(
@@ -161,7 +159,7 @@ export const getPostListAction = createAsyncThunk<
     return data;
   } catch (e) {
     console.error(e);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -190,6 +188,6 @@ export const getSearchListAction = createAsyncThunk<
     return data;
   } catch (e) {
     console.error(e);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });

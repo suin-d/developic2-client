@@ -19,6 +19,7 @@ import {
 } from './type';
 
 axios.defaults.withCredentials = true;
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_HOST;
 
 interface MyKnownError {
   message: string;
@@ -31,16 +32,13 @@ export const loginAction = createAsyncThunk<
   { rejectValue: MyKnownError }
 >('user/login', async (loginData, { dispatch, rejectWithValue }) => {
   try {
-    const { data } = await axios.post<LoginResponse>(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/local`,
-      loginData
-    );
+    const { data } = await axios.post<LoginResponse>(`/auth/local`, loginData);
     await toastPopAction(dispatch, `${data.nickname}님 반갑습니다.`);
     return data;
   } catch (e) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -51,13 +49,11 @@ export const socialRequestAction = createAsyncThunk<
   { rejectValue: MyKnownError }
 >('user/socialRequest', async (type, { rejectWithValue }) => {
   try {
-    const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/${type}`
-    );
+    const { data } = await axios.get(`/auth/${type}`);
     return data;
   } catch (e) {
     console.error(e);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -68,16 +64,13 @@ export const socialLoginAction = createAsyncThunk<
   { rejectValue: MyKnownError }
 >('user/socialLogin', async (loginData, { dispatch, rejectWithValue }) => {
   try {
-    const { data } = await axios.post<LoginResponse>(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/retest`,
-      loginData
-    );
+    const { data } = await axios.post<LoginResponse>(`/auth/retest`, loginData);
     await toastPopAction(dispatch, `${data.nickname}님 반갑습니다.`);
     return data;
   } catch (e) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -88,9 +81,7 @@ export const logOutAction = createAsyncThunk<
   { rejectValue: MyKnownError }
 >('user/logout', async (_, { dispatch, rejectWithValue }) => {
   try {
-    const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/logout`
-    );
+    const { data } = await axios.get(`/auth/logout`);
     await toastPopAction(dispatch, '로그아웃 되었습니다.');
     return data;
   } catch (e) {
@@ -105,11 +96,11 @@ export const authAction = createAsyncThunk<User, null, { rejectValue: MyKnownErr
   'user/auth',
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_HOST}/auth`);
+      const { data } = await axios.get(`/auth`);
       return data;
     } catch (e) {
       console.error(e);
-      return rejectWithValue({ message: e.response.data });
+      return rejectWithValue({ message: e.message });
     }
   }
 );
@@ -121,16 +112,13 @@ export const signupAction = createAsyncThunk<
   { rejectValue: MyKnownError }
 >('user/signup', async (signupData, { dispatch, rejectWithValue }) => {
   try {
-    const { data } = await axios.post(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/signup`,
-      signupData
-    );
+    const { data } = await axios.post(`/auth/signup`, signupData);
     await toastPopAction(dispatch, `${signupData.email}로 인증번호를 전송했습니다.`);
     return data;
   } catch (e) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -142,14 +130,14 @@ export const verificationAction = createAsyncThunk<
 >('user/verification', async (verifiPayload, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/verification?email=${verifiPayload.email}&code=${verifiPayload.code}`
+      `/auth/verification?email=${verifiPayload.email}&code=${verifiPayload.code}`
     );
     await toastPopAction(dispatch, `인증이 완료되었습니다. 로그인해주세요!`);
     return data;
   } catch (e) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -160,13 +148,11 @@ export const userDetailInfoAction = createAsyncThunk<
   { rejectValue: MyKnownError }
 >('user/userIntro', async (userDetailPayload, { rejectWithValue }) => {
   try {
-    const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/user/detail/${userDetailPayload.userId}`
-    );
+    const { data } = await axios.get(`/user/detail/${userDetailPayload.userId}`);
     return data;
   } catch (e) {
     console.error(e);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -177,16 +163,13 @@ export const updateUserInfoAction = createAsyncThunk<
   { rejectValue: MyKnownError }
 >('user/updateInfo', async (updatedIntroPayload, { dispatch, rejectWithValue }) => {
   try {
-    const { data } = await axios.patch(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/user/info`,
-      updatedIntroPayload
-    );
+    const { data } = await axios.patch(`/user/info`, updatedIntroPayload);
     await toastPopAction(dispatch, `수정이 완료되었습니다.`);
     return data;
   } catch (e) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -197,17 +180,14 @@ export const updatePasswordAction = createAsyncThunk<
   { rejectValue: MyKnownError }
 >('user/updatePassword', async (updatePasswordPayload, { dispatch, rejectWithValue }) => {
   try {
-    const { data } = await axios.patch(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/user/password`,
-      updatePasswordPayload
-    );
+    const { data } = await axios.patch(`/user/password`, updatePasswordPayload);
 
     await toastPopAction(dispatch, `비밀번호가 변경되었습니다 다음 로그인시 적용됩니다.`);
     return data;
   } catch (e) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -218,14 +198,12 @@ export const destroyUserAction = createAsyncThunk<
   { rejectValue: MyKnownError }
 >('user/destroy', async (UserId, { dispatch, rejectWithValue }) => {
   try {
-    const { data } = await axios.delete(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/user/${UserId}`
-    );
+    const { data } = await axios.delete(`/user/${UserId}`);
     await toastPopAction(dispatch, `비밀번호가 변경되었습니다 다음 로그인시 적용됩니다.`);
     return data;
   } catch (e) {
     console.error(e);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -236,15 +214,12 @@ export const updateUserIntroAction = createAsyncThunk<
   { rejectValue: MyKnownError }
 >('user/updateIntro', async (updatedIntroPayload, { dispatch, rejectWithValue }) => {
   try {
-    const { data } = await axios.patch(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/user/intro`,
-      updatedIntroPayload
-    );
+    const { data } = await axios.patch(`/user/intro`, updatedIntroPayload);
     await toastPopAction(dispatch, '수정이 완료되었습니다.');
     return data;
   } catch (e) {
     console.error(e);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -255,16 +230,13 @@ export const addPostLikeAction = createAsyncThunk<
   { rejectValue: MyKnownError }
 >('user/addPostLike', async (addLikePayload, { dispatch, rejectWithValue }) => {
   try {
-    const { data } = await axios.post(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/user/like/post`,
-      addLikePayload
-    );
+    const { data } = await axios.post(`/user/like/post`, addLikePayload);
     await toastPopAction(dispatch, `좋아요 게시글이 추가되었습니다.`);
     return data;
   } catch (e) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -275,16 +247,13 @@ export const removePostLikeAction = createAsyncThunk<
   { rejectValue: MyKnownError }
 >('user/removePostLike', async (removeLikePayload, { dispatch, rejectWithValue }) => {
   try {
-    const { data } = await axios.patch(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/user/like/post`,
-      removeLikePayload
-    );
+    const { data } = await axios.patch(`/user/like/post`, removeLikePayload);
     await toastPopAction(dispatch, `좋아요가 취소되었습니다.`);
     return data;
   } catch (e) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -301,7 +270,7 @@ export const subscribeAction = createAsyncThunk<
   } catch (e) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -320,7 +289,7 @@ export const unSubscribeAction = createAsyncThunk<
     } catch (e) {
       console.error(e);
       await toastPopAction(dispatch, e.response.data);
-      return rejectWithValue({ message: e.response.data });
+      return rejectWithValue({ message: e.message });
     }
   }
 );
@@ -337,7 +306,7 @@ export const subscribeListAction = createAsyncThunk<
   } catch (e) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -355,7 +324,7 @@ export const unSubscribeListAction = createAsyncThunk<
     } catch (e) {
       console.error(e);
       await toastPopAction(dispatch, e.response.data);
-      return rejectWithValue({ message: e.response.data });
+      return rejectWithValue({ message: e.message });
     }
   }
 );
@@ -375,6 +344,6 @@ export const loadBlogFollowListAction = createAsyncThunk<
     return data;
   } catch (e) {
     console.error(e);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });

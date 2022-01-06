@@ -44,7 +44,7 @@ export const getLikeListAction = createAsyncThunk<
     return data;
   } catch (e) {
     console.error(e);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -61,7 +61,7 @@ export const removeLikePostAction = createAsyncThunk<
   } catch (e) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -88,7 +88,7 @@ export const getTempListAction = createAsyncThunk<
     return data;
   } catch (e) {
     console.error(e);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 //임시저장아이템 삭제
@@ -104,7 +104,7 @@ export const removeTempPostAction = createAsyncThunk<
   } catch (e) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -131,7 +131,7 @@ export const getRecentViewsAction = createAsyncThunk<
     return data;
   } catch (e) {
     console.error(e);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 //최근 본글 삭제
@@ -147,7 +147,7 @@ export const removeRecentViewAction = createAsyncThunk<
   } catch (e) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -174,7 +174,7 @@ export const getPhotoBinderListAction = createAsyncThunk<
     return data;
   } catch (e) {
     console.error(e);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -189,7 +189,7 @@ export const getPhotoBinderDetailAction = createAsyncThunk<
     return data;
   } catch (e) {
     console.error(e);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -206,7 +206,7 @@ export const updatePhotoBinderDetailAction = createAsyncThunk<
   } catch (e) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -226,7 +226,7 @@ export const removeBinderPhotoAction = createAsyncThunk<
   } catch (e) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 //포토바인더 선택 사진들 추가
@@ -245,7 +245,7 @@ export const addBinderPhotoAction = createAsyncThunk<
   } catch (e) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -262,7 +262,7 @@ export const createPhotoBinderAction = createAsyncThunk<
   } catch (e) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -279,6 +279,6 @@ export const removePhotoBinderAction = createAsyncThunk<
   } catch (e) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });

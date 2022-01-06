@@ -28,7 +28,7 @@ export const getPicstoryListAction = createAsyncThunk<
     return data;
   } catch (e) {
     console.error(e);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -48,7 +48,7 @@ export const createPicstoryAction = createAsyncThunk<
   } catch (e) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -64,7 +64,7 @@ export const updatePicstoryAction = createAsyncThunk<
   } catch (e) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -83,7 +83,7 @@ export const removePicstoryAction = createAsyncThunk<
   } catch (e) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -103,7 +103,7 @@ export const addPicPostAction = createAsyncThunk<
   } catch (e) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
 
@@ -123,6 +123,6 @@ export const removePicPostAction = createAsyncThunk<
   } catch (e) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
-    return rejectWithValue({ message: e.response.data });
+    return rejectWithValue({ message: e.message });
   }
 });
