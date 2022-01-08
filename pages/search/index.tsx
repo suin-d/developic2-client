@@ -24,7 +24,7 @@ export const dateOptionData = [
 ];
 
 export default function SearchPost(): JSX.Element {
-  const { pageData, getSearchListDispatch, hasMore } = useList();
+  const { pageData, getSearchListDispatch, hasMore, resetPageDataDispatch } = useList();
   const [currentSort, setCurrentSort] = useState(sortOptionData[0]);
   const [currentDate, setCurrentDate] = useState(dateOptionData[0]);
   const [FetchMoreTrigger, page, setPage] = useFetchMore(hasMore);
@@ -32,7 +32,8 @@ export default function SearchPost(): JSX.Element {
 
   useEffect(() => {
     setPage(0);
-  }, [query.keyword, currentSort, currentDate, setPage]);
+    resetPageDataDispatch();
+  }, [query.keyword, currentSort, currentDate, setPage, resetPageDataDispatch]);
 
   useEffect(() => {
     if (query.keyword) {

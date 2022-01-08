@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { useAppSelector } from '../../hooks/useSelector';
 import { useAppDispatch } from './../../hooks/useDispatch';
+import { resetPageData } from './slice';
 import {
   getFeedPostAction,
   getHashtagListAction,
@@ -44,9 +45,11 @@ export default function useList() {
   const getArchiveListDispatch = useCallback((data: GetArchiveListPayload) => {
     dispatch(getArchiveListAction(data));
   }, []);
-
   const getSearchListDispatch = useCallback((data: LoadSearchListPayload) => {
     dispatch(getSearchListAction(data));
+  }, []);
+  const resetPageDataDispatch = useCallback(() => {
+    dispatch(resetPageData());
   }, []);
 
   return {
@@ -60,5 +63,6 @@ export default function useList() {
     getTaggedPostListDispatch,
     getPostListDispatch,
     getArchiveListDispatch,
+    resetPageDataDispatch,
   };
 }

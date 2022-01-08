@@ -40,6 +40,7 @@ const listSlice = createSlice({
     hasMoreData(state, { payload }) {
       state.hasMore = payload;
     },
+    resetPageData: () => initialState,
   },
   extraReducers: builder => {
     builder
@@ -198,5 +199,5 @@ const listSlice = createSlice({
   },
 });
 
-export const { isMoreLoading, hasMoreData } = listSlice.actions;
+export const { isMoreLoading, hasMoreData, resetPageData } = listSlice.actions;
 export default listSlice.reducer;
