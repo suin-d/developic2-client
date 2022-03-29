@@ -509,12 +509,6 @@ export const ConfirmModalBox = styled(ModalBox)`
 export const FollowListModalBox = styled(ModalBox)`
   display: flex;
   flex-direction: column;
-  div:first-child {
-    height: 50px;
-  }
-  & > div > div > h4 {
-    font-size: 20px;
-  }
   & > ul {
     overflow-y: auto;
     overflow-x: hidden;

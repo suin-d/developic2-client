@@ -203,9 +203,16 @@ export const ExhibitionCardBox = styled.div`
     }
     p {
       text-align: right;
-      display: block;
       margin: 10px 0;
       font-size: 14px;
+      line-height: 1.1em;
+      max-height: 2.2em;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      word-wrap: break-word;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      -webkit-line-clamp: 2;
     }
     ul {
       font-size: 13px;
@@ -1339,7 +1346,7 @@ export const BlogPostCardBox = styled.li`
         text-overflow: ellipsis;
         transition: all 0.25s ease-in-out;
         display: -webkit-box;
-        -webkit-line-clamp: 3;
+        -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         margin-bottom: 1.5em;
       }

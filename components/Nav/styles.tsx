@@ -5,6 +5,7 @@ import { PageWithNavContainer } from '../Layout';
 export const PageNavigationBox = styled.nav`
   border-top: 0.5px solid ${({ theme }) => theme.grayScale[2]};
   color: ${({ theme }) => theme.textColor.initial};
+  font-size: ${({ theme }) => theme.fontSize.xl};
   ul {
     display: flex;
     margin-bottom: 30px;
@@ -14,10 +15,9 @@ export const PageNavigationBox = styled.nav`
       min-width: 90px;
       text-align: center;
       margin-right: 60px;
-
       font-size: 18px;
       cursor: pointer;
-      line-height: 2;
+      line-height: 2.3;
       &:hover {
         font-weight: 600;
       }
@@ -31,19 +31,9 @@ export const PageNavigationBox = styled.nav`
     ul {
       justify-content: space-between;
       li {
-        flex: 1;
+        flex: 1 1 0%;
         margin: 0;
-        font-size: 16px;
-      }
-    }
-  }
-  @media ${({ theme }) => theme.viewPortSize.mobile} {
-    ul {
-      justify-content: space-between;
-      margin-bottom: 35px;
-      padding: 0 10px;
-      li {
-        margin: 0;
+        font-size: ${({ theme }) => theme.fontSize.medium};
       }
     }
   }

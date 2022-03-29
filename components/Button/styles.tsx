@@ -135,9 +135,9 @@ export const LikeFltBox = styled(FloatingButtonBox)`
 `;
 export const SquareBtnBox = styled(Btn)`
   display: inline-block;
-  padding: 3px 20px;
+  padding: 4px 20px;
   font-size: 14px;
-  color: ${({ theme }) => theme.grayScale[1]};
+  color: ${({ theme }) => theme.textColor.initial};
   border: 1px solid ${({ theme }) => theme.grayScale[2]};
   &:hover {
     background-color: ${({ theme }) => theme.grayScale[3]};

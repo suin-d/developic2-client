@@ -109,7 +109,6 @@ export default function HashTagInstant({
     <HashTagSearchContainer>
       <HashInputContainer>
         <span>해시태그</span>
-
         <input
           placeholder="#를 통해 작성 후, 엔터를 눌러 태그를 등록해주세요."
           type="text"

@@ -42,7 +42,7 @@ export const BlogUserInfoBox = styled.div`
       color: ${({ theme }) => theme.grayScale[5]};
     }
   }
-  .user__info:nth-child(3) > p {
+  .user__info:nth-of-type(3) > p {
     text-decoration: underline;
     cursor: pointer;
   }
