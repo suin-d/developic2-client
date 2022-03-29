@@ -17,6 +17,7 @@ import {
   verificationAction,
   subscribeAction,
   unSubscribeAction,
+  authAction,
   loadBlogFollowListAction,
   subscribeListAction,
   unSubscribeListAction,
@@ -33,7 +34,7 @@ import {
 } from './type';
 
 // 커스텀 훅
-export default function useUser() {
+export function useUser() {
   const {
     login,
     signup,
@@ -43,6 +44,7 @@ export default function useUser() {
     userIntro,
     updateUser,
     destroyUser,
+    auth,
     loadBlogFollowList,
     loadBlogUser,
   } = useAppSelector(state => state.user);
@@ -120,7 +122,12 @@ export default function useUser() {
     dispatch(loadBlogFollowListAction(data));
   }, []);
 
+  const authDispatch = useCallback(() => {
+    dispatch(authAction(null));
+  }, []);
+
   return {
+    auth,
     updateUser,
     login,
     destroyUser,
@@ -129,7 +136,6 @@ export default function useUser() {
     userIntro,
     verification,
     userData,
-    loadBlogFollowList,
     loginDispatch,
     logoutDispatch,
     signupDispatch,
@@ -145,9 +151,13 @@ export default function useUser() {
     removePostLikeDispatch,
     subscribeDispatch,
     unSubscribeDispatch,
+    authDispatch,
+    loadBlogFollowList,
     loadBlogFollowListDispatch,
     subscribeListDispatch,
     unSubscribeListDispatch,
     loadBlogUser,
   };
 }
+
+export default useUser;

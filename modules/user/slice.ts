@@ -395,7 +395,7 @@ const userSlice = createSlice({
         state.removeBlogFollowList.loading = false;
         state.removeBlogFollowList.data = null;
         state.removeBlogFollowList.error = payload;
-      })
+      });
   },
 });
 export default userSlice.reducer;
