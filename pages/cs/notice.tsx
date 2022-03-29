@@ -42,8 +42,8 @@ export default function Notice(): JSX.Element {
         <div className="cs__left">
           <PageLabel
             width={450}
-            text="작가와 독자분들에게 알릴게 있어요"
-            desc="그게 뭔지는 몰라도."
+            text="NOTICE"
+            desc="서비스 안내, 오류, 기타 공지사항을 전해드립니다."
           />
         </div>
         <div className="cs__right">

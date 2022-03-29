@@ -40,11 +40,7 @@ export default function Faq(): JSX.Element {
       </Head>
       <FaqContainer>
         <div className="cs__left">
-          <PageLabel
-            width={490}
-            text="궁금한게 있으신가요?"
-            desc="오른쪽에 해답이 있을수도.."
-          />
+          <PageLabel width={490} text="FAQ" desc=" 자주 묻는 질문과 답변을 확인하세요." />
         </div>
         <div className="cs__right">
           <NoticeList data={getCs.data} getDataDispatch={getFaqDispatch} />
