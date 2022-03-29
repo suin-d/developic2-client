@@ -28,7 +28,7 @@ const WelcomeContainer = styled.div`
     right: 0;
     text-align: center;
     display: block;
-     
+
     color: #fff;
     letter-spacing: 2.88px;
     opacity: 0;
@@ -64,9 +64,9 @@ const WelcomeContainer = styled.div`
 export default function Welcome(): JSX.Element {
   return (
     <WelcomeContainer>
-      <div className="logo second">DEVELOPIC</div>
-      <div className="first">어서오세요</div>
-      <div className="last">입니다.</div>
+      <div className="logo second">+</div>
+      <div className="first">Develop</div>
+      <div className="last">Pic</div>
     </WelcomeContainer>
   );
 }
