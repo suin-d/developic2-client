@@ -158,7 +158,7 @@ const listSlice = createSlice({
         switch (meta.arg.type) {
           case 'post':
             (state.pageData as SearchPageDataType)['post'] = state.loadMore
-              ? (state.pageData as SearchPageDataType)['post'].concat(
+              ? (state.pageData as SearchPageDataType)['post']?.concat(
                   payload as SearchPageDataType['post']
                 )
               : (payload as SearchPageDataType['post']);
