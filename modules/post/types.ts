@@ -35,7 +35,7 @@ export type PostContent = {
   isPublic: number;
   thumbnail: string;
   summary: string;
-  lisence: string;
+  license: string;
   UserId: number;
   PostId: null | string;
   PicStories?: number[];
