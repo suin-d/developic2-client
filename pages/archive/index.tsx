@@ -6,12 +6,9 @@ import SquareBtn from '../../components/Button/SquareBtn';
 import ArchiveItem from '../../components/Card/ArchiveItem';
 import TitleLabel from '../../components/Label/TitleLabel';
 import Layout from '../../components/Layout';
+import useAuth from '../../hooks/useAuth';
 import useFetchMore from '../../hooks/useFetchMore';
-import { getArchiveListAction } from '../../modules/archive';
 import useArchive from '../../modules/archive/hooks';
-import wrapper from '../../modules/store';
-import useUser from '../../modules/user/hooks';
-import { authServersiceAction } from '../../utils/getServerSidePropsTemplate';
 
 const ArchiveContainer = styled.div`
   max-width: 1150px;
@@ -39,15 +36,15 @@ const ArchiveContainer = styled.div`
   }
 `;
 export default function Archive(): JSX.Element {
-  const { userData } = useUser();
+  const { userData } = useAuth({ replace: false });
   const { getArchiveList, getArchiveListDispatch, hasMore } = useArchive();
   const [FetchMoreTrigger, page] = useFetchMore(hasMore);
 
   useEffect(() => {
-    if (hasMore && page > 0) {
-      getArchiveListDispatch({ limit: 8, offset: page * 8 });
-    }
-  }, [page]);
+    if (!hasMore && page > 0) return;
+    getArchiveListDispatch({ limit: 8, offset: page * 8 });
+  }, [getArchiveListDispatch, hasMore, page]);
+
   if (!getArchiveList.data) return <></>;
   return (
     <Layout>
@@ -73,9 +70,3 @@ export default function Archive(): JSX.Element {
     </Layout>
   );
 }
-
-export const getServerSideProps = wrapper.getServerSideProps(async context => {
-  await authServersiceAction(context);
-  const { dispatch } = context.store;
-  await dispatch(getArchiveListAction({ limit: 8, offset: 0 }));
-});

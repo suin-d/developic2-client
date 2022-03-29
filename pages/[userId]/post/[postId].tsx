@@ -63,6 +63,8 @@ export default function PostId(): JSX.Element {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(async context => {
-  authServersiceAction(context);
-  await context.store.dispatch(getPostDetailAction(+(context.query.postId as string)));
+  await Promise.allSettled([
+    authServersiceAction(context),
+    context.store.dispatch(getPostDetailAction(+(context.query.postId as string))),
+  ]);
 });

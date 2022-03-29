@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import Link from 'next/link';
 import Layout from '../../components/Layout';
 import Head from 'next/head';
 import styled from '@emotion/styled';
@@ -190,7 +191,7 @@ export default function Signup(): JSX.Element {
                 onChange={onChangeTerm}
                 value={term}
               />
-              <a href="">이용약관</a>
+              <Link href="/cs/term">이용약관</Link>
             </article>
             <div className="btn__wrapper">
               <SquareBtn>홈으로</SquareBtn>
@@ -198,7 +199,7 @@ export default function Signup(): JSX.Element {
             </div>
           </form>
           <section>
-            <PageLabel text="디비디 바비디 부 벨소리 울려라" desc="유산균 먹기" />
+            <PageLabel text="Develop + Pic" desc="찍고 쓰는 디벨로픽" />
             <img src="/cs_banner.png" alt="banner" />
           </section>
         </div>

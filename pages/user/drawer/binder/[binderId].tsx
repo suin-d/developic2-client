@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import SquareBtn from '../../../../components/Button/SquareBtn';
 import PageWithNavLayout from '../../../../components/Layout/PageWithNavLayout';
 import PhotoBinderGallery from '../../../../components/List/PhotoBinderGallery';
@@ -9,12 +9,8 @@ import BinderEditModal from '../../../../components/Modal/BinderModal';
 import ConfirmRemoveModal from '../../../../components/Modal/ConfirmRemoveModal';
 import Incomplete from '../../../../components/Result/Incomplete';
 import useModal from '../../../../hooks/useModal';
-import { getPhotoBinderDetailAction } from '../../../../modules/drawer';
 import useDrawer from '../../../../modules/drawer/hooks';
-import wrapper from '../../../../modules/store';
 import { DrawerNavData } from '../../../../utils/data';
-import { authServersiceAction } from '../../../../utils/getServerSidePropsTemplate';
-
 const BinderDetailContainer = styled.div`
   display: flex;
   .left__section {
@@ -76,6 +72,7 @@ export default function BinderId(): JSX.Element {
     getBinderDetail,
     removeBinderPhotoDispatch,
     removePhotoBinderDispatch,
+    getPhotoBinderDetailDispatch,
   } = useDrawer();
   const [selectedPhotos, setSelectedPhotos] = useState<number[]>([]);
   const [editModalOpen, setEditModalOpen] = useState(false);
@@ -110,6 +107,10 @@ export default function BinderId(): JSX.Element {
       photoIdArr: selectedPhotos,
     });
   }, [selectedPhotos, getBinderDetail.data]);
+
+  useEffect(() => {
+    getPhotoBinderDetailDispatch(+(router.query.binderId as string));
+  }, []);
 
   if (getBinderDetail.error)
     return (
@@ -160,9 +161,3 @@ export default function BinderId(): JSX.Element {
     </PageWithNavLayout>
   );
 }
-
-export const getServerSideProps = wrapper.getServerSideProps(async context => {
-  const { dispatch } = context.store;
-  await authServersiceAction(context);
-  await dispatch(getPhotoBinderDetailAction(+(context.query.binderId as string)));
-});

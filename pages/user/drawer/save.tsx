@@ -1,17 +1,13 @@
 import styled from '@emotion/styled';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import UnfinishedPostCard from '../../../components/Card/UnfinishedPostCard';
 import PageWithNavLayout from '../../../components/Layout/PageWithNavLayout';
 import Incomplete from '../../../components/Result/Incomplete';
+import useAuth from '../../../hooks/useAuth';
 import useFetchMore from '../../../hooks/useFetchMore';
-import { getTempListAction } from '../../../modules/drawer';
 import useDrawer from '../../../modules/drawer/hooks';
-import wrapper from '../../../modules/store';
-import useUser from '../../../modules/user/hooks';
 import { DrawerNavData } from '../../../utils/data';
-import { authServersiceAction } from '../../../utils/getServerSidePropsTemplate';
 
 const SavePageContainer = styled.div`
   display: grid;
@@ -24,20 +20,15 @@ const SavePageContainer = styled.div`
 `;
 
 function SaveList(): JSX.Element {
-  const router = useRouter();
-  const { userData } = useUser();
+  const { userData } = useAuth({ replace: true });
   const { getTempList, getTempListDispatch, hasMore } = useDrawer();
   const [FetchMoreTrigger, page] = useFetchMore(hasMore);
 
   useEffect(() => {
-    if (!userData) {
-      router.replace('/');
-      return;
-    }
-    if (hasMore && page > 0) {
-      getTempListDispatch({ userId: userData.id, limit: 12, offset: 0 });
-    }
-  }, [userData, page]);
+    if (!userData) return;
+    if (!hasMore && page > 0) return;
+    getTempListDispatch({ userId: userData.id, limit: 12, offset: 0 });
+  }, [page, userData, hasMore]);
 
   if (getTempList.error)
     return (
@@ -60,7 +51,11 @@ function SaveList(): JSX.Element {
     <>
       <SavePageContainer>
         {getTempList.data.map(tempItem => (
-          <UnfinishedPostCard id={tempItem.id} tempPostData={tempItem} />
+          <UnfinishedPostCard
+            id={tempItem.id}
+            tempPostData={tempItem}
+            key={tempItem.id}
+          />
         ))}
       </SavePageContainer>
       <FetchMoreTrigger />
@@ -72,21 +67,9 @@ export default function save(): JSX.Element {
   return (
     <PageWithNavLayout pageName="내 서랍" pageDesc="My Drawer" navData={DrawerNavData}>
       <Head>
-        <title>내서랍 | 임시저장 게시글</title>
+        <title>내 서랍 | 임시저장 게시글</title>
       </Head>
       <SaveList />
     </PageWithNavLayout>
   );
 }
-
-export const getServerSideProps = wrapper.getServerSideProps(async context => {
-  const { dispatch, getState } = context.store;
-
-  await authServersiceAction(context);
-  const state = getState();
-  if (state.user.userData) {
-    await dispatch(
-      getTempListAction({ userId: state.user.userData.id, limit: 12, offset: 0 })
-    );
-  }
-});

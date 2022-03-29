@@ -8,9 +8,9 @@ export default function Stats(): JSX.Element {
   return (
     <PageWithNavLayout pageName="설정" pageDesc="Settings" navData={SettingNavData}>
       <Head>
-        <title>내정보 | 계정통계</title>
+        <title>설정 | 통계</title>
       </Head>
-      <Incomplete width={330} title="아직 준비중인 페이지에요." desc="물러가세요" />
+      <Incomplete width={330} title="아직 준비중인 페이지에요." desc="" />
     </PageWithNavLayout>
   );
 }

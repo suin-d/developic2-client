@@ -7,20 +7,11 @@ import RecentUserCard from '../../components/Card/RecentUserCard';
 import TitleLabel from '../../components/Label/TitleLabel';
 import Layout from '../../components/Layout';
 import useList from '../../modules/list/hooks';
-import useUser from '../../modules/user/hooks';
-import useUI from '../../modules/ui/hooks';
-import { useRouter } from 'next/router';
-import {
-  FeedPageDataType,
-  getFeedPostAction,
-  getHashtagListAction,
-  getWriterListAction,
-} from '../../modules/list';
 import useFetchMore from '../../hooks/useFetchMore';
-import wrapper from '../../modules/store';
-import { authServersiceAction } from '../../utils/getServerSidePropsTemplate';
 import useModal from '../../hooks/useModal';
 import _FollowListModal from '../../components/Modal/FollowListModal';
+import useAuth from '../../hooks/useAuth';
+import { FeedPageDataType } from '../../modules/list';
 
 const FeedContainer = styled.div`
   max-width: 1150px;
@@ -136,26 +127,24 @@ const FeedContainer = styled.div`
     }
   }
 `;
-export default function index(): JSX.Element {
-  const { toastOpenDispatch } = useUI();
-  const { userData } = useUser();
-  const { getFeedPostDispatch, pageData, hasMore } = useList();
+export default function Index(): JSX.Element {
+  const { userData } = useAuth({ replace: true });
+  const { getFeedPostDispatch, getWriterListDispatch, pageData, hasMore } = useList();
   const [FetchMoreTrigger, page] = useFetchMore(hasMore);
-  const router = useRouter();
   const [FollowListModal, toggleFollowList] = useModal(_FollowListModal, {});
 
   useEffect(() => {
-    if (!userData) {
-      router.back();
-      setTimeout(() => toastOpenDispatch('로그인 후 이용해주세요'), 1000);
-      return;
-    }
-    if (hasMore && page > 0)
-      getFeedPostDispatch({ UserId: userData.id, offset: page * 12, limit: 12 });
-  }, [page]);
+    if (!userData) return;
+    getWriterListDispatch({ userId: userData.id, type: 'suber' });
+  }, [userData]);
 
-  if (!(pageData as FeedPageDataType).post || !(pageData as FeedPageDataType).writer)
-    return <></>;
+  useEffect(() => {
+    if (!userData) return;
+    if (!hasMore && page > 0) return;
+    getFeedPostDispatch({ UserId: userData.id, offset: page * 12, limit: 12 });
+  }, [page, userData, hasMore]);
+
+  if (!userData) return <></>;
 
   return (
     <Layout>
@@ -168,9 +157,10 @@ export default function index(): JSX.Element {
           <h1>최근 활동 구독작가</h1>
           <div className="user__list">
             <ul>
-              {(pageData as FeedPageDataType).writer.map(
-                (user, i) => i < 8 && <RecentUserCard key={user.id} userData={user} />
-              )}
+              {(pageData as FeedPageDataType).writer &&
+                (pageData as FeedPageDataType).writer.map(
+                  (user, i) => i < 8 && <RecentUserCard key={user.id} userData={user} />
+                )}
             </ul>
             <li className="more__recent__users" onClick={toggleFollowList}>
               <div>
@@ -194,16 +184,3 @@ export default function index(): JSX.Element {
     </Layout>
   );
 }
-
-export const getServerSideProps = wrapper.getServerSideProps(async context => {
-  await authServersiceAction(context);
-  await context.store.dispatch(
-    getHashtagListAction({ sort: 'popular', term: 'month', limit: 18 })
-  );
-  const store = context.store.getState();
-  if (store.user.userData) {
-    const userId = store.user.userData.id;
-    await context.store.dispatch(getFeedPostAction({ UserId: userId, limit: 12 }));
-    await context.store.dispatch(getWriterListAction({ userId: userId, type: 'suber' }));
-  }
-});

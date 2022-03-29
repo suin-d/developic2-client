@@ -1,17 +1,13 @@
 import styled from '@emotion/styled';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import React, { useCallback, useEffect } from 'react';
 import DrawerPostCard from '../../../components/Card/DrawerPostCard';
 import PageWithNavLayout from '../../../components/Layout/PageWithNavLayout';
 import Incomplete from '../../../components/Result/Incomplete';
+import useAuth from '../../../hooks/useAuth';
 import useFetchMore from '../../../hooks/useFetchMore';
-import { getLikeListAction } from '../../../modules/drawer';
 import useDrawer from '../../../modules/drawer/hooks';
-import wrapper from '../../../modules/store';
-import useUser from '../../../modules/user/hooks';
 import { DrawerNavData } from '../../../utils/data';
-import { authServersiceAction } from '../../../utils/getServerSidePropsTemplate';
 
 const LikeListContainer = styled.div`
   width: 100%;
@@ -32,9 +28,13 @@ const LikeListContainer = styled.div`
 `;
 
 function LikeList(): JSX.Element {
-  const { getLikeList, removeLikeItemDispatch } = useDrawer();
-  const { userData } = useUser();
-  const { getLikeListDispatch, hasMore } = useDrawer();
+  const {
+    getLikeList,
+    removeLikeItemDispatch,
+    getLikeListDispatch,
+    hasMore,
+  } = useDrawer();
+  const { userData } = useAuth({ replace: true });
   const [FetchMoreTrigger, page] = useFetchMore(hasMore);
 
   const makeDeleteFn = useCallback(
@@ -48,14 +48,10 @@ function LikeList(): JSX.Element {
   );
 
   useEffect(() => {
-    if (!userData) {
-      useRouter().replace('/');
-      return;
-    }
-    if (hasMore && page > 0 && userData) {
-      getLikeListDispatch({ userId: userData.id, limit: 12, offset: page * 12 });
-    }
-  }, [page]);
+    if (!userData) return;
+    if (!hasMore && page > 0) return;
+    getLikeListDispatch({ userId: userData.id, limit: 12, offset: page * 12 });
+  }, [page, userData, hasMore]);
 
   if (getLikeList.error)
     return (
@@ -94,20 +90,9 @@ export default function like(): JSX.Element {
   return (
     <PageWithNavLayout pageName="내 서랍" pageDesc="My Drawer" navData={DrawerNavData}>
       <Head>
-        <title>내서랍 | 좋아요 목록</title>
+        <title>내 서랍 | 좋아요 목록</title>
       </Head>
       <LikeList />
     </PageWithNavLayout>
   );
 }
-
-export const getServerSideProps = wrapper.getServerSideProps(async context => {
-  const { dispatch, getState } = context.store;
-  await authServersiceAction(context);
-  const state = getState();
-  if (state.user.userData) {
-    await dispatch(
-      getLikeListAction({ userId: state.user.userData?.id, limit: 12, offset: 0 })
-    );
-  }
-});

@@ -122,7 +122,7 @@ export default function Info(): JSX.Element {
   return (
     <PageWithNavLayout pageName="설정" pageDesc="Settings" navData={SettingNavData}>
       <Head>
-        <title>내정보 | 계정정보 수정</title>
+        <title>설정 | 계정정보 수정</title>
       </Head>
       <InfoContainer>
         <div className="cs__left">

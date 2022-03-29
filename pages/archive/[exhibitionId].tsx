@@ -6,6 +6,9 @@ import Layout from '../../components/Layout';
 import Link from 'next/link';
 import useArchive from '../../modules/archive/hooks';
 import { useRouter } from 'next/router';
+import { authServersiceAction } from '../../utils/getServerSidePropsTemplate';
+import { getArchiveDetailAction } from '../../modules/archive';
+import wrapper from '../../modules/store';
 
 const ArchiveDetailContainer = styled.div`
   max-width: 900px;
@@ -148,7 +151,7 @@ const ArchiveDetailContainer = styled.div`
       margin: 10px 0 2px;
     }
     h5 {
-      font-size: ${({ theme }) => theme.fontSize.base.lg};
+      font-size: ${({ theme }) => theme.fontSize.lg};
       font-weight: bold;
     }
     h6 {
@@ -331,7 +334,6 @@ const ArchiveDetailContainer = styled.div`
     iframe {
       border: 2px inset;
     }
-
     margin-top: 150px;
     & > article {
       margin-top: 50px;
@@ -343,7 +345,6 @@ const ArchiveDetailContainer = styled.div`
         font-size: ${({ theme }) => theme.fontSize.lg};
         img {
           width: 100%;
-          max-height: 450px;
           object-fit: contain;
         }
       }
@@ -452,7 +453,7 @@ export default function ArchiveId(): JSX.Element {
             </li>
             <li
               className="detail__link"
-              onClick={() => window.open(`https://${getArchiveDetail.data?.webPage}`)}
+              onClick={() => window.open(`${getArchiveDetail.data?.webPage}`)}
             >
               사이트로 이동
             </li>
@@ -494,3 +495,12 @@ export default function ArchiveId(): JSX.Element {
     </Layout>
   );
 }
+
+// export const getServerSideProps = wrapper.getServerSideProps(async context => {
+//   await Promise.allSettled([
+//     authServersiceAction(context),
+//     context.store.dispatch(
+//       getArchiveDetailAction(+(context.params?.exhibitionId as string))
+//     ),
+//   ]);
+// });

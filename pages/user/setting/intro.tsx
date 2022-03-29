@@ -159,7 +159,7 @@ export default function Intro(): JSX.Element {
   return (
     <PageWithNavLayout pageName="설정" pageDesc="Settings" navData={SettingNavData}>
       <Head>
-        <title>내정보 | 내 소개 수정</title>
+        <title>설정 | 내 소개 수정</title>
       </Head>
       <InfoContainer>
         <div className="cs__left">
