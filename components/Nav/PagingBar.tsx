@@ -17,7 +17,6 @@ export default function PagingBar({
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const onClickPage = (index: number) => {
-    console.log('클릭됨');
     if (index !== currentPage) {
       if (index === 0) {
         if (currentPage !== 1) {

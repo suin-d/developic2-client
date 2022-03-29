@@ -82,7 +82,6 @@ export const FooterContainer = styled.footer`
     .menu__list {
       .logo {
         display: block;
-
         font-size: 24px;
         font-weight: 600;
         letter-spacing: 2.88px;
@@ -156,9 +155,8 @@ export const HeaderContainer = styled.header<{ active: boolean }>`
       align-items: center;
       .logo {
         display: block;
-
         font-size: 24px;
-        font-weight: 600;
+        font-weight: 700;
         color: ${({ theme }) => theme.textColor.initial};
         letter-spacing: 2.88px;
       }
@@ -209,6 +207,7 @@ export const HeaderContainer = styled.header<{ active: boolean }>`
           width: 35px;
           height: 35px;
           border-radius: 50%;
+          object-fit: cover;
         }
         &:hover span {
           text-decoration: underline;
@@ -506,13 +505,6 @@ export const PostDetailContainer = styled.div`
   .blog__posting {
     margin-top: 35px;
     position: relative;
-    & > img {
-      display: block;
-      margin: 0 auto;
-      width: 100%;
-      height: 450px;
-      object-fit: cover;
-      margin-bottom: 50px;
     }
   }
 

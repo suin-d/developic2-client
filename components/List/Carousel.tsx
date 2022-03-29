@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import useCarousel from '../../hooks/useCarousel';
 import _throttle from 'lodash/throttle';
 import { useState } from 'react';
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 
 const Container = styled.div<{ width: number; height: number }>`
   width: 100%;
@@ -35,7 +36,7 @@ const Slides = styled.div<{
 
 const Control = styled.button`
   position: absolute;
-  top: 50%;
+  top: 40%;
   width: 38px;
   height: 38px;
   display: flex;
@@ -47,9 +48,12 @@ const Control = styled.button`
   justify-content: center;
   transform: translateY(-50%);
   cursor: pointer;
-  background-color: ${({ theme }) => theme.background.initial};
-  color: ${({ theme }) => theme.textColor.initial};
-  border: 1px solid ${({ theme }) => theme.primary[1]};
+  background-color: rgba(0, 0, 0, 0.2);
+  svg {
+    path {
+      color: #fff;
+    }
+  }
 `;
 const PrevControl = styled(Control)`
   left: 0;
@@ -104,7 +108,6 @@ export default function Carousel({
   }, [currentSlide, listLength]);
 
   const onTouchStart = _throttle(e => {
-    console.log(e);
     setOldClientX(e.changedTouches[0].clientX);
   }, 300);
 
@@ -146,10 +149,10 @@ export default function Carousel({
         </Slides>
       </div>
       <PrevControl id="prev" onClick={handleClick}>
-        &laquo;
+        <MdKeyboardArrowLeft />
       </PrevControl>
       <NextControl id="next" onClick={handleClick}>
-        &raquo;
+        <MdKeyboardArrowRight />
       </NextControl>
     </Container>
   );
