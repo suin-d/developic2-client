@@ -6,6 +6,7 @@ module.exports = {
       'k.kakaocdn.net',
       'lh3.googleusercontent.com',
       'platform-lookaside.fbsbx.com',
+      'i.ibb.co',
     ],
   },
   experimental: {
