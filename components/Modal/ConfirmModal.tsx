@@ -3,7 +3,7 @@ import SquareBtn from '../Button/SquareBtn';
 import { ConfirmModalBox, ModalLayout } from './styles';
 
 type ConfirmModalPropsType = {
-  onConfirm: () => void;
+  onConfirm: (e: React.MouseEvent<Element, MouseEvent>) => void;
   onClose?: () => void;
   content: string;
 };

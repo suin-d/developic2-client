@@ -183,13 +183,13 @@ export default function InfoPost(): JSX.Element {
     if (submitPost.data && submitPost.data.id === +(router.query.postId as string)) {
       router.replace(`/${userData.id}/post`);
     }
-  }, [submitPost.data, router.query]);
+  }, [submitPost.data, router.query, userData, router]);
 
   useEffect(() => {
     if (!getPostDetail.data?.summary && tempPost.data) {
-      setSummary(tempPost.data?.content.replace(/(<([^>]+)>)/gi, '').substr(0, 100));
+      setSummary(tempPost.data?.content.replace(/(<([^>]+)>)/gi, '').trim());
     }
-  }, [tempPost.data]);
+  }, [getPostDetail.data?.summary, setSummary, tempPost.data]);
 
   const onSubmitPost = useCallback(() => {
     if (!summary.trim()) return toastOpenDispatch('요약글을 작성해주세요.');
@@ -203,7 +203,16 @@ export default function InfoPost(): JSX.Element {
       PostId: router.query.postId as string,
     };
     submitPostDispatch(data);
-  }, [isAllowComment, copyRight, isPublic, router.query.postId, summary, thumbnail]);
+  }, [
+    summary,
+    toastOpenDispatch,
+    thumbnail,
+    isAllowComment,
+    isPublic,
+    copyRight,
+    router.query.postId,
+    submitPostDispatch,
+  ]);
 
   if (!tempPost.data) return <></>;
 

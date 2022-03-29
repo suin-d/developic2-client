@@ -32,18 +32,10 @@ export default function ToastEditor({
   const { toastOpenDispatch } = useUI();
   const router = useRouter();
   const EditorRef = useRef<null | Editor>(null);
-  const [TempSubmitModal, toggleConfirmModal] = useModal(ConfirmModal, {
-    content: '임시저장항목으로 저장하시겠습니까?',
-    onConfirm: useCallback(() => {
-      setContent(EditorRef.current?.getInstance().getHtml() as string);
-      temporarySave(EditorRef.current?.getInstance().getHtml() as string);
-      router.replace(`/user/drawer/save`);
-      toastOpenDispatch('게시글이 임시저장 되었습니다.');
-    }, [EditorRef.current, temporarySave]),
-  });
-
+  const [saveType, setSaveType] = useState<'tempSave' | 'submit' | ''>('');
   const [toUrl, setToUrl] = useState('');
   const [confirmed, setConfirmed] = useState(false);
+
   const [RunModal, toggleModal] = useModal(ConfirmModal, {
     onConfirm: () => setConfirmed(true),
     content: '작성 내용이 사라지게 됩니다. 페이지를 나가시겠습니까?',
@@ -61,6 +53,29 @@ export default function ToastEditor({
     [confirmed, router.asPath, router.events, toggleModal]
   );
 
+  const onTempSave = useCallback(
+    e => {
+      if (e.target.type === 'button') {
+        router.events.off('routeChangeStart', routeChangeStart);
+      }
+    },
+    [routeChangeStart, router.events]
+  );
+
+  const [TempSubmitModal, toggleConfirmModal] = useModal(ConfirmModal, {
+    content: '임시저장항목으로 저장하시겠습니까?',
+    onConfirm: useCallback(
+      e => {
+        setSaveType('tempSave');
+        setContent(EditorRef.current?.getInstance().getHtml() as string);
+        temporarySave(EditorRef.current?.getInstance().getHtml() as string);
+        toastOpenDispatch('게시글이 임시저장 되었습니다.');
+        onTempSave(e);
+      },
+      [onTempSave, setContent, temporarySave, toastOpenDispatch]
+    ),
+  });
+
   useEffect(() => {
     router.events.on('routeChangeStart', routeChangeStart);
     return () => {
@@ -73,30 +88,40 @@ export default function ToastEditor({
       toggleModal();
       router.replace(toUrl);
     }
-  }, [toUrl, confirmed]);
+  }, [toUrl, confirmed, toggleModal, router]);
 
   const onFinalSubmit = useCallback(
     e => {
-      if (e.target.className === 'submit css-1o39ywg') {
+      if (e.target.type === 'button') {
         router.events.off('routeChangeStart', routeChangeStart);
       }
+      setSaveType('submit');
       setContent(EditorRef.current?.getInstance().getHtml() as string);
       temporarySave(EditorRef.current?.getInstance().getHtml() as string);
     },
     [routeChangeStart, router.events, setContent, temporarySave]
   );
 
-  const uploadImageToServer = useCallback(async (image: Blob | File) => {
-    if (!userData) return;
-    const formData = new FormData();
-    formData.append('image', image);
-    const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/upload/postimage/${userData.id}`,
-      formData
-    );
-    setImageList(current => current.concat(res.data));
-    return res.data;
-  }, []);
+  const uploadImageToServer = useCallback(
+    async (image: Blob | File) => {
+      if (!userData) return;
+      const formData = new FormData();
+      formData.append('image', image);
+      return axios
+        .post(
+          `${process.env.NEXT_PUBLIC_SERVER_HOST}/upload/postimage/${userData.id}`,
+          formData
+        )
+        .then(res => {
+          setImageList(current => current.concat(res.data));
+          if (image.size > 1 * 1024 * 1024) {
+            res.data.src = res.data.src.replace('/resize/600', '/original');
+          }
+          return res.data;
+        });
+    },
+    [setImageList, userData]
+  );
 
   const updateMetaData = useCallback(async (image: Blob | File, PostImageId: number) => {
     const metaData = await exifr.parse(image, { exif: true, gps: true });
@@ -118,12 +143,19 @@ export default function ToastEditor({
     await axios.post(`${process.env.NEXT_PUBLIC_SERVER_HOST}/upload/exif`, computedMeta);
   }, []);
 
-  const onUpload = useCallback(async (image: Blob | File, callback) => {
-    const data = await uploadImageToServer(image);
-    await updateMetaData(image, data.imageId);
-    EditorRef.current?.getInstance().moveCursorToEnd();
-    await _delay(() => callback(`${data.src}`, `${data.imageId}`), 3500);
-  }, []);
+  const onUpload = useCallback(
+    async (image: Blob | File, callback) => {
+      if (image.size > 20 * 1024 * 1024) {
+        toastOpenDispatch('20MB 미만의 이미지만 첨부 가능합니다.');
+      } else {
+        const data = await uploadImageToServer(image);
+        await updateMetaData(image, data.imageId);
+        EditorRef.current?.getInstance().moveCursorToEnd();
+        _delay(() => callback(`${data.src}`, `${data.imageId}`), 3500);
+      }
+    },
+    [toastOpenDispatch, updateMetaData, uploadImageToServer]
+  );
 
   useEffect(() => {
     EditorRef.current?.getInstance().setHtml(content);
@@ -132,12 +164,13 @@ export default function ToastEditor({
   useEffect(() => {
     if (preSavePost.data) {
       if (
-        router.query.postId === 'new' ||
-        preSavePost.data.postId === +(router.query.postId as string)
+        (router.query.postId === 'new' && saveType === 'submit') ||
+        (preSavePost.data.postId === +(router.query.postId as string) &&
+          saveType === 'submit')
       )
         router.replace(`/edit/info/${preSavePost.data.postId}`);
     }
-  }, [preSavePost.data, router.query]);
+  }, [preSavePost.data, router, saveType]);
 
   return (
     <>
@@ -146,6 +179,7 @@ export default function ToastEditor({
           initialValue={content}
           previewStyle="vertical"
           height="800px"
+          placeholder="내용을 작성하세요."
           initialEditType="wysiwyg"
           useCommandShortcut={true}
           ref={EditorRef}

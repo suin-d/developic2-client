@@ -98,7 +98,8 @@ export const HashTagSearchContainer = styled.div`
     li {
       cursor: pointer;
       font-size: 14px;
-      padding: 3px 5px;
+      padding: 4px 5px;
+      color: ${({ theme }) => theme.textColor.initial};
       border: 1px solid ${({ theme }) => theme.grayScale[2]};
       &:hover {
         background-color: ${({ theme }) => theme.grayScale[4]};
@@ -115,6 +116,9 @@ export const HashTagSearchContainer = styled.div`
 export const PostContentViewerContainer = styled.article`
   line-height: 180%;
   max-width: 800px;
+  img {
+    width: 100%;
+  }
   p {
     margin: 10px 0;
   }
