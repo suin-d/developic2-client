@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { useThemeState } from '../../hooks/ThemeContext';
@@ -23,9 +24,12 @@ export default function ArchiveItem({
         posterId={data.id}
         currentTheme={currentTheme}
       >
-        <img
-          src={process.env.NEXT_PUBLIC_IMAGE_400 + data.poster}
+        <Image
+          src={process.env.NEXT_PUBLIC_IMAGE_ORIGINAL + data.poster}
           alt={data.title + '포스터'}
+          width={248}
+          height={350}
+          objectFit="cover"
         />
         <article>
           {data.cost === 0 ? (

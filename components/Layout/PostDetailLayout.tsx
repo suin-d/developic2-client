@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect } from 'react';
 import { AiOutlineDelete } from 'react-icons/ai';
@@ -115,10 +116,15 @@ export default function PostDetailLayout({ postData }: PostDetaulLayout): JSX.El
         </div>
       </section>
       <section className="blog__posting">
-        <img
-          src={process.env.NEXT_PUBLIC_IMAGE_600 + postData.thumbnail}
-          alt={postData.title}
-        />
+        <div className="img__wrapper">
+          <Image
+            src={process.env.NEXT_PUBLIC_IMAGE_ORIGINAL + postData.thumbnail}
+            alt={postData.title}
+            height={600}
+            width={900}
+            objectFit="cover"
+          />
+        </div>
         <PostContentViewer content={postData.content} />
         <LikeBtn isLike={isLike} onToggleLike={onToggleLike} />
       </section>
