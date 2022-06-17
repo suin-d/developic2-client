@@ -28,7 +28,7 @@ export const getArchiveListAction = createAsyncThunk<
     );
     dispatch(isMoreLoading(payloadData.offset ? payloadData.offset !== 0 : false));
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     return rejectWithValue({ message: e.message });
   }
@@ -42,7 +42,7 @@ export const getArchiveDetailAction = createAsyncThunk<
   try {
     const { data } = await axios.get(`/exhibition/${archiveId}`);
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     return rejectWithValue({ message: e.message });
   }
@@ -56,7 +56,7 @@ export const addArchiveAction = createAsyncThunk<
   try {
     const { data } = await axios.post(`/exhibition`, archiveData);
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     return rejectWithValue({ message: e.message });
   }
