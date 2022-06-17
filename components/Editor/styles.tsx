@@ -170,7 +170,7 @@ export const PostContentViewerContainer = styled.article`
     margin: 10px 0 2px;
   }
   h5 {
-    font-size: ${({ theme }) => theme.fontSize.base.lg};
+    font-size: ${({ theme }) => theme.fontSize.lg};
     font-weight: bold;
   }
   h6 {

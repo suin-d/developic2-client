@@ -16,6 +16,7 @@ export default function useFetchMore(
   const fetchMoreTrigger = useRef<HTMLDivElement>(null);
 
   const FetchMore = useCallback(() => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
       const fetchMoreObserver = new IntersectionObserver(([{ isIntersecting }]) => {
         if (isIntersecting) setPage(prev => prev + 1);

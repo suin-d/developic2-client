@@ -27,7 +27,7 @@ export const postPreSaveAction = createAsyncThunk<
   try {
     const { data } = await axios.post(`/post/presave`, postData);
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.message });
@@ -43,7 +43,7 @@ export const submitPostAction = createAsyncThunk<
     const { data } = await axios.post(`/post/submit`, postData);
     await toastPopAction(dispatch, `게시글이 등록되었습니다.`);
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.message });
@@ -58,7 +58,7 @@ export const getTempPostAction = createAsyncThunk<
   try {
     const { data } = await axios.get(`/post/temp/${postId}`);
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     return rejectWithValue({ message: e.message });
   }
@@ -74,7 +74,7 @@ export const removePostAction = createAsyncThunk<
     const { data } = await axios.delete(`/post/${postId}`);
     await toastPopAction(dispatch, `게시글이 삭제되었습니다.`);
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.message });
@@ -92,7 +92,7 @@ export const createHashtagAction = createAsyncThunk<
       name: tagName,
     });
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     return rejectWithValue({ message: e.message });
   }
@@ -107,7 +107,7 @@ export const searchHashtagAction = createAsyncThunk<
   try {
     const { data } = await axios.get(`/post/hashtag?keyword=${keyword}`);
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     return rejectWithValue({ message: e.message });
   }
@@ -122,7 +122,7 @@ export const getPostDetailAction = createAsyncThunk<
   try {
     const { data } = await axios.get(`/post/${postId}`);
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     return rejectWithValue({ message: e.message });
   }
@@ -137,7 +137,7 @@ export const getPhotoDetailAction = createAsyncThunk<
   try {
     const { data } = await axios.get(`/post/photo/${photoId}`);
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     return rejectWithValue({ message: e.message });
   }
@@ -153,7 +153,7 @@ export const createCommentAction = createAsyncThunk<
     const { data } = await axios.post(`/post/comment`, commentData);
     await toastPopAction(dispatch, `댓글이 등록되었습니다.`);
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.message });
@@ -170,7 +170,7 @@ export const updateCommentAction = createAsyncThunk<
     const { data } = await axios.patch(`/post/comment`, commentData);
     await toastPopAction(dispatch, `댓글이 수정되었습니다.`);
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.message });
@@ -187,7 +187,7 @@ export const removeCommentAction = createAsyncThunk<
     const { data } = await axios.delete(`/post/comment/${commentId}`);
     await toastPopAction(dispatch, `댓글이 삭제되었습니다.`);
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.message });

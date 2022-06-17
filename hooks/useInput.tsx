@@ -1,10 +1,14 @@
-import { useState } from 'react';
+import { SetStateAction, useState } from 'react';
 
 export default function useInput(
   initialState = ''
-): [string, (e: any) => void, React.Dispatch<React.SetStateAction<string>>] {
+): [
+  string,
+  (e: { target: { value: SetStateAction<string> } }) => void,
+  React.Dispatch<React.SetStateAction<string>>
+] {
   const [value, setValue] = useState(initialState);
-  const onChange = e => {
+  const onChange = (e: { target: { value: SetStateAction<string> } }) => {
     setValue(e.target.value);
   };
   return [value, onChange, setValue];

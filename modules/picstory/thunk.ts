@@ -26,7 +26,7 @@ export const getPicstoryListAction = createAsyncThunk<
     );
 
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     return rejectWithValue({ message: e.message });
   }
@@ -45,7 +45,7 @@ export const createPicstoryAction = createAsyncThunk<
     );
     await toastPopAction(dispatch, `${newPicData.title}를 생성했습니다.`);
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.message });
@@ -61,7 +61,7 @@ export const updatePicstoryAction = createAsyncThunk<
   try {
     const { data } = await axios.patch(`/picstory/detail`, picstoryData);
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.message });
@@ -80,7 +80,7 @@ export const removePicstoryAction = createAsyncThunk<
     );
     await toastPopAction(dispatch, `픽스토리를 삭제했습니다.`);
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.message });
@@ -100,7 +100,7 @@ export const addPicPostAction = createAsyncThunk<
     );
     await toastPopAction(dispatch, `픽스토리에 게시글을 추가했습니다.`);
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.message });
@@ -120,7 +120,7 @@ export const removePicPostAction = createAsyncThunk<
     );
     await toastPopAction(dispatch, `픽스토리에서 게시글을 삭제했습니다.`);
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.message });

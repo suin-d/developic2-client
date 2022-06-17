@@ -34,7 +34,7 @@ export const getArchiveListAction = createAsyncThunk<
       }`
     );
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     return rejectWithValue({ message: e.message });
   }
@@ -59,7 +59,7 @@ export const getFeedPostAction = createAsyncThunk<
     );
     dispatch(isMoreLoading(payloadData.offset ? payloadData.offset !== 0 : false));
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     return rejectWithValue({ message: e.message });
   }
@@ -78,7 +78,7 @@ export const getWriterListAction = createAsyncThunk<
       }${payloadData.userId ? '&userId=' + payloadData.userId : ''}`
     );
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     return rejectWithValue({ message: e.message });
   }
@@ -99,7 +99,7 @@ export const getHashtagListAction = createAsyncThunk<
       }`
     );
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     return rejectWithValue({ message: e.message });
   }
@@ -130,7 +130,7 @@ export const getTaggedPostListAction = createAsyncThunk<
     );
     dispatch(isMoreLoading(payloadData.offset ? payloadData.offset !== 0 : false));
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     return rejectWithValue({ message: e.message });
   }
@@ -157,7 +157,7 @@ export const getPostListAction = createAsyncThunk<
     );
     dispatch(isMoreLoading(payloadData.offset ? payloadData.offset !== 0 : false));
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     return rejectWithValue({ message: e.message });
   }
@@ -186,7 +186,7 @@ export const getSearchListAction = createAsyncThunk<
     );
     dispatch(isMoreLoading(payloadData.offset ? payloadData.offset !== 0 : false));
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     return rejectWithValue({ message: e.message });
   }

@@ -19,7 +19,7 @@ export const loadBlogUserAction = createAsyncThunk<
   try {
     const { data } = await axios.get(`/blog/user/${userId}`);
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     return rejectWithValue({ message: e.message });
   }
@@ -44,7 +44,7 @@ export const loadBlogPostListAction = createAsyncThunk<
     );
     dispatch(isMoreLoading(payloadData.offset ? payloadData.offset !== 0 : false));
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     return rejectWithValue({ message: e.message });
   }
@@ -69,7 +69,7 @@ export const loadBlogPicstoryListAction = createAsyncThunk<
     );
     dispatch(isMoreLoading(payloadData.offset ? payloadData.offset !== 0 : false));
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     return rejectWithValue({ message: e.message });
   }
@@ -84,7 +84,7 @@ export const loadBlogPicstoryDetailAction = createAsyncThunk<
   try {
     const { data } = await axios.get(`/blog/picpost/${picstoryId}`);
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     return rejectWithValue({ message: e.message });
   }

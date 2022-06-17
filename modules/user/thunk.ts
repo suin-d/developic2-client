@@ -35,7 +35,7 @@ export const loginAction = createAsyncThunk<
     const { data } = await axios.post<LoginResponse>(`/auth/local`, loginData);
     await toastPopAction(dispatch, `${data.nickname}님 반갑습니다.`);
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.message });
@@ -51,7 +51,7 @@ export const socialRequestAction = createAsyncThunk<
   try {
     const { data } = await axios.get(`/auth/${type}`);
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     return rejectWithValue({ message: e.message });
   }
@@ -67,7 +67,7 @@ export const socialLoginAction = createAsyncThunk<
     const { data } = await axios.post<LoginResponse>(`/auth/retest`, loginData);
     await toastPopAction(dispatch, `${data.nickname}님 반갑습니다.`);
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.message });
@@ -84,7 +84,7 @@ export const logOutAction = createAsyncThunk<
     const { data } = await axios.get(`/auth/logout`);
     await toastPopAction(dispatch, '로그아웃 되었습니다.');
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.message });
@@ -98,7 +98,7 @@ export const authAction = createAsyncThunk<User, null, { rejectValue: MyKnownErr
     try {
       const { data } = await axios.get(`/auth`);
       return data;
-    } catch (e) {
+    } catch (e: any) {
       console.error(e);
       return rejectWithValue({ message: e.message });
     }
@@ -115,7 +115,7 @@ export const signupAction = createAsyncThunk<
     const { data } = await axios.post(`/auth/signup`, signupData);
     await toastPopAction(dispatch, `${signupData.email}로 인증번호를 전송했습니다.`);
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.message });
@@ -134,7 +134,7 @@ export const verificationAction = createAsyncThunk<
     );
     await toastPopAction(dispatch, `인증이 완료되었습니다. 로그인해주세요!`);
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.message });
@@ -150,7 +150,7 @@ export const userDetailInfoAction = createAsyncThunk<
   try {
     const { data } = await axios.get(`/user/detail/${userDetailPayload.userId}`);
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     return rejectWithValue({ message: e.message });
   }
@@ -166,7 +166,7 @@ export const updateUserInfoAction = createAsyncThunk<
     const { data } = await axios.patch(`/user/info`, updatedIntroPayload);
     await toastPopAction(dispatch, `수정이 완료되었습니다.`);
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.message });
@@ -184,7 +184,7 @@ export const updatePasswordAction = createAsyncThunk<
 
     await toastPopAction(dispatch, `비밀번호가 변경되었습니다 다음 로그인시 적용됩니다.`);
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.message });
@@ -201,7 +201,7 @@ export const destroyUserAction = createAsyncThunk<
     const { data } = await axios.delete(`/user/${UserId}`);
     await toastPopAction(dispatch, `비밀번호가 변경되었습니다 다음 로그인시 적용됩니다.`);
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     return rejectWithValue({ message: e.message });
   }
@@ -217,7 +217,7 @@ export const updateUserIntroAction = createAsyncThunk<
     const { data } = await axios.patch(`/user/intro`, updatedIntroPayload);
     await toastPopAction(dispatch, '수정이 완료되었습니다.');
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     return rejectWithValue({ message: e.message });
   }
@@ -233,7 +233,7 @@ export const addPostLikeAction = createAsyncThunk<
     const { data } = await axios.post(`/user/like/post`, addLikePayload);
     await toastPopAction(dispatch, `좋아요 게시글이 추가되었습니다.`);
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.message });
@@ -250,7 +250,7 @@ export const removePostLikeAction = createAsyncThunk<
     const { data } = await axios.patch(`/user/like/post`, removeLikePayload);
     await toastPopAction(dispatch, `좋아요가 취소되었습니다.`);
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.message });
@@ -267,7 +267,7 @@ export const subscribeAction = createAsyncThunk<
     const { data } = await axios.post(`/user/subscribe/add`, addSubscribeData);
     await toastPopAction(dispatch, `블로그를 구독합니다.`);
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.message });
@@ -286,7 +286,7 @@ export const unSubscribeAction = createAsyncThunk<
       const { data } = await axios.post(`/user/subscribe/remove`, removeBlogFollowData);
       await toastPopAction(dispatch, `블로그 구독을 취소합니다.`);
       return data;
-    } catch (e) {
+    } catch (e: any) {
       console.error(e);
       await toastPopAction(dispatch, e.response.data);
       return rejectWithValue({ message: e.message });
@@ -303,7 +303,7 @@ export const subscribeListAction = createAsyncThunk<
   try {
     const { data } = await axios.post(`/user/subscribe/add`, addBlogFollowData);
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.message });
@@ -321,7 +321,7 @@ export const unSubscribeListAction = createAsyncThunk<
     try {
       const { data } = await axios.post(`/user/subscribe/remove`, removeBlogFollowData);
       return data;
-    } catch (e) {
+    } catch (e: any) {
       console.error(e);
       await toastPopAction(dispatch, e.response.data);
       return rejectWithValue({ message: e.message });
@@ -342,7 +342,7 @@ export const loadBlogFollowListAction = createAsyncThunk<
       }`
     );
     return data;
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     return rejectWithValue({ message: e.message });
   }
