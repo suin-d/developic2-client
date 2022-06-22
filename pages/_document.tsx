@@ -11,6 +11,7 @@ class MyDocument extends Document {
     return (
       <Html lang="kr">
         <Head>
+          <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
           <meta name="author" content="cozi" />
           <meta name="description" content="blog for photographer" />
           <meta property="og:type" content="website" />
