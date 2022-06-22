@@ -24,7 +24,7 @@ export default function BlogUserInfo(): JSX.Element {
   const onLinkWebsite = () => {
     if (!loadBlogUser.data?.website) return <></>;
     if (loadBlogUser.data.website) {
-      window.open(`http://${loadBlogUser.data.website}`);
+      window.open(`${loadBlogUser.data.website}`);
     }
   };
 
